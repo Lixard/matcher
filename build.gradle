@@ -1,0 +1,4 @@
+subprojects {
+    group 'ru.matcher'
+    version '1.0-SNAPSHOT'
+}

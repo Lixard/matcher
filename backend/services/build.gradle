@@ -1,0 +1,5 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:2.3.4.RELEASE'
+
+    implementation project(':backend:data')
+}

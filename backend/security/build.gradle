@@ -1,0 +1,5 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:2.3.4.RELEASE'
+    implementation 'org.springframework.security:spring-security-web:5.4.0'
+    implementation 'org.springframework.security:spring-security-config:5.4.0'
+}
