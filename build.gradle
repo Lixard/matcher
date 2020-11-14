@@ -16,6 +16,12 @@ allprojects {
 
         //mapstruct
         mapstruct_ver = "1.4.1.Final"
+
+        //lombok
+        lombok_ver = "1.18.16"
+
+        //postgres
+        postgres_ver = "42.2.18"
     }
 }
 
