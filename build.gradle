@@ -21,7 +21,7 @@ allprojects {
         lombok_ver = "1.18.16"
 
         //postgres
-        postgres_ver = "42.1.4"
+        postgres_ver = "42.2.18"
     }
 }
 
