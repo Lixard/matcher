@@ -1,4 +1,21 @@
-subprojects {
-    group 'ru.matcher'
-    version '1.0-SNAPSHOT'
+allprojects {
+
+    group "ru.matcher"
+    version "1.0-SNAPSHOT"
+
+    ext { //provides correct versions for pmd and compiler transitive dependencies to generate no warnings
+
+        //frontend
+        node_plugin_ver = "1.3.1"
+        node_ver = "12.16.2"
+        npm_ver = "6.14.4"
+
+        //spring
+        spring_boot_ver = "2.3.4.RELEASE"
+        spring_security_ver = "5.4.0"
+
+        //mapstruct
+        mapstruct_ver = "1.4.1.Final"
+    }
 }
+

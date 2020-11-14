@@ -1,10 +1,12 @@
-rootProject.name = 'Matcher'
-include 'backend'
-include 'frontend'
-include 'backend:data'
-findProject(':backend:data')?.name = 'data'
-include 'backend:services'
-findProject(':backend:services')?.name = 'services'
-include 'backend:security'
-findProject(':backend:security')?.name = 'security'
+rootProject.name = "Matcher"
+include "backend"
+include "frontend"
+include "backend:data"
+findProject(":backend:data")?.name = "data"
+include "backend:services"
+findProject(":backend:services")?.name = "services"
+include "backend:security"
+findProject(":backend:security")?.name = "security"
+include "backend:commons"
+findProject(":backend:commons")?.name = "commons"
 

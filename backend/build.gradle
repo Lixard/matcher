@@ -1,13 +1,19 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id "java"
+    id "org.springframework.boot" version "$spring_boot_ver"
 }
 
 subprojects {
-    apply plugin: 'java'
+    apply plugin: "java"
 
     repositories {
         mavenCentral()
+    }
+}
+
+configure(subprojects.findAll {it.name != "commons"}) {
+    dependencies {
+        implementation project(":backend:commons")
     }
 }
 
@@ -17,7 +23,7 @@ repositories {
 
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.4.RELEASE'
+    implementation "org.springframework.boot:spring-boot-starter-web:$spring_boot_ver"
 
-    implementation project(':backend:services')
+    implementation project(":backend:services")
 }

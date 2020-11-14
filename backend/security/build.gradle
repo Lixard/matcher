@@ -1,5 +1,9 @@
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-autoconfigure:2.3.4.RELEASE'
-    implementation 'org.springframework.security:spring-security-web:5.4.0'
-    implementation 'org.springframework.security:spring-security-config:5.4.0'
+    implementation "org.springframework.boot:spring-boot-autoconfigure:$spring_boot_ver"
+
+    implementation "org.springframework.security:spring-security-web:$spring_security_ver"
+    implementation "org.springframework.security:spring-security-config:$spring_security_ver"
+
+    implementation "org.mapstruct:mapstruct:$mapstruct_ver"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstruct_ver"
 }

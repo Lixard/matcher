@@ -1,5 +1,12 @@
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-autoconfigure:2.3.4.RELEASE'
+    implementation "org.springframework.boot:spring-boot-autoconfigure:$spring_boot_ver"
 
-    implementation project(':backend:data')
+    implementation project(":backend:data")
+}
+
+compileJava {
+    options.compilerArgs += [
+            "-Amapstruct.defaultComponentModel=spring",
+            "-Amapstruct.unmappedTargetPolicy=ERROR"
+    ]
 }
