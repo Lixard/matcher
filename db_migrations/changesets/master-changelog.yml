@@ -19,3 +19,15 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-000.rollback.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 1
+      author: Maxim Borisov
+      comment: Initialize database
+      changes:
+        - sqlFile:
+            path: master/M-001.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-001.rollback.sql
+            relativeToChangelogFile: true
