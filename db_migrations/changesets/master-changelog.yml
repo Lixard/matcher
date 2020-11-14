@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+  - changeSet:
+      id: 0
+      author: Maxim Borisov
+      comment: Create Schema if required
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: f
+            sql: SELECT exists(SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'aim');
+      changes:
+        - sqlFile:
+            path: master/M-000.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-000.rollback.sql
+            relativeToChangelogFile: true

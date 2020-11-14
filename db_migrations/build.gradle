@@ -1,0 +1,35 @@
+plugins {
+    id "org.liquibase.gradle" version "2.0.1"
+}
+
+def user = findProperty("user") ?: "postgres"
+def pwd = findProperty("pwd") ?: "postgres"
+def dbUrl = findProperty("url") ?: "localhost:5432"
+
+if (!dbUrl.startsWith("jdbc:postgresql://")) {
+    dbUrl = "jdbc:postgresql://${dbUrl}/matcher"
+}
+
+println "Connecting to [${dbUrl}] using role [${user}]"
+
+liquibase {
+    activities {
+        main {
+            changeLogFile "changesets/master-changelog.yml"
+            url dbUrl
+            username user
+            password pwd
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    liquibaseRuntime "org.liquibase:liquibase-core:3.7.0"
+    liquibaseRuntime "org.yaml:snakeyaml:1.24"
+    liquibaseRuntime "org.postgresql:postgresql:42.2.6"
+}
