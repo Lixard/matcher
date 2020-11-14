@@ -1,9 +1,9 @@
 plugins {
-    id "org.liquibase.gradle" version "2.0.1"
+    id "org.liquibase.gradle" version "2.0.3"
 }
 
 def user = findProperty("user") ?: "postgres"
-def pwd = findProperty("pwd") ?: "postgres"
+def pwd = findProperty("pwd") ?: "123"
 def dbUrl = findProperty("url") ?: "localhost:5432"
 
 if (!dbUrl.startsWith("jdbc:postgresql://")) {
