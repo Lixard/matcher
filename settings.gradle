@@ -9,5 +9,4 @@ include "backend:security"
 findProject(":backend:security")?.name = "security"
 include "backend:commons"
 findProject(":backend:commons")?.name = "commons"
-include "db_migrations"
-
+includeBuild "db_migrations"
