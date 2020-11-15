@@ -1,5 +1,6 @@
 package ru.matcher.data;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Maxim Borisov
  */
+@EntityScan(basePackages = "ru.matcher.data.model")
 @Configuration
 @ComponentScan
 public class DataConfiguration {
