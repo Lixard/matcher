@@ -10,6 +10,11 @@ import ru.matcher.services.service.ProjectParticipationService;
 
 import java.util.List;
 
+/**
+ * Реализация интерфейса ProjectParticipationService.
+ *
+ * @author Николай Евсюков
+ */
 @Service
 public class ProjectParticipationServiceImpl implements ProjectParticipationService {
 

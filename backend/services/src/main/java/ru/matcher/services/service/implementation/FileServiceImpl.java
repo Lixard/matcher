@@ -9,6 +9,11 @@ import ru.matcher.services.service.FileService;
 
 import java.util.List;
 
+/**
+ * Реализация интерфейса FileService.
+ *
+ * @author Николай Евсюков
+ */
 @Service
 public class FileServiceImpl implements FileService {
 

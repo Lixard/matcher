@@ -9,6 +9,11 @@ import ru.matcher.services.service.ProjectService;
 
 import java.util.List;
 
+/**
+ * Реализация интерфейса ProjectService.
+ *
+ * @author Николай Евсюков
+ */
 @Service
 public class ProjectServiceImpl implements ProjectService {
 

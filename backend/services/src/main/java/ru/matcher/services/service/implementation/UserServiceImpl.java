@@ -9,6 +9,11 @@ import ru.matcher.services.service.UserService;
 
 import java.util.List;
 
+/**
+ * Реализация интерфейса UserService.
+ *
+ * @author Николай Евсюков
+ */
 @Service
 public class UserServiceImpl implements UserService {
 

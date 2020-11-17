@@ -8,6 +8,11 @@ import ru.matcher.data.model.embedded.UserOrganisationEmbeddedId;
 
 import java.time.LocalDate;
 
+/**
+ * Dto класс для организаций пользователя.
+ *
+ * @author Николай Евсюков
+ */
 @Getter
 @Setter
 public class UserOrganizationDto {

@@ -9,6 +9,11 @@ import ru.matcher.services.service.OrganizationService;
 
 import java.util.List;
 
+/**
+ * Реализация интерфейса OrganizationService.
+ *
+ * @author Николай Евсюков
+ */
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
 

@@ -9,6 +9,11 @@ import ru.matcher.services.service.OrganizationTypeService;
 
 import java.util.List;
 
+/**
+ * Реализация интерфейса OrganizationTypeService.
+ *
+ * @author Николай Евсюков
+ */
 @Service
 public class OrganizationTypeServiceImpl implements OrganizationTypeService {
 

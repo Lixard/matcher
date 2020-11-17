@@ -8,6 +8,11 @@ import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
 
 import java.time.LocalDate;
 
+/**
+ * Dto класс для пользователей учавствовавших в проектах.
+ *
+ * @author Николай Евсюков
+ */
 @Getter
 @Setter
 public class ProjectParticipationDto {

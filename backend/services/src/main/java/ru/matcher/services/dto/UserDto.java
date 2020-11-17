@@ -4,6 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.matcher.data.model.File;
 
+/**
+ * Dto класс для пользователя.
+ *
+ * @author Николай Евсюков
+ */
 @Getter
 @Setter
 public class UserDto {

@@ -10,6 +10,11 @@ import ru.matcher.services.service.UserOrganizationService;
 
 import java.util.List;
 
+/**
+ * Реализация интерфейса UserOrganizationService.
+ *
+ * @author Николай Евсюков
+ */
 @Service
 public class UserOrganizationServiceImpl implements UserOrganizationService {
 

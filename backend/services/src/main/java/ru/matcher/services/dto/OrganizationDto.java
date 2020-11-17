@@ -5,6 +5,11 @@ import lombok.Setter;
 import ru.matcher.data.model.File;
 import ru.matcher.data.model.OrganizationType;
 
+/**
+ * Dto класс для организации.
+ *
+ * @author Николай Евсюков
+ */
 @Getter
 @Setter
 public class OrganizationDto {
