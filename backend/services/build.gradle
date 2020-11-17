@@ -1,5 +1,8 @@
 dependencies {
     implementation "org.springframework.boot:spring-boot-autoconfigure:$spring_boot_ver"
+    implementation "org.mapstruct:mapstruct:$mapstruct_ver"
+    compileOnly "org.projectlombok:lombok:$lombok_ver"
+    annotationProcessor "org.projectlombok:lombok:$lombok_ver"
 
     implementation project(":backend:data")
 }
