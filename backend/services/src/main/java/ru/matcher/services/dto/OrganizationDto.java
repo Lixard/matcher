@@ -2,8 +2,6 @@ package ru.matcher.services.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.matcher.data.model.File;
-import ru.matcher.data.model.OrganizationType;
 
 /**
  * Dto класс для организации.
@@ -15,9 +13,9 @@ import ru.matcher.data.model.OrganizationType;
 public class OrganizationDto {
 
     private Integer id;
-    private File picture;
+    private PictureGetDto pictureGetDto;
     private String name;
-    private OrganizationType organizationType;
+    private Integer organizationTypeId;
     private String description;
     private String url;
     private String email;

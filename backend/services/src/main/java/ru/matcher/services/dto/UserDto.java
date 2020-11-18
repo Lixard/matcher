@@ -2,7 +2,6 @@ package ru.matcher.services.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.matcher.data.model.File;
 
 /**
  * Dto класс для пользователя.
@@ -14,7 +13,7 @@ import ru.matcher.data.model.File;
 public class UserDto {
 
     private Integer id;
-    private File picture;
+    private PictureGetDto pictureGetDto;
     private String firstName;
     private String lastName;
     private String secondName;

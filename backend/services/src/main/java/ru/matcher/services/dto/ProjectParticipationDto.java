@@ -2,8 +2,6 @@ package ru.matcher.services.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.matcher.data.model.Project;
-import ru.matcher.data.model.User;
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
 
 import java.time.LocalDate;
@@ -18,8 +16,8 @@ import java.time.LocalDate;
 public class ProjectParticipationDto {
 
     private ProjectUserEmbeddedId id;
-    private User user;
-    private Project project;
+    private Integer userId;
+    private Integer projectId;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean isAdmin;

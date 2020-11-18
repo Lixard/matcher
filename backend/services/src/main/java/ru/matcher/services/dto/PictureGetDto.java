@@ -4,17 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Dto класс для проектов.
+ * Dto класс для картинки.
  *
  * @author Николай Евсюков
  */
 @Getter
 @Setter
-public class ProjectDto {
+public class PictureGetDto {
 
     private Integer id;
-    private PictureGetDto pictureGetDto;
     private String name;
-    private String description;
-    private boolean isActive;
+    private String type;
 }

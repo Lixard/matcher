@@ -4,13 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Dto класс для файла.
+ * Dto класс для картинки.
  *
  * @author Николай Евсюков
  */
 @Getter
 @Setter
-public class FileDto {
+public class PictureDto {
 
     private Integer id;
     private String name;
