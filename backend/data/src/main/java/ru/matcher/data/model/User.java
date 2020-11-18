@@ -10,6 +10,7 @@ import javax.persistence.*;
  * Таблица пользователя.
  *
  * @author Максим Щербаков
+ * @author Николай Евсюков
  */
 @Entity
 @Table(name = "users", schema = "matcher")
@@ -21,9 +22,9 @@ public class User {
     @Column(name = "user_id")
     private Integer id;
 
-    @ManyToOne(targetEntity = File.class)
+    @ManyToOne(targetEntity = Picture.class)
     @JoinColumn(name = "picture_id")
-    private File picture;
+    private Picture picture;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;

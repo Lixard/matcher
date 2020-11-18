@@ -11,15 +11,16 @@ import javax.persistence.*;
  * Таблица для хранения файлов.
  *
  * @author Максим Щербаков
+ * @author Николай Евсюков
  */
 @Entity
-@Table(name = "files", schema = "matcher")
+@Table(name = "pictures", schema = "matcher")
 @Getter
 @Setter
-public class File {
+public class Picture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "file_id")
+    @Column(name = "picture_id")
     private Integer id;
 
     @Column(name = "name", nullable = false)

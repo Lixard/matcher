@@ -9,6 +9,7 @@ import javax.persistence.*;
  * Таблица проектов.
  *
  * @author Максим Щербаков
+ * @author Николай Евсюков
  */
 @Entity
 @Table(name = "projects", schema = "matcher")
@@ -20,9 +21,9 @@ public class Project {
     @Column(name = "project_id")
     private Integer id;
 
-    @ManyToOne(targetEntity = File.class)
+    @ManyToOne(targetEntity = Picture.class)
     @JoinColumn(name = "picture_id")
-    private File picture;
+    private Picture picture;
 
     @Column(name = "name", nullable = false)
     private String name;
