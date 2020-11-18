@@ -20,7 +20,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserStruct userStruct;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public UserServiceImpl(UserRepository userRepository,
                            UserStruct userStruct) {
         this.userRepository = userRepository;
@@ -28,7 +27,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto createOrUpdate(UserDto userDto) {
+    public UserDto create(UserDto userDto) {
+        User user = userStruct.fromDto(userDto);
+        userRepository.save(user);
+        return userStruct.toDto(user);
+    }
+
+    @Override
+    public UserDto update(UserDto userDto) {
         User user = userStruct.fromDto(userDto);
         userRepository.save(user);
         return userStruct.toDto(user);
@@ -46,6 +52,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findById(int userId) {
-        return userStruct.toDto(userRepository.findById(userId).orElseThrow());
+        return userStruct.toDto(userRepository.findById(userId).get());
     }
 }

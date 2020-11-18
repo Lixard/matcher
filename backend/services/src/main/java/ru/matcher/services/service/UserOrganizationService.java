@@ -13,12 +13,20 @@ import java.util.List;
 public interface UserOrganizationService {
 
     /**
-     * Добавление или обновление UserOrganization в БД.
+     * Добавление UserOrganization в БД.
      *
      * @param userOrganizationDto объект класса UserOrganizationDto
      * @return объект класса UserOrganizationDto
      */
-    UserOrganizationDto createOrUpdate(UserOrganizationDto userOrganizationDto);
+    UserOrganizationDto create(UserOrganizationDto userOrganizationDto);
+
+    /**
+     * Обновление UserOrganization в БД.
+     *
+     * @param userOrganizationDto объект класса UserOrganizationDto
+     * @return объект класса UserOrganizationDto
+     */
+    UserOrganizationDto update(UserOrganizationDto userOrganizationDto);
 
     /**
      * Удаление UserOrganization из БД.

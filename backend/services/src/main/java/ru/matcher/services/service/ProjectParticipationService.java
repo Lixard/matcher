@@ -13,12 +13,20 @@ import java.util.List;
 public interface ProjectParticipationService {
 
     /**
-     * Добавление или обновление ProjectParticipation в БД.
+     * Добавление ProjectParticipation в БД.
      *
      * @param projectParticipationDto объект класса ProjectParticipationDto
      * @return объект класса ProjectParticipationDto
      */
-    ProjectParticipationDto createOrUpdate(ProjectParticipationDto projectParticipationDto);
+    ProjectParticipationDto create(ProjectParticipationDto projectParticipationDto);
+
+    /**
+     * Обновление ProjectParticipation в БД.
+     *
+     * @param projectParticipationDto объект класса ProjectParticipationDto
+     * @return объект класса ProjectParticipationDto
+     */
+    ProjectParticipationDto update(ProjectParticipationDto projectParticipationDto);
 
     /**
      * Удаление ProjectParticipation из БД.

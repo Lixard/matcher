@@ -20,7 +20,6 @@ public class OrganizationTypeServiceImpl implements OrganizationTypeService {
     private final OrganizationTypeRepository organizationTypeRepository;
     private final OrganizationTypeStruct organizationTypeStruct;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public OrganizationTypeServiceImpl(OrganizationTypeRepository organizationTypeRepository,
                                        OrganizationTypeStruct organizationTypeStruct) {
         this.organizationTypeRepository = organizationTypeRepository;
@@ -28,7 +27,14 @@ public class OrganizationTypeServiceImpl implements OrganizationTypeService {
     }
 
     @Override
-    public OrganizationTypeDto createOrUpdate(OrganizationTypeDto organizationTypeDto) {
+    public OrganizationTypeDto create(OrganizationTypeDto organizationTypeDto) {
+        OrganizationType organizationType = organizationTypeStruct.fromDto(organizationTypeDto);
+        organizationTypeRepository.save(organizationType);
+        return organizationTypeStruct.toDto(organizationType);
+    }
+
+    @Override
+    public OrganizationTypeDto update(OrganizationTypeDto organizationTypeDto) {
         OrganizationType organizationType = organizationTypeStruct.fromDto(organizationTypeDto);
         organizationTypeRepository.save(organizationType);
         return organizationTypeStruct.toDto(organizationType);
@@ -46,6 +52,6 @@ public class OrganizationTypeServiceImpl implements OrganizationTypeService {
 
     @Override
     public OrganizationTypeDto findById(int organizationTypeId) {
-        return organizationTypeStruct.toDto(organizationTypeRepository.findById(organizationTypeId).orElseThrow());
+        return organizationTypeStruct.toDto(organizationTypeRepository.findById(organizationTypeId).get());
     }
 }

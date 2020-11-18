@@ -12,12 +12,20 @@ import java.util.List;
 public interface OrganizationService {
 
     /**
-     * Добавление или обновление Organization в БД.
+     * Добавление Organization в БД.
      *
      * @param organizationDto объект класса OrganizationDto
      * @return объект класса OrganizationDto
      */
-    OrganizationDto createOrUpdate(OrganizationDto organizationDto);
+    OrganizationDto create(OrganizationDto organizationDto);
+
+    /**
+     * Обновление Organization в БД.
+     *
+     * @param organizationDto объект класса OrganizationDto
+     * @return объект класса OrganizationDto
+     */
+    OrganizationDto update(OrganizationDto organizationDto);
 
     /**
      * Удаление Organization из БД.

@@ -12,12 +12,20 @@ import java.util.List;
 public interface ProjectService {
 
     /**
-     * Добавление или обновление Project в БД.
+     * Добавление Project в БД.
      *
      * @param projectDto объект класса ProjectDto
      * @return объект класса ProjectDto
      */
-    ProjectDto createOrUpdate(ProjectDto projectDto);
+    ProjectDto create(ProjectDto projectDto);
+
+    /**
+     * Обновление Project в БД.
+     *
+     * @param projectDto объект класса ProjectDto
+     * @return объект класса ProjectDto
+     */
+    ProjectDto update(ProjectDto projectDto);
 
     /**
      * Удаление Project из БД.

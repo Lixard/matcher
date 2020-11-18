@@ -20,7 +20,6 @@ public class OrganizationServiceImpl implements OrganizationService {
     private final OrganizationRepository organizationRepository;
     private final OrganizationStruct organizationStruct;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public OrganizationServiceImpl(OrganizationRepository organizationRepository,
                                    OrganizationStruct organizationStruct) {
         this.organizationRepository = organizationRepository;
@@ -28,7 +27,14 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public OrganizationDto createOrUpdate(OrganizationDto organizationDto) {
+    public OrganizationDto create(OrganizationDto organizationDto) {
+        Organization organization = organizationStruct.fromDto(organizationDto);
+        organizationRepository.save(organization);
+        return organizationStruct.toDto(organization);
+    }
+
+    @Override
+    public OrganizationDto update(OrganizationDto organizationDto) {
         Organization organization = organizationStruct.fromDto(organizationDto);
         organizationRepository.save(organization);
         return organizationStruct.toDto(organization);
@@ -46,6 +52,6 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public OrganizationDto findById(int organizationId) {
-        return organizationStruct.toDto(organizationRepository.findById(organizationId).orElseThrow());
+        return organizationStruct.toDto(organizationRepository.findById(organizationId).get());
     }
 }

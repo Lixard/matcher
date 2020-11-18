@@ -21,7 +21,6 @@ public class ProjectParticipationServiceImpl implements ProjectParticipationServ
     private final ProjectParticipationRepository projectParticipationRepository;
     private final ProjectParticipationStruct projectParticipationStruct;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ProjectParticipationServiceImpl(ProjectParticipationRepository projectParticipationRepository,
                                            ProjectParticipationStruct projectParticipationStruct) {
         this.projectParticipationRepository = projectParticipationRepository;
@@ -29,7 +28,14 @@ public class ProjectParticipationServiceImpl implements ProjectParticipationServ
     }
 
     @Override
-    public ProjectParticipationDto createOrUpdate(ProjectParticipationDto projectParticipationDto) {
+    public ProjectParticipationDto create(ProjectParticipationDto projectParticipationDto) {
+        ProjectParticipation projectParticipation = projectParticipationStruct.fromDto(projectParticipationDto);
+        projectParticipationRepository.save(projectParticipation);
+        return projectParticipationStruct.toDto(projectParticipation);
+    }
+
+    @Override
+    public ProjectParticipationDto update(ProjectParticipationDto projectParticipationDto) {
         ProjectParticipation projectParticipation = projectParticipationStruct.fromDto(projectParticipationDto);
         projectParticipationRepository.save(projectParticipation);
         return projectParticipationStruct.toDto(projectParticipation);
@@ -47,6 +53,6 @@ public class ProjectParticipationServiceImpl implements ProjectParticipationServ
 
     @Override
     public ProjectParticipationDto findById(ProjectUserEmbeddedId projectParticipationId) {
-        return projectParticipationStruct.toDto(projectParticipationRepository.findById(projectParticipationId).orElseThrow());
+        return projectParticipationStruct.toDto(projectParticipationRepository.findById(projectParticipationId).get());
     }
 }

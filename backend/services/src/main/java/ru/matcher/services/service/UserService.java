@@ -12,12 +12,20 @@ import java.util.List;
 public interface UserService {
 
     /**
-     * Добавление или обновление User в БД.
+     * Добавление User в БД.
      *
      * @param userDto объект класса UserDto
      * @return объект класса UserDto
      */
-    UserDto createOrUpdate(UserDto userDto);
+    UserDto create(UserDto userDto);
+
+    /**
+     * Обновление User в БД.
+     *
+     * @param userDto объект класса UserDto
+     * @return объект класса UserDto
+     */
+    UserDto update(UserDto userDto);
 
     /**
      * Удаление User из БД.

@@ -12,12 +12,20 @@ import java.util.List;
 public interface OrganizationTypeService {
 
     /**
-     * Добавление или обновление OrganizationType в БД.
+     * Добавление OrganizationType в БД.
      *
      * @param organizationTypeDto объект класса OrganizationTypeDto
      * @return объект класса OrganizationTypeDto
      */
-    OrganizationTypeDto createOrUpdate(OrganizationTypeDto organizationTypeDto);
+    OrganizationTypeDto create(OrganizationTypeDto organizationTypeDto);
+
+    /**
+     * Обновление OrganizationType в БД.
+     *
+     * @param organizationTypeDto объект класса OrganizationTypeDto
+     * @return объект класса OrganizationTypeDto
+     */
+    OrganizationTypeDto update(OrganizationTypeDto organizationTypeDto);
 
     /**
      * Удаление OrganizationType из БД.

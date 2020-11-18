@@ -20,7 +20,6 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final ProjectStruct projectStruct;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ProjectServiceImpl(ProjectRepository projectRepository,
                               ProjectStruct projectStruct) {
         this.projectRepository = projectRepository;
@@ -28,7 +27,14 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDto createOrUpdate(ProjectDto projectDto) {
+    public ProjectDto create(ProjectDto projectDto) {
+        Project project = projectStruct.fromDto(projectDto);
+        projectRepository.save(project);
+        return projectStruct.toDto(project);
+    }
+
+    @Override
+    public ProjectDto update(ProjectDto projectDto) {
         Project project = projectStruct.fromDto(projectDto);
         projectRepository.save(project);
         return projectStruct.toDto(project);
@@ -46,6 +52,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectDto findById(int projectId) {
-        return projectStruct.toDto(projectRepository.findById(projectId).orElseThrow());
+        return projectStruct.toDto(projectRepository.findById(projectId).get());
     }
 }

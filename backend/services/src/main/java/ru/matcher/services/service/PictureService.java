@@ -1,6 +1,6 @@
 package ru.matcher.services.service;
 
-import ru.matcher.services.dto.FileDto;
+import ru.matcher.services.dto.PictureDto;
 
 import java.util.List;
 
@@ -9,15 +9,23 @@ import java.util.List;
  *
  * @author Николай Евсюков
  */
-public interface FileService {
+public interface PictureService {
 
     /**
-     * Добавление или обновление File в БД.
+     * Добавление File в БД.
      *
-     * @param fileDto объект класса FileDto
+     * @param pictureDto объект класса FileDto
      * @return объект класса FileDto
      */
-    FileDto createOrUpdate(FileDto fileDto);
+    PictureDto create(PictureDto pictureDto);
+
+    /**
+     * Обновление File в БД.
+     *
+     * @param pictureDto объект класса FileDto
+     * @return объект класса FileDto
+     */
+    PictureDto update(PictureDto pictureDto);
 
     /**
      * Удаление File из БД.
@@ -31,7 +39,7 @@ public interface FileService {
      *
      * @return список FileDto
      */
-    List<FileDto> getFiles();
+    List<PictureDto> getFiles();
 
     /**
      * Поиск File по id.
@@ -39,5 +47,5 @@ public interface FileService {
      * @param fileId идентификатор File
      * @return найденный объект класса FileDto
      */
-    FileDto findById(int fileId);
+    PictureDto findById(int fileId);
 }

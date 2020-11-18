@@ -21,7 +21,6 @@ public class UserOrganizationServiceImpl implements UserOrganizationService {
     private final UserOrganizationRepository userOrganizationRepository;
     private final UserOrganizationStruct userOrganizationStruct;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public UserOrganizationServiceImpl(UserOrganizationRepository userOrganizationRepository,
                                        UserOrganizationStruct userOrganizationStruct) {
         this.userOrganizationRepository = userOrganizationRepository;
@@ -29,7 +28,14 @@ public class UserOrganizationServiceImpl implements UserOrganizationService {
     }
 
     @Override
-    public UserOrganizationDto createOrUpdate(UserOrganizationDto userOrganizationDto) {
+    public UserOrganizationDto create(UserOrganizationDto userOrganizationDto) {
+        UserOrganization userOrganization = userOrganizationStruct.fromDto(userOrganizationDto);
+        userOrganizationRepository.save(userOrganization);
+        return userOrganizationStruct.toDto(userOrganization);
+    }
+
+    @Override
+    public UserOrganizationDto update(UserOrganizationDto userOrganizationDto) {
         UserOrganization userOrganization = userOrganizationStruct.fromDto(userOrganizationDto);
         userOrganizationRepository.save(userOrganization);
         return userOrganizationStruct.toDto(userOrganization);
@@ -47,6 +53,6 @@ public class UserOrganizationServiceImpl implements UserOrganizationService {
 
     @Override
     public UserOrganizationDto findById(UserOrganisationEmbeddedId userOrganizationId) {
-        return userOrganizationStruct.toDto(userOrganizationRepository.findById(userOrganizationId).orElseThrow());
+        return userOrganizationStruct.toDto(userOrganizationRepository.findById(userOrganizationId).get());
     }
 }
