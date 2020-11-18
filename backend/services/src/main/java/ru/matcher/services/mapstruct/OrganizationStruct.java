@@ -1,6 +1,7 @@
 package ru.matcher.services.mapstruct;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.matcher.data.model.Organization;
 import ru.matcher.services.dto.OrganizationDto;
 
@@ -20,6 +21,7 @@ public interface OrganizationStruct {
      * @param organization объект класса Organization
      * @return объект класса OrganizationDto
      */
+    @Mapping(target = "organizationTypeId", source = "organizationType.id")
     OrganizationDto toDto(Organization organization);
 
     /**
@@ -28,6 +30,7 @@ public interface OrganizationStruct {
      * @param organizationDto объект класса OrganizationDto
      * @return объект класса Organization
      */
+    @Mapping(target = "organizationType.id", source = "organizationTypeId")
     Organization fromDto(OrganizationDto organizationDto);
 
     /**

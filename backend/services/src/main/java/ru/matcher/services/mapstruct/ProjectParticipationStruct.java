@@ -1,6 +1,7 @@
 package ru.matcher.services.mapstruct;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.matcher.data.model.ProjectParticipation;
 import ru.matcher.services.dto.ProjectParticipationDto;
 
@@ -20,6 +21,8 @@ public interface ProjectParticipationStruct {
      * @param projectParticipation объект класса ProjectParticipation
      * @return объект класса ProjectParticipationDto
      */
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "projectId", source = "project.id")
     ProjectParticipationDto toDto(ProjectParticipation projectParticipation);
 
     /**
@@ -28,6 +31,8 @@ public interface ProjectParticipationStruct {
      * @param projectParticipationDto объект класса ProjectParticipationDto
      * @return объект класса ProjectParticipation
      */
+    @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "project.id", source = "projectId")
     ProjectParticipation fromDto(ProjectParticipationDto projectParticipationDto);
 
     /**
