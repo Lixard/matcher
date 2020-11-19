@@ -3,6 +3,10 @@ allprojects {
     group "ru.matcher"
     version "1.0-SNAPSHOT"
 
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
     ext { //provides correct versions for pmd and compiler transitive dependencies to generate no warnings
 
         //frontend
