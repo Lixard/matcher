@@ -1,11 +1,12 @@
 package ru.matcher.services.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.matcher.data.model.Organization;
 import ru.matcher.data.repository.OrganizationRepository;
 import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.mapstruct.OrganizationStruct;
-import ru.matcher.services.service.OrganizationService;
+import ru.matcher.services.service.IOrganizationService;
 
 import java.util.List;
 
@@ -15,11 +16,12 @@ import java.util.List;
  * @author Николай Евсюков
  */
 @Service
-public class OrganizationServiceImpl implements OrganizationService {
+public class OrganizationServiceImpl implements IOrganizationService {
 
     private final OrganizationRepository organizationRepository;
     private final OrganizationStruct organizationStruct;
 
+    @Autowired
     public OrganizationServiceImpl(OrganizationRepository organizationRepository,
                                    OrganizationStruct organizationStruct) {
         this.organizationRepository = organizationRepository;
@@ -52,6 +54,6 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public OrganizationDto findById(int organizationId) {
-        return organizationStruct.toDto(organizationRepository.findById(organizationId).get());
+        return organizationStruct.toDto(organizationRepository.findById(organizationId).orElse(null));
     }
 }

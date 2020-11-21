@@ -1,12 +1,13 @@
 package ru.matcher.services.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.matcher.data.model.UserOrganization;
 import ru.matcher.data.model.embedded.UserOrganisationEmbeddedId;
 import ru.matcher.data.repository.UserOrganizationRepository;
 import ru.matcher.services.dto.UserOrganizationDto;
 import ru.matcher.services.mapstruct.UserOrganizationStruct;
-import ru.matcher.services.service.UserOrganizationService;
+import ru.matcher.services.service.IUserOrganizationService;
 
 import java.util.List;
 
@@ -16,11 +17,12 @@ import java.util.List;
  * @author Николай Евсюков
  */
 @Service
-public class UserOrganizationServiceImpl implements UserOrganizationService {
+public class UserOrganizationServiceImpl implements IUserOrganizationService {
 
     private final UserOrganizationRepository userOrganizationRepository;
     private final UserOrganizationStruct userOrganizationStruct;
 
+    @Autowired
     public UserOrganizationServiceImpl(UserOrganizationRepository userOrganizationRepository,
                                        UserOrganizationStruct userOrganizationStruct) {
         this.userOrganizationRepository = userOrganizationRepository;
@@ -53,6 +55,6 @@ public class UserOrganizationServiceImpl implements UserOrganizationService {
 
     @Override
     public UserOrganizationDto findById(UserOrganisationEmbeddedId userOrganizationId) {
-        return userOrganizationStruct.toDto(userOrganizationRepository.findById(userOrganizationId).get());
+        return userOrganizationStruct.toDto(userOrganizationRepository.findById(userOrganizationId).orElse(null));
     }
 }

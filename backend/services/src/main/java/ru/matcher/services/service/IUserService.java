@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Николай Евсюков
  */
-public interface UserService {
+public interface IUserService {
 
     /**
      * Добавление User в БД.

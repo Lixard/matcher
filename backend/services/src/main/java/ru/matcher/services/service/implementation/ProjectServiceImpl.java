@@ -1,11 +1,12 @@
 package ru.matcher.services.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.matcher.data.model.Project;
 import ru.matcher.data.repository.ProjectRepository;
 import ru.matcher.services.dto.ProjectDto;
 import ru.matcher.services.mapstruct.ProjectStruct;
-import ru.matcher.services.service.ProjectService;
+import ru.matcher.services.service.IProjectService;
 
 import java.util.List;
 
@@ -15,11 +16,12 @@ import java.util.List;
  * @author Николай Евсюков
  */
 @Service
-public class ProjectServiceImpl implements ProjectService {
+public class ProjectServiceImpl implements IProjectService {
 
     private final ProjectRepository projectRepository;
     private final ProjectStruct projectStruct;
 
+    @Autowired
     public ProjectServiceImpl(ProjectRepository projectRepository,
                               ProjectStruct projectStruct) {
         this.projectRepository = projectRepository;
@@ -52,6 +54,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectDto findById(int projectId) {
-        return projectStruct.toDto(projectRepository.findById(projectId).get());
+        return projectStruct.toDto(projectRepository.findById(projectId).orElse(null));
     }
 }

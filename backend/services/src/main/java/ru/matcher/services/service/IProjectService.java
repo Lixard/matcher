@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Николай Евсюков
  */
-public interface ProjectService {
+public interface IProjectService {
 
     /**
      * Добавление Project в БД.

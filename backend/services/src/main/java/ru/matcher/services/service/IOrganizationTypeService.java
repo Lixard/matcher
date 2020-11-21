@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Николай Евсюков
  */
-public interface OrganizationTypeService {
+public interface IOrganizationTypeService {
 
     /**
      * Добавление OrganizationType в БД.

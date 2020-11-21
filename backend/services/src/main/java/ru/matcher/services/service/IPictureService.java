@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Николай Евсюков
  */
-public interface PictureService {
+public interface IPictureService {
 
     /**
      * Добавление File в БД.

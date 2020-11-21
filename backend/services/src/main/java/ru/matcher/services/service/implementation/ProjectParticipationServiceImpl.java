@@ -1,12 +1,13 @@
 package ru.matcher.services.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.matcher.data.model.ProjectParticipation;
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
 import ru.matcher.data.repository.ProjectParticipationRepository;
 import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.mapstruct.ProjectParticipationStruct;
-import ru.matcher.services.service.ProjectParticipationService;
+import ru.matcher.services.service.IProjectParticipationService;
 
 import java.util.List;
 
@@ -16,11 +17,12 @@ import java.util.List;
  * @author Николай Евсюков
  */
 @Service
-public class ProjectParticipationServiceImpl implements ProjectParticipationService {
+public class ProjectParticipationServiceImpl implements IProjectParticipationService {
 
     private final ProjectParticipationRepository projectParticipationRepository;
     private final ProjectParticipationStruct projectParticipationStruct;
 
+    @Autowired
     public ProjectParticipationServiceImpl(ProjectParticipationRepository projectParticipationRepository,
                                            ProjectParticipationStruct projectParticipationStruct) {
         this.projectParticipationRepository = projectParticipationRepository;
@@ -53,6 +55,6 @@ public class ProjectParticipationServiceImpl implements ProjectParticipationServ
 
     @Override
     public ProjectParticipationDto findById(ProjectUserEmbeddedId projectParticipationId) {
-        return projectParticipationStruct.toDto(projectParticipationRepository.findById(projectParticipationId).get());
+        return projectParticipationStruct.toDto(projectParticipationRepository.findById(projectParticipationId).orElse(null));
     }
 }

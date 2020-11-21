@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Николай Евсюков
  */
-public interface UserOrganizationService {
+public interface IUserOrganizationService {
 
     /**
      * Добавление UserOrganization в БД.

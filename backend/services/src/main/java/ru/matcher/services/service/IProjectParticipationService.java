@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Николай Евсюков
  */
-public interface ProjectParticipationService {
+public interface IProjectParticipationService {
 
     /**
      * Добавление ProjectParticipation в БД.

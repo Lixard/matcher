@@ -1,11 +1,12 @@
 package ru.matcher.services.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.matcher.data.model.User;
 import ru.matcher.data.repository.UserRepository;
 import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.mapstruct.UserStruct;
-import ru.matcher.services.service.UserService;
+import ru.matcher.services.service.IUserService;
 
 import java.util.List;
 
@@ -15,11 +16,12 @@ import java.util.List;
  * @author Николай Евсюков
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
     private final UserStruct userStruct;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            UserStruct userStruct) {
         this.userRepository = userRepository;
@@ -52,6 +54,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findById(int userId) {
-        return userStruct.toDto(userRepository.findById(userId).get());
+        return userStruct.toDto(userRepository.findById(userId).orElse(null));
     }
 }
