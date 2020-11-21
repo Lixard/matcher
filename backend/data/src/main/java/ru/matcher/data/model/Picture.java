@@ -1,8 +1,5 @@
 package ru.matcher.data.model;
 
-
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -15,8 +12,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pictures", schema = "matcher")
-@Getter
-@Setter
 public class Picture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +28,36 @@ public class Picture {
     @Lob
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] data;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
 }
