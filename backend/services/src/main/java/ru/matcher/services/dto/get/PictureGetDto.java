@@ -1,16 +1,15 @@
-package ru.matcher.services.dto;
+package ru.matcher.services.dto.get;
 
 /**
  * Dto класс для картинки.
  *
  * @author Николай Евсюков
  */
-public class PictureDto {
+public class PictureGetDto {
 
     private Integer id;
     private String name;
     private String type;
-    private byte[] data;
 
     public Integer getId() {
         return id;
@@ -34,13 +33,5 @@ public class PictureDto {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
     }
 }
