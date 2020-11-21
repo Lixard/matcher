@@ -1,6 +1,7 @@
 package ru.matcher.services.mapstruct;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.matcher.data.model.Project;
 import ru.matcher.services.dto.ProjectDto;
 
@@ -20,6 +21,7 @@ public interface ProjectStruct {
      * @param project объект класса Project
      * @return объект класса ProjectDto
      */
+    @Mapping(target = "pictureGetDto", source = "picture")
     ProjectDto toDto(Project project);
 
     /**
@@ -28,6 +30,8 @@ public interface ProjectStruct {
      * @param projectDto объект класса ProjectDto
      * @return объект класса Project
      */
+    @Mapping(target = "picture", source = "pictureGetDto")
+    @Mapping(target = "picture.data", ignore = true)
     Project fromDto(ProjectDto projectDto);
 
     /**

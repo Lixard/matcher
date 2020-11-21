@@ -23,7 +23,7 @@ public interface OrganizationTypeStruct {
     OrganizationTypeDto toDto(OrganizationType organizationType);
 
     /**
-     * Превражение OrganizationTypeDto в OrganizationType.
+     * Превращение OrganizationTypeDto в OrganizationType.
      *
      * @param organizationTypeDto объект класса OrganizationTypeDto
      * @return объект класса OrganizationType

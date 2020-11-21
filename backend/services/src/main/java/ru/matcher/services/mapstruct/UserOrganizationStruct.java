@@ -21,8 +21,8 @@ public interface UserOrganizationStruct {
      * @param userOrganization объект класса UserOrganization
      * @return объект класса UserOrganizationDto
      */
-    @Mapping(source = "userId", target = "user.id")
-    @Mapping(source = "organizationId", target = "organization.id")
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "organizationId", source = "organization.id")
     UserOrganizationDto toDto(UserOrganization userOrganization);
 
     /**
@@ -31,8 +31,8 @@ public interface UserOrganizationStruct {
      * @param userOrganizationDto объект класса UserOrganizationDto
      * @return объект класса UserOrganization
      */
-    @Mapping(source = "user.id", target = "userId")
-    @Mapping(source = "organization.id", target = "organizationId")
+    @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "organization.id", source = "organizationId")
     UserOrganization fromDto(UserOrganizationDto userOrganizationDto);
 
     /**

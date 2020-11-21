@@ -1,6 +1,7 @@
 package ru.matcher.services.mapstruct;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.matcher.data.model.User;
 import ru.matcher.services.dto.UserDto;
 
@@ -20,6 +21,7 @@ public interface UserStruct {
      * @param user объект класса User
      * @return объект класса UserDto
      */
+    @Mapping(target = "pictureGetDto", source = "picture")
     UserDto toDto(User user);
 
     /**
@@ -28,6 +30,8 @@ public interface UserStruct {
      * @param userDto объект класса UserDto
      * @return объект класса User
      */
+    @Mapping(target = "picture", source = "pictureGetDto")
+    @Mapping(target = "picture.data", ignore = true)
     User fromDto(UserDto userDto);
 
     /**

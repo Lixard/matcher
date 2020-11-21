@@ -21,6 +21,7 @@ public interface OrganizationStruct {
      * @param organization объект класса Organization
      * @return объект класса OrganizationDto
      */
+    @Mapping(target = "pictureGetDto", source = "picture")
     @Mapping(target = "organizationTypeId", source = "organizationType.id")
     OrganizationDto toDto(Organization organization);
 
@@ -30,6 +31,8 @@ public interface OrganizationStruct {
      * @param organizationDto объект класса OrganizationDto
      * @return объект класса Organization
      */
+    @Mapping(target = "picture", source = "pictureGetDto")
+    @Mapping(target = "picture.data", ignore = true)
     @Mapping(target = "organizationType.id", source = "organizationTypeId")
     Organization fromDto(OrganizationDto organizationDto);
 
