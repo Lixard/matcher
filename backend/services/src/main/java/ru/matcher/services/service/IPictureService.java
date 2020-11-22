@@ -30,9 +30,9 @@ public interface IPictureService {
     /**
      * Удаление File из БД.
      *
-     * @param fileId идентификатор File
+     * @param pictureId идентификатор File
      */
-    void remove(int fileId);
+    void remove(int pictureId);
 
     /**
      * Возвращяет список FileDto из БД.
@@ -44,8 +44,8 @@ public interface IPictureService {
     /**
      * Поиск File по id.
      *
-     * @param fileId идентификатор File
+     * @param pictureId идентификатор File
      * @return найденный объект класса FileDto
      */
-    PictureDto findById(int fileId);
+    PictureDto findById(int pictureId);
 }

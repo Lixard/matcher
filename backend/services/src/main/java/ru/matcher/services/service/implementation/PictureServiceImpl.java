@@ -43,8 +43,8 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
-    public void remove(int fileId) {
-        pictureRepository.deleteById(fileId);
+    public void remove(int pictureId) {
+        pictureRepository.deleteById(pictureId);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
-    public PictureDto findById(int fileId) {
-        return pictureStruct.toDto(pictureRepository.findById(fileId).orElse(null));
+    public PictureDto findById(int pictureId) {
+        return pictureStruct.toDto(pictureRepository.findById(pictureId).orElse(null));
     }
 }
