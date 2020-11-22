@@ -1,7 +1,5 @@
 package ru.matcher.services.dto;
 
-import ru.matcher.services.dto.get.PictureGetDto;
-
 /**
  * Dto класс для организации.
  *
@@ -10,7 +8,7 @@ import ru.matcher.services.dto.get.PictureGetDto;
 public class OrganizationDto {
 
     private Integer id;
-    private PictureGetDto pictureGetDto;
+    private Integer pictureId;
     private String name;
     private Integer organizationTypeId;
     private String description;
@@ -26,12 +24,12 @@ public class OrganizationDto {
         this.id = id;
     }
 
-    public PictureGetDto getPictureGetDto() {
-        return pictureGetDto;
+    public Integer getPictureId() {
+        return pictureId;
     }
 
-    public void setPictureGetDto(PictureGetDto pictureGetDto) {
-        this.pictureGetDto = pictureGetDto;
+    public void setPictureId(Integer pictureId) {
+        this.pictureId = pictureId;
     }
 
     public String getName() {

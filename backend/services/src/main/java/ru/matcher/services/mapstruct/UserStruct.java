@@ -21,7 +21,7 @@ public interface UserStruct {
      * @param user объект класса User
      * @return объект класса UserDto
      */
-    @Mapping(target = "pictureGetDto", source = "picture")
+    @Mapping(target = "pictureId", source = "picture.id")
     UserDto toDto(User user);
 
     /**
@@ -30,8 +30,7 @@ public interface UserStruct {
      * @param userDto объект класса UserDto
      * @return объект класса User
      */
-    @Mapping(target = "picture", source = "pictureGetDto")
-    @Mapping(target = "picture.data", ignore = true)
+    @Mapping(target = "picture.id", source = "pictureId")
     User fromDto(UserDto userDto);
 
     /**
