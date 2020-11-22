@@ -1,6 +1,5 @@
 package ru.matcher.data.model;
 
-
 import ru.matcher.data.model.embedded.UserOrganisationEmbeddedId;
 
 import javax.persistence.*;
@@ -33,4 +32,52 @@ public class UserOrganization {
 
     @Column(name = "is_admin", nullable = false)
     private boolean isAdmin;
+
+    public UserOrganisationEmbeddedId getId() {
+        return id;
+    }
+
+    public void setId(UserOrganisationEmbeddedId id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 }

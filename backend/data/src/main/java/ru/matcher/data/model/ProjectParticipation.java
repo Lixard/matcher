@@ -1,7 +1,5 @@
 package ru.matcher.data.model;
 
-import lombok.Getter;
-import lombok.Setter;
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
 
 import javax.persistence.*;
@@ -14,8 +12,6 @@ import java.time.LocalDate;
  */
 @Entity
 @Table(name = "project_participation", schema = "matcher")
-@Getter
-@Setter
 public class ProjectParticipation {
     @EmbeddedId
     private ProjectUserEmbeddedId id;
@@ -36,4 +32,52 @@ public class ProjectParticipation {
 
     @Column(name = "is_admin", nullable = false)
     private boolean isAdmin;
+
+    public ProjectUserEmbeddedId getId() {
+        return id;
+    }
+
+    public void setId(ProjectUserEmbeddedId id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 }

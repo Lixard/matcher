@@ -1,32 +1,16 @@
-package ru.matcher.data.model;
-
-import javax.persistence.*;
+package ru.matcher.services.dto;
 
 /**
- * Таблица проектов.
+ * Dto класс для проектов.
  *
- * @author Максим Щербаков
  * @author Николай Евсюков
  */
-@Entity
-@Table(name = "projects", schema = "matcher")
-public class Project {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "project_id")
+public class ProjectDto {
+
     private Integer id;
-
-    @ManyToOne(targetEntity = Picture.class)
-    @JoinColumn(name = "picture_id")
-    private Picture picture;
-
-    @Column(name = "name", nullable = false)
+    private Integer pictureId;
     private String name;
-
-    @Column(name = "description")
     private String description;
-
-    @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
     public Integer getId() {
@@ -37,12 +21,12 @@ public class Project {
         this.id = id;
     }
 
-    public Picture getPicture() {
-        return picture;
+    public Integer getPictureId() {
+        return pictureId;
     }
 
-    public void setPicture(Picture picture) {
-        this.picture = picture;
+    public void setPictureId(Integer pictureId) {
+        this.pictureId = pictureId;
     }
 
     public String getName() {

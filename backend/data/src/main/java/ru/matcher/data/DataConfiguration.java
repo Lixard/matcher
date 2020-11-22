@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "ru.matcher.data.model")
 @Configuration
 @ComponentScan
+@EntityScan(basePackages = "ru.matcher.data.model")
 @EnableJpaRepositories(basePackages = "ru.matcher.data.repository")
 public class DataConfiguration {
 }

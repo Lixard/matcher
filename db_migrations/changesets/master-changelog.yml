@@ -31,3 +31,15 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-001.rollback.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 2
+      author: Nikolay Evsyukov
+      comment: Rename table files
+      changes:
+        - sqlFile:
+            path: master/M-002.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-002.rollback.sql
+            relativeToChangelogFile: true

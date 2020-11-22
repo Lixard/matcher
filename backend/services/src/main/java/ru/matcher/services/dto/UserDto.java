@@ -1,38 +1,18 @@
-package ru.matcher.data.model;
-
-import javax.persistence.*;
+package ru.matcher.services.dto;
 
 /**
- * Таблица пользователя.
+ * Dto класс для пользователя.
  *
- * @author Максим Щербаков
  * @author Николай Евсюков
  */
-@Entity
-@Table(name = "users", schema = "matcher")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+public class UserDto {
+
     private Integer id;
-
-    @ManyToOne(targetEntity = Picture.class)
-    @JoinColumn(name = "picture_id")
-    private Picture picture;
-
-    @Column(name = "first_name", nullable = false)
+    private Integer pictureId;
     private String firstName;
-
-    @Column(name = "last_name", nullable = false)
     private String lastName;
-
-    @Column(name = "second_name")
     private String secondName;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "phone")
     private String phone;
 
     public Integer getId() {
@@ -43,12 +23,12 @@ public class User {
         this.id = id;
     }
 
-    public Picture getPicture() {
-        return picture;
+    public Integer getPictureId() {
+        return pictureId;
     }
 
-    public void setPicture(Picture picture) {
-        this.picture = picture;
+    public void setPictureId(Integer pictureId) {
+        this.pictureId = pictureId;
     }
 
     public String getFirstName() {
