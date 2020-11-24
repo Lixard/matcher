@@ -48,7 +48,7 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
-    public List<PictureDto> getFiles() {
+    public List<PictureDto> getPictures() {
         return pictureStruct.toDto(pictureRepository.findAll());
     }
 

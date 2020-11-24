@@ -39,7 +39,7 @@ public interface IPictureService {
      *
      * @return список FileDto
      */
-    List<PictureDto> getFiles();
+    List<PictureDto> getPictures();
 
     /**
      * Поиск File по id.
