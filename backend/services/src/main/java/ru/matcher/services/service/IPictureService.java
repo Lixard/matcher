@@ -1,7 +1,9 @@
 package ru.matcher.services.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.matcher.services.dto.PictureDto;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -14,18 +16,18 @@ public interface IPictureService {
     /**
      * Добавление File в БД.
      *
-     * @param pictureDto объект класса FileDto
+     * @param file файл для добавления
      * @return объект класса FileDto
      */
-    PictureDto create(PictureDto pictureDto);
+    PictureDto create(MultipartFile file) throws IOException;
 
     /**
      * Обновление File в БД.
      *
-     * @param pictureDto объект класса FileDto
+     * @param file файл для добавления
      * @return объект класса FileDto
      */
-    PictureDto update(PictureDto pictureDto);
+    PictureDto update(PictureDto pictureDto) throws IOException;
 
     /**
      * Удаление File из БД.

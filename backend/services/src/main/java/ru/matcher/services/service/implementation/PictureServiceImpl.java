@@ -2,12 +2,15 @@ package ru.matcher.services.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import ru.matcher.data.model.Picture;
 import ru.matcher.data.repository.PictureRepository;
 import ru.matcher.services.dto.PictureDto;
 import ru.matcher.services.mapstruct.PictureStruct;
 import ru.matcher.services.service.IPictureService;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,16 +32,24 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
-    public PictureDto create(PictureDto pictureDto) {
-        Picture picture = pictureStruct.fromDto(pictureDto);
+    public PictureDto create(MultipartFile file) throws IOException {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        Picture picture = new Picture(fileName, file.getContentType(), file.getBytes());
+
         pictureRepository.save(picture);
         return pictureStruct.toDto(picture);
     }
 
     @Override
-    public PictureDto update(PictureDto pictureDto) {
+    public PictureDto update(PictureDto pictureDto) throws IOException {
+//        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Picture picture = pictureStruct.fromDto(pictureDto);
+//        picture.setName(fileName);
+//        picture.setType(file.getContentType());
+//        picture.setData(file.getBytes());
+
         pictureRepository.save(picture);
+
         return pictureStruct.toDto(picture);
     }
 
