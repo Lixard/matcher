@@ -42,11 +42,7 @@ public class PictureServiceImpl implements IPictureService {
 
     @Override
     public PictureDto update(PictureDto pictureDto) throws IOException {
-//        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Picture picture = pictureStruct.fromDto(pictureDto);
-//        picture.setName(fileName);
-//        picture.setType(file.getContentType());
-//        picture.setData(file.getBytes());
 
         pictureRepository.save(picture);
 
