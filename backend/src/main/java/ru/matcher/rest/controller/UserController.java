@@ -2,7 +2,14 @@ package ru.matcher.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.service.IUserService;
 
@@ -15,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(
-        path = "/user",
+        path = "/users",
         produces = MediaType.APPLICATION_JSON_VALUE
 )
 public class UserController {
@@ -46,7 +53,7 @@ public class UserController {
      * @return обновлённый пользователь
      */
     @PutMapping("/{id}")
-    UserDto updateUser(@PathVariable int id,
+    UserDto updateUser(@PathVariable Integer id,
                        @RequestBody UserDto userDto) {
         userDto.setId(id);
         return userService.update(userDto);
@@ -58,7 +65,7 @@ public class UserController {
      * @param id идентификатор пользователеля
      */
     @DeleteMapping("/{id}")
-    void deleteUser(@PathVariable int id) {
+    void deleteUser(@PathVariable Integer id) {
         userService.remove(id);
     }
 
@@ -79,7 +86,7 @@ public class UserController {
      * @return найденный пользователь
      */
     @GetMapping("/{id}")
-    UserDto getUserById(@PathVariable int id) {
+    UserDto getUserById(@PathVariable Integer id) {
         return userService.findById(id);
     }
 }

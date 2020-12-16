@@ -2,7 +2,14 @@ package ru.matcher.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.ProjectDto;
 import ru.matcher.services.service.IProjectService;
 
@@ -15,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(
-        path = "/project",
+        path = "/projects",
         produces = MediaType.APPLICATION_JSON_VALUE
 )
 public class ProjectController {
@@ -46,19 +53,19 @@ public class ProjectController {
      * @return обновлённый проект
      */
     @PutMapping("/{id}")
-    ProjectDto updateProject(@PathVariable int id,
+    ProjectDto updateProject(@PathVariable Integer id,
                              @RequestBody ProjectDto projectDto) {
         projectDto.setId(id);
         return projectService.update(projectDto);
     }
 
     /**
-     * Удаленеи проекта.
+     * Удаление проекта.
      *
      * @param id идентификатор проекта
      */
     @DeleteMapping("/{id}")
-    void deleteProject(@PathVariable int id) {
+    void deleteProject(@PathVariable Integer id) {
         projectService.remove(id);
     }
 
@@ -79,7 +86,7 @@ public class ProjectController {
      * @return найденный проект
      */
     @GetMapping("/{id}")
-    ProjectDto getProjectById(@PathVariable int id) {
+    ProjectDto getProjectById(@PathVariable Integer id) {
         return projectService.findById(id);
     }
 }

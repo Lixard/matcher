@@ -2,7 +2,14 @@ package ru.matcher.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.service.IOrganizationService;
 
@@ -15,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(
-        path = "/organization",
+        path = "/organizations",
         produces = MediaType.APPLICATION_JSON_VALUE
 )
 public class OrganizationController {
@@ -46,19 +53,19 @@ public class OrganizationController {
      * @return обновлённая организация
      */
     @PutMapping("/{id}")
-    OrganizationDto updateOrganization(@PathVariable int id,
+    OrganizationDto updateOrganization(@PathVariable Integer id,
                                        @RequestBody OrganizationDto organizationDto) {
         organizationDto.setId(id);
         return organizationService.update(organizationDto);
     }
 
     /**
-     * Удаленеи организации.
+     * Удаление организации.
      *
      * @param id идентификатор организации
      */
     @DeleteMapping("/{id}")
-    void deleteOrganization(@PathVariable int id) {
+    void deleteOrganization(@PathVariable Integer id) {
         organizationService.remove(id);
     }
 
@@ -79,7 +86,7 @@ public class OrganizationController {
      * @return найденная организация
      */
     @GetMapping("/{id}")
-    OrganizationDto getOrganizationById(@PathVariable int id) {
+    OrganizationDto getOrganizationById(@PathVariable Integer id) {
         return organizationService.findById(id);
     }
 }
