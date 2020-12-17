@@ -1,7 +1,9 @@
 package ru.matcher.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -94,7 +96,11 @@ public class PictureController {
      * @return найденная картнка
      */
     @GetMapping("/{id}")
-    byte[] getPictureById(@PathVariable Integer id) {
-        return pictureService.findById(id).getData();
+    ResponseEntity<byte[]> getPictureById(@PathVariable Integer id) {
+        PictureDto pictureDto = pictureService.findById(id);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pictureDto.getName() + "\"")
+                .body(pictureDto.getData());
     }
 }
