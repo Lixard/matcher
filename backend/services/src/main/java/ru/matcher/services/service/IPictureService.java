@@ -7,47 +7,47 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Интерфейс сервиса для файла.
+ * Интерфейс сервиса для картинки.
  *
  * @author Николай Евсюков
  */
 public interface IPictureService {
 
     /**
-     * Добавление File в БД.
+     * Добавление картинки в БД.
      *
-     * @param file файл для добавления
-     * @return объект класса FileDto
+     * @param file картинка для добавления
+     * @return объект класса PictureDto
      */
     PictureDto create(MultipartFile file) throws IOException;
 
     /**
-     * Обновление File в БД.
+     * Обновление картинки в БД.
      *
-     * @param file файл для добавления
-     * @return объект класса FileDto
+     * @param pictureDto картинка для обновления
+     * @return объект класса PictureDto
      */
     PictureDto update(PictureDto pictureDto) throws IOException;
 
     /**
-     * Удаление File из БД.
+     * Удаление картинки из БД.
      *
-     * @param pictureId идентификатор File
+     * @param pictureId идентификатор картинки
      */
     void remove(int pictureId);
 
     /**
-     * Возвращяет список FileDto из БД.
+     * Возвращяет список PictureDto из БД.
      *
-     * @return список FileDto
+     * @return список PictureDto
      */
     List<PictureDto> getPictures();
 
     /**
-     * Поиск File по id.
+     * Поиск картики по id.
      *
-     * @param pictureId идентификатор File
-     * @return найденный объект класса FileDto
+     * @param pictureId идентификатор картинки
+     * @return найденный объект класса PictureDto
      */
     PictureDto findById(int pictureId);
 }
