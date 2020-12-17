@@ -2,7 +2,13 @@ package ru.matcher.data.model;
 
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 /**

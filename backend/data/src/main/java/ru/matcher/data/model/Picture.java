@@ -2,7 +2,13 @@ package ru.matcher.data.model;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 
 /**
  * Таблица для хранения файлов.
@@ -28,6 +34,15 @@ public class Picture {
     @Lob
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] data;
+
+    public Picture() {
+    }
+
+    public Picture(String name, String type, byte[] data) {
+        this.name = name;
+        this.type = type;
+        this.data = data;
+    }
 
     public Integer getId() {
         return id;

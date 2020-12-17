@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  * @author Maxim Borisov
  */
-@EntityScan(basePackages = "ru.matcher.data.model")
 @Configuration
 @ComponentScan
 @EntityScan(basePackages = "ru.matcher.data.model")
