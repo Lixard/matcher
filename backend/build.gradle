@@ -11,7 +11,7 @@ subprojects {
     }
 }
 
-configure(subprojects.findAll {it.name != "commons"}) {
+configure(subprojects.findAll { it.name != "commons" }) {
     dependencies {
         implementation project(":backend:commons")
     }
@@ -24,6 +24,8 @@ repositories {
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:$spring_boot_ver"
+    implementation "io.springfox:springfox-boot-starter:$springfox_starter_ver"
+    implementation "io.springfox:springfox-swagger-ui:$springfox_ui_ver"
 
     implementation project(":backend:services")
     implementation project(":backend:security")
