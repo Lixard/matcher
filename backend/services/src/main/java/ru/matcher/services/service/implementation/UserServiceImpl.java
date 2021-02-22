@@ -45,6 +45,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @Transactional
     public UserDto update(UserDto userDto) {
         User user = userStruct.fromDto(userDto);
         userRepository.save(user);
@@ -52,6 +53,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @Transactional
     public void remove(int userId) {
         userRepository.deleteById(userId);
     }

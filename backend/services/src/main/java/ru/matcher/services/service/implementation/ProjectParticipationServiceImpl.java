@@ -2,6 +2,7 @@ package ru.matcher.services.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.ProjectParticipation;
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
 import ru.matcher.data.repository.ProjectParticipationRepository;
@@ -30,6 +31,7 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     }
 
     @Override
+    @Transactional
     public ProjectParticipationDto create(ProjectParticipationDto projectParticipationDto) {
         ProjectParticipation projectParticipation = projectParticipationStruct.fromDto(projectParticipationDto);
         projectParticipationRepository.save(projectParticipation);
@@ -37,6 +39,7 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     }
 
     @Override
+    @Transactional
     public ProjectParticipationDto update(ProjectParticipationDto projectParticipationDto) {
         ProjectParticipation projectParticipation = projectParticipationStruct.fromDto(projectParticipationDto);
         projectParticipationRepository.save(projectParticipation);
@@ -44,6 +47,7 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     }
 
     @Override
+    @Transactional
     public void remove(ProjectUserEmbeddedId projectParticipationId) {
         projectParticipationRepository.deleteById(projectParticipationId);
     }
