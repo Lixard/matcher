@@ -3,7 +3,9 @@ package ru.matcher.services.mapstruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.matcher.data.model.User;
+import ru.matcher.security.service.IPasswordEncoderService;
 import ru.matcher.services.dto.UserDto;
+import ru.matcher.services.dto.create.UserCreateDto;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
  *
  * @author Николай Евсюков
  */
-@Mapper
+@Mapper(uses = IPasswordEncoderService.class)
 public interface UserStruct {
 
     /**
@@ -25,13 +27,27 @@ public interface UserStruct {
     UserDto toDto(User user);
 
     /**
-     * Превражение UserDto в User.
+     * Превращение UserDto в User.
      *
      * @param userDto объект класса UserDto
      * @return объект класса User
      */
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "login", ignore = true)
+    @Mapping(target = "picture", ignore = true)
     @Mapping(target = "picture.id", source = "pictureId")
     User fromDto(UserDto userDto);
+
+
+    /**
+     * Создание сущности пользователя с данными для входа из DTO.
+     *
+     * @param dto dto для конвертации
+     * @return сущность пользователя
+     */
+    @Mapping(target = "picture", ignore = true)
+    @Mapping(target = "picture.id", source = "pictureId")
+    User fromDto(UserCreateDto dto);
 
     /**
      * Превращение списка User в список UserDto.

@@ -2,9 +2,12 @@ package ru.matcher.services.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.User;
 import ru.matcher.data.repository.UserRepository;
+import ru.matcher.security.service.IPasswordEncoderService;
 import ru.matcher.services.dto.UserDto;
+import ru.matcher.services.dto.create.UserCreateDto;
 import ru.matcher.services.mapstruct.UserStruct;
 import ru.matcher.services.service.IUserService;
 
@@ -20,17 +23,23 @@ public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
     private final UserStruct userStruct;
+    private final IPasswordEncoderService passwordEncoderService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
-                           UserStruct userStruct) {
+                           UserStruct userStruct,
+                           IPasswordEncoderService passwordEncoderService) {
         this.userRepository = userRepository;
         this.userStruct = userStruct;
+        this.passwordEncoderService = passwordEncoderService;
     }
 
     @Override
-    public UserDto create(UserDto userDto) {
-        User user = userStruct.fromDto(userDto);
+    @Transactional
+    public UserDto create(UserCreateDto dto) {
+        final var user = userStruct.fromDto(dto);
+        user.setLogin(dto.getLogin());
+        user.setPassword(passwordEncoderService.encode(dto.getPassword()));
         userRepository.save(user);
         return userStruct.toDto(user);
     }

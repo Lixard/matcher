@@ -1,4 +1,6 @@
 dependencies {
+    implementation project(":backend:data")
+
     implementation "org.springframework.boot:spring-boot-autoconfigure:$spring_boot_ver"
 
     implementation "org.springframework.security:spring-security-web:$spring_security_ver"
@@ -6,4 +8,8 @@ dependencies {
 
     implementation "org.mapstruct:mapstruct:$mapstruct_ver"
     annotationProcessor "org.mapstruct:mapstruct-processor:$mapstruct_ver"
+
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jackson_ver"
+    implementation "jakarta.servlet:jakarta.servlet-api:$javax_http_ver"
+
 }
