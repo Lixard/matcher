@@ -7,6 +7,11 @@ import ru.matcher.data.model.User;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * Представляет собой информацию о правах доступа и статусе доступности текущего пользователя.
+ *
+ * @author Maxim Borisov
+ */
 public class UserDetailsImpl implements UserDetails, ICurrentUser {
 
     private final transient User user;

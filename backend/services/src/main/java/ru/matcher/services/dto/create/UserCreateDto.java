@@ -2,6 +2,11 @@ package ru.matcher.services.dto.create;
 
 import ru.matcher.services.dto.UserDto;
 
+/**
+ * DTO для создания пользователя.
+ *
+ * @author Maxim Borisov
+ */
 public class UserCreateDto extends UserDto {
 
     private String login;

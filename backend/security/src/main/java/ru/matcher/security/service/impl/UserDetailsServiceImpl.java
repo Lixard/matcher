@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import ru.matcher.data.repository.UserRepository;
 import ru.matcher.security.model.UserDetailsImpl;
 
+/**
+ * Реализация {@link UserDetailsService}.
+ *
+ * @author Maxim Borisov
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

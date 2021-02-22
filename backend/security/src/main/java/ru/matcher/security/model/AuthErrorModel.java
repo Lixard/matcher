@@ -1,5 +1,10 @@
 package ru.matcher.security.model;
 
+/**
+ * Модель ошибки авторизации.
+ *
+ * @author Maxim Borisov
+ */
 public class AuthErrorModel {
 
     private boolean authenticated;

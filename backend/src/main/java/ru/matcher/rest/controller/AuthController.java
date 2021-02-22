@@ -9,6 +9,11 @@ import ru.matcher.security.mapper.CurrentUserMapper;
 import ru.matcher.security.model.CurrentUserDto;
 import ru.matcher.security.model.ICurrentUser;
 
+/**
+ * Контроллер, отвечающий за энд-поинты авторизации.
+ *
+ * @author Maxim Borisov
+ */
 @RestController
 @RequestMapping(
         path = "/auth",
@@ -25,6 +30,11 @@ public class AuthController {
         this.mapper = mapper;
     }
 
+    /**
+     * Возвращает текущего залогиненного пользователя.
+     *
+     * @return возвращает текущего залогиненного, либо анонимного пользователя
+     */
     @GetMapping("/this")
     public CurrentUserDto getCurrentUser() {
         return mapper.toDto(currentUser);

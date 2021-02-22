@@ -10,11 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Обработчик, который модифицирует ответ, чтобы дать ему понять, что нужна аутентификация.
+ *
+ * @author Maxim Borisov
+ */
 @Component
 public class MatcherEntryPointHandler implements AuthenticationEntryPoint {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,

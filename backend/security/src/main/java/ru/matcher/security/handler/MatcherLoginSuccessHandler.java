@@ -12,11 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Обработчик, который модифицирует ответ на успешную аутентификацию.
+ *
+ * @author Maxim Borisov
+ */
 @Component
 public class MatcherLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,

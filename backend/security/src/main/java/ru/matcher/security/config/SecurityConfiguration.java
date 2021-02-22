@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import ru.matcher.data.DataConfiguration;
 
 /**
- * В данном модуле будет реализована инициализация компонента безопасности Spring.
+ * В данном модуле реализована инициализация компонента безопасности Spring.
  * Прописаны главные пути и права доступа.
  *
  * @author Maxim Borisov

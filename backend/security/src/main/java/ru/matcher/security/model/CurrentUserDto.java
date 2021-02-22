@@ -1,5 +1,10 @@
 package ru.matcher.security.model;
 
+/**
+ * DTO для {@link ICurrentUser}.
+ *
+ * @author Maxim Borisov
+ */
 public class CurrentUserDto {
 
     private int id;
