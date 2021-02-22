@@ -41,7 +41,7 @@ public class OrganizationController {
      * @return добавленная организация
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    OrganizationDto createOrganization(@RequestBody OrganizationDto organizationDto) {
+    public OrganizationDto createOrganization(@RequestBody OrganizationDto organizationDto) {
         return organizationService.create(organizationDto);
     }
 
@@ -53,8 +53,8 @@ public class OrganizationController {
      * @return обновлённая организация
      */
     @PutMapping("/{id}")
-    OrganizationDto updateOrganization(@PathVariable Integer id,
-                                       @RequestBody OrganizationDto organizationDto) {
+    public OrganizationDto updateOrganization(@PathVariable Integer id,
+                                              @RequestBody OrganizationDto organizationDto) {
         organizationDto.setId(id);
         return organizationService.update(organizationDto);
     }
@@ -65,7 +65,7 @@ public class OrganizationController {
      * @param id идентификатор организации
      */
     @DeleteMapping("/{id}")
-    void deleteOrganization(@PathVariable Integer id) {
+    public void deleteOrganization(@PathVariable Integer id) {
         organizationService.remove(id);
     }
 
@@ -75,7 +75,7 @@ public class OrganizationController {
      * @return список всех организаций
      */
     @GetMapping
-    List<OrganizationDto> getOrganizations() {
+    public List<OrganizationDto> getOrganizations() {
         return organizationService.getOrganizations();
     }
 
@@ -86,7 +86,7 @@ public class OrganizationController {
      * @return найденная организация
      */
     @GetMapping("/{id}")
-    OrganizationDto getOrganizationById(@PathVariable Integer id) {
+    public OrganizationDto getOrganizationById(@PathVariable Integer id) {
         return organizationService.findById(id);
     }
 }
