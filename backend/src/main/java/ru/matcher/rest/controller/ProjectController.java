@@ -41,7 +41,7 @@ public class ProjectController {
      * @return добавленный проект
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    ProjectDto createProject(@RequestBody ProjectDto projectDto) {
+    public ProjectDto createProject(@RequestBody ProjectDto projectDto) {
         return projectService.create(projectDto);
     }
 
@@ -53,8 +53,8 @@ public class ProjectController {
      * @return обновлённый проект
      */
     @PutMapping("/{id}")
-    ProjectDto updateProject(@PathVariable Integer id,
-                             @RequestBody ProjectDto projectDto) {
+    public ProjectDto updateProject(@PathVariable Integer id,
+                                    @RequestBody ProjectDto projectDto) {
         projectDto.setId(id);
         return projectService.update(projectDto);
     }
@@ -65,7 +65,7 @@ public class ProjectController {
      * @param id идентификатор проекта
      */
     @DeleteMapping("/{id}")
-    void deleteProject(@PathVariable Integer id) {
+    public void deleteProject(@PathVariable Integer id) {
         projectService.remove(id);
     }
 
@@ -75,7 +75,7 @@ public class ProjectController {
      * @return список всех проектов
      */
     @GetMapping
-    List<ProjectDto> getProjects() {
+    public List<ProjectDto> getProjects() {
         return projectService.getProjects();
     }
 
@@ -86,7 +86,7 @@ public class ProjectController {
      * @return найденный проект
      */
     @GetMapping("/{id}")
-    ProjectDto getProjectById(@PathVariable Integer id) {
+    public ProjectDto getProjectById(@PathVariable Integer id) {
         return projectService.findById(id);
     }
 }

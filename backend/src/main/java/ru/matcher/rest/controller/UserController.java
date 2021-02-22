@@ -41,7 +41,7 @@ public class UserController {
      * @return добавленный пользователь
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    UserDto createUser(@RequestBody UserDto userDto) {
+    public UserDto createUser(@RequestBody UserDto userDto) {
         return userService.create(userDto);
     }
 
@@ -53,8 +53,8 @@ public class UserController {
      * @return обновлённый пользователь
      */
     @PutMapping("/{id}")
-    UserDto updateUser(@PathVariable Integer id,
-                       @RequestBody UserDto userDto) {
+    public UserDto updateUser(@PathVariable Integer id,
+                              @RequestBody UserDto userDto) {
         userDto.setId(id);
         return userService.update(userDto);
     }
@@ -65,7 +65,7 @@ public class UserController {
      * @param id идентификатор пользователеля
      */
     @DeleteMapping("/{id}")
-    void deleteUser(@PathVariable Integer id) {
+    public void deleteUser(@PathVariable Integer id) {
         userService.remove(id);
     }
 
@@ -75,7 +75,7 @@ public class UserController {
      * @return список всех пользователей
      */
     @GetMapping
-    List<UserDto> getUsers() {
+    public List<UserDto> getUsers() {
         return userService.getUsers();
     }
 
@@ -86,7 +86,7 @@ public class UserController {
      * @return найденный пользователь
      */
     @GetMapping("/{id}")
-    UserDto getUserById(@PathVariable Integer id) {
+    public UserDto getUserById(@PathVariable Integer id) {
         return userService.findById(id);
     }
 }
