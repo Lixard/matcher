@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.UserDto;
+import ru.matcher.services.dto.create.UserCreateDto;
 import ru.matcher.services.service.IUserService;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class UserController {
      * @return добавленный пользователь
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDto createUser(@RequestBody UserDto userDto) {
+    public UserDto createUser(@RequestBody UserCreateDto userDto) {
         return userService.create(userDto);
     }
 
@@ -62,7 +63,7 @@ public class UserController {
     /**
      * Удаление пользователя.
      *
-     * @param id идентификатор пользователеля
+     * @param id идентификатор пользователя
      */
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id) {

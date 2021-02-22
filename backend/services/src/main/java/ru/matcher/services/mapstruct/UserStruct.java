@@ -2,8 +2,11 @@ package ru.matcher.services.mapstruct;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import ru.matcher.data.model.Picture;
 import ru.matcher.data.model.User;
 import ru.matcher.services.dto.UserDto;
+import ru.matcher.services.dto.create.UserCreateDto;
 
 import java.util.List;
 
@@ -25,13 +28,36 @@ public interface UserStruct {
     UserDto toDto(User user);
 
     /**
-     * Превражение UserDto в User.
+     * Превращение UserDto в User.
      *
      * @param userDto объект класса UserDto
      * @return объект класса User
      */
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "login", ignore = true)
+    @Mapping(target = "picture", ignore = true)
     @Mapping(target = "picture.id", source = "pictureId")
     User fromDto(UserDto userDto);
+
+
+    /**
+     * Создание сущности пользователя с данными для входа из DTO.
+     *
+     * @param dto dto для конвертации
+     * @return сущность пользователя
+     */
+    @Mapping(target = "picture", source = "pictureId", qualifiedByName = "setPictureId")
+    User fromDto(UserCreateDto dto);
+
+    @Named("setPictureId")
+    default Picture setPictureId(Integer pictureId) {
+        if (pictureId == null) {
+            return null;
+        }
+        final var picture = new Picture();
+        picture.setId(pictureId);
+        return picture;
+    }
 
     /**
      * Превращение списка User в список UserDto.
@@ -48,4 +74,5 @@ public interface UserStruct {
      * @return список User
      */
     List<User> fromDto(List<UserDto> userDtos);
+
 }

@@ -17,6 +17,7 @@ allprojects {
         //spring
         spring_boot_ver = "2.3.4.RELEASE"
         spring_security_ver = "5.4.0"
+        spring_data_ver = "2.3.4.RELEASE"
 
         //mapstruct
         mapstruct_ver = "1.4.1.Final"
@@ -29,6 +30,15 @@ allprojects {
 
         //mapstruct
         mapstruct_ver = "1.4.1.Final"
+
+        //servlet
+        javax_http_ver = "4.0.3"
+
+        //persistence-api
+        persistence_api_ver = "2.2.3"
+
+        //jackson
+        jackson_ver = "2.12.1"
     }
 }
 

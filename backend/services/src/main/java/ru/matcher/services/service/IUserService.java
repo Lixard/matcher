@@ -1,6 +1,7 @@
 package ru.matcher.services.service;
 
 import ru.matcher.services.dto.UserDto;
+import ru.matcher.services.dto.create.UserCreateDto;
 
 import java.util.List;
 
@@ -14,10 +15,10 @@ public interface IUserService {
     /**
      * Добавление User в БД.
      *
-     * @param userDto объект класса UserDto
+     * @param dto объект класса UserCreateDto
      * @return объект класса UserDto
      */
-    UserDto create(UserDto userDto);
+    UserDto create(UserCreateDto dto);
 
     /**
      * Обновление User в БД.

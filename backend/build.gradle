@@ -26,4 +26,5 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:$spring_boot_ver"
 
     implementation project(":backend:services")
+    implementation project(":backend:security")
 }

@@ -2,4 +2,8 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-autoconfigure:$spring_boot_ver"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa:$spring_boot_ver"
     implementation "org.postgresql:postgresql:$postgres_ver"
+
+    apiElements "org.springframework.data:spring-data-commons:$spring_data_ver"
+    apiElements "org.springframework.data:spring-data-jpa:$spring_data_ver"
+    apiElements "jakarta.persistence:jakarta.persistence-api:$persistence_api_ver"
 }

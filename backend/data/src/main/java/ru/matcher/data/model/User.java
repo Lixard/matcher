@@ -18,14 +18,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users", schema = "matcher")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer id;
 
-    @ManyToOne(targetEntity = Picture.class)
+    @ManyToOne
     @JoinColumn(name = "picture_id")
     private Picture picture;
+
+    @Column(name = "login", nullable = false, unique = true)
+    private String login;
+
+    @Column(name = "password", nullable = false, length = 60)
+    private String password;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -42,12 +49,20 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
-    public Integer getId() {
-        return id;
+    public String getLogin() {
+        return login;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Picture getPicture() {
@@ -96,5 +111,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
