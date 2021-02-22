@@ -2,6 +2,7 @@ package ru.matcher.services.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.OrganizationType;
 import ru.matcher.data.repository.OrganizationTypeRepository;
 import ru.matcher.services.dto.OrganizationTypeDto;
@@ -29,6 +30,7 @@ public class OrganizationTypeServiceImpl implements IOrganizationTypeService {
     }
 
     @Override
+    @Transactional
     public OrganizationTypeDto create(OrganizationTypeDto organizationTypeDto) {
         OrganizationType organizationType = organizationTypeStruct.fromDto(organizationTypeDto);
         organizationTypeRepository.save(organizationType);
@@ -36,6 +38,7 @@ public class OrganizationTypeServiceImpl implements IOrganizationTypeService {
     }
 
     @Override
+    @Transactional
     public OrganizationTypeDto update(OrganizationTypeDto organizationTypeDto) {
         OrganizationType organizationType = organizationTypeStruct.fromDto(organizationTypeDto);
         organizationTypeRepository.save(organizationType);
@@ -43,6 +46,7 @@ public class OrganizationTypeServiceImpl implements IOrganizationTypeService {
     }
 
     @Override
+    @Transactional
     public void remove(int organizationTypeId) {
         organizationTypeRepository.deleteById(organizationTypeId);
     }

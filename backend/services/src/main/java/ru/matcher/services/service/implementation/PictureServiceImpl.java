@@ -2,6 +2,7 @@ package ru.matcher.services.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.matcher.data.model.Picture;
@@ -32,6 +33,7 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
+    @Transactional
     public PictureDto create(MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Picture picture = new Picture(fileName, file.getContentType(), file.getBytes());
@@ -41,6 +43,7 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
+    @Transactional
     public PictureDto update(PictureDto pictureDto) throws IOException {
         Picture picture = pictureStruct.fromDto(pictureDto);
 
@@ -50,6 +53,7 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
+    @Transactional
     public void remove(int pictureId) {
         pictureRepository.deleteById(pictureId);
     }

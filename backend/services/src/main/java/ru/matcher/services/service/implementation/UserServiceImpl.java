@@ -2,6 +2,7 @@ package ru.matcher.services.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.User;
 import ru.matcher.data.repository.UserRepository;
 import ru.matcher.services.dto.UserDto;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @Transactional
     public UserDto create(UserDto userDto) {
         User user = userStruct.fromDto(userDto);
         userRepository.save(user);
@@ -36,6 +38,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @Transactional
     public UserDto update(UserDto userDto) {
         User user = userStruct.fromDto(userDto);
         userRepository.save(user);
@@ -43,6 +46,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @Transactional
     public void remove(int userId) {
         userRepository.deleteById(userId);
     }

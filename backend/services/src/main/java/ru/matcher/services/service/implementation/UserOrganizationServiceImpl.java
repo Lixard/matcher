@@ -2,6 +2,7 @@ package ru.matcher.services.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.UserOrganization;
 import ru.matcher.data.model.embedded.UserOrganisationEmbeddedId;
 import ru.matcher.data.repository.UserOrganizationRepository;
@@ -30,6 +31,7 @@ public class UserOrganizationServiceImpl implements IUserOrganizationService {
     }
 
     @Override
+    @Transactional
     public UserOrganizationDto create(UserOrganizationDto userOrganizationDto) {
         UserOrganization userOrganization = userOrganizationStruct.fromDto(userOrganizationDto);
         userOrganizationRepository.save(userOrganization);
@@ -37,6 +39,7 @@ public class UserOrganizationServiceImpl implements IUserOrganizationService {
     }
 
     @Override
+    @Transactional
     public UserOrganizationDto update(UserOrganizationDto userOrganizationDto) {
         UserOrganization userOrganization = userOrganizationStruct.fromDto(userOrganizationDto);
         userOrganizationRepository.save(userOrganization);
@@ -44,6 +47,7 @@ public class UserOrganizationServiceImpl implements IUserOrganizationService {
     }
 
     @Override
+    @Transactional
     public void remove(UserOrganisationEmbeddedId userOrganizationId) {
         userOrganizationRepository.deleteById(userOrganizationId);
     }

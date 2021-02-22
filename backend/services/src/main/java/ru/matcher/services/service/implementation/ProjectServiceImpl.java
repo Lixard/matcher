@@ -2,6 +2,7 @@ package ru.matcher.services.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.Project;
 import ru.matcher.data.repository.ProjectRepository;
 import ru.matcher.services.dto.ProjectDto;
@@ -29,6 +30,7 @@ public class ProjectServiceImpl implements IProjectService {
     }
 
     @Override
+    @Transactional
     public ProjectDto create(ProjectDto projectDto) {
         Project project = projectStruct.fromDto(projectDto);
         projectRepository.save(project);
@@ -36,6 +38,7 @@ public class ProjectServiceImpl implements IProjectService {
     }
 
     @Override
+    @Transactional
     public ProjectDto update(ProjectDto projectDto) {
         Project project = projectStruct.fromDto(projectDto);
         projectRepository.save(project);
@@ -43,6 +46,7 @@ public class ProjectServiceImpl implements IProjectService {
     }
 
     @Override
+    @Transactional
     public void remove(int projectId) {
         projectRepository.deleteById(projectId);
     }
