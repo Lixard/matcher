@@ -28,7 +28,7 @@ public class User {
     @JoinColumn(name = "picture_id")
     private Picture picture;
 
-    @Column(name = "login", nullable = false)
+    @Column(name = "login", nullable = false, unique = true)
     private String login;
 
     @Column(name = "password", nullable = false, length = 60)

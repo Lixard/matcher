@@ -43,3 +43,15 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-002.rollback.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 3
+      author: Maxim Borisov
+      comment: Add unique constraint to user login
+      changes:
+        - sqlFile:
+            path: master/M-003.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-003.rollback.sql
+            relativeToChangelogFile: true
