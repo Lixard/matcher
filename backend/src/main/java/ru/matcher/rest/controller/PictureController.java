@@ -46,7 +46,7 @@ public class PictureController {
      * @return добавленная картинка
      */
     @PostMapping("/create")
-    PictureDto createPicture(@RequestParam("file") MultipartFile file) throws IOException {
+    public PictureDto createPicture(@RequestParam("file") MultipartFile file) throws IOException {
         return pictureService.create(file);
     }
 
@@ -58,8 +58,8 @@ public class PictureController {
      * @return обновлённая картинка
      */
     @PutMapping("/{id}")
-    PictureDto updatePicture(@PathVariable Integer id,
-                             @RequestParam("file") MultipartFile file) throws IOException {
+    public PictureDto updatePicture(@PathVariable Integer id,
+                                    @RequestParam("file") MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         PictureDto pictureDto = new PictureDto();
         pictureDto.setId(id);
@@ -75,7 +75,7 @@ public class PictureController {
      * @param id идентификатор картинки
      */
     @DeleteMapping("/{id}")
-    void deletePicture(@PathVariable Integer id) {
+    public void deletePicture(@PathVariable Integer id) {
         pictureService.remove(id);
     }
 
@@ -85,7 +85,7 @@ public class PictureController {
      * @return список всех картинок
      */
     @GetMapping
-    List<PictureDto> getPictures() {
+    public List<PictureDto> getPictures() {
         return pictureService.getPictures();
     }
 
@@ -96,7 +96,7 @@ public class PictureController {
      * @return найденная картнка
      */
     @GetMapping("/{id}")
-    ResponseEntity<byte[]> getPictureById(@PathVariable Integer id) {
+    public ResponseEntity<byte[]> getPictureById(@PathVariable Integer id) {
         PictureDto pictureDto = pictureService.findById(id);
 
         return ResponseEntity.ok()
