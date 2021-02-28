@@ -3,7 +3,6 @@ package ru.matcher.services.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.matcher.data.model.Organization;
 import ru.matcher.data.repository.OrganizationRepository;
 import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.mapstruct.OrganizationStruct;
@@ -32,17 +31,13 @@ public class OrganizationServiceImpl implements IOrganizationService {
     @Override
     @Transactional
     public OrganizationDto create(OrganizationDto organizationDto) {
-        Organization organization = organizationStruct.fromDto(organizationDto);
-        organizationRepository.save(organization);
-        return organizationStruct.toDto(organization);
+        return organizationStruct.toDto(organizationStruct.fromDto(organizationDto));
     }
 
     @Override
     @Transactional
     public OrganizationDto update(OrganizationDto organizationDto) {
-        Organization organization = organizationStruct.fromDto(organizationDto);
-        organizationRepository.save(organization);
-        return organizationStruct.toDto(organization);
+        return organizationStruct.toDto(organizationStruct.fromDto(organizationDto));
     }
 
     @Override

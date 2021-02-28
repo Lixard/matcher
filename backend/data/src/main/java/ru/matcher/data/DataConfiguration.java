@@ -9,9 +9,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * Данный модуль является нижнем уровнем сервера. В нем будет происходить всё взаимодействие с базой данных.
  *
  * @author Maxim Borisov
+ * @author Максим Щербаков
  */
 @Configuration
-@EntityScan(basePackages = "ru.matcher.data.model")
+@EntityScan({
+        "ru.matcher.data.model",
+        "ru.matcher.data.converter"
+})
 @EnableJpaRepositories(basePackages = "ru.matcher.data.repository")
 @EnableTransactionManagement
 public class DataConfiguration {

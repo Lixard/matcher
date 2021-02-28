@@ -1,16 +1,19 @@
 package ru.matcher.services.dto;
 
+import ru.matcher.commons.OrganizationType;
+
 /**
  * Dto класс для организации.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 public class OrganizationDto {
 
     private Integer id;
     private Integer pictureId;
     private String name;
-    private Integer organizationTypeId;
+    private OrganizationType organizationType;
     private String description;
     private String url;
     private String email;
@@ -40,12 +43,12 @@ public class OrganizationDto {
         this.name = name;
     }
 
-    public Integer getOrganizationTypeId() {
-        return organizationTypeId;
+    public OrganizationType getOrganizationType() {
+        return organizationType;
     }
 
-    public void setOrganizationTypeId(Integer organizationTypeId) {
-        this.organizationTypeId = organizationTypeId;
+    public void setOrganizationType(OrganizationType organizationTypeId) {
+        this.organizationType = organizationTypeId;
     }
 
     public String getDescription() {

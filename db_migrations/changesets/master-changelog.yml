@@ -55,3 +55,15 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-003.rollback.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 4
+      author: Maxim Shcherbakov
+      comment: Added type organization
+      changes:
+        - sqlFile:
+            path: master/M-004.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-004.rollback.sql
+            relativeToChangelogFile: true
