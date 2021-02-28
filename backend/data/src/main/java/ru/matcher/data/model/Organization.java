@@ -4,6 +4,7 @@ import ru.matcher.commons.OrganizationType;
 
 import javax.persistence.*;
 
+
 /**
  * Таблица организации.
  *
