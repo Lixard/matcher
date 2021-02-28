@@ -11,6 +11,7 @@ import java.util.List;
  * Маппер для организации.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 @Mapper
 public interface OrganizationStruct {
@@ -22,7 +23,6 @@ public interface OrganizationStruct {
      * @return объект класса OrganizationDto
      */
     @Mapping(target = "pictureId", source = "picture.id")
-    @Mapping(target = "organizationTypeId", source = "organizationType.id")
     OrganizationDto toDto(Organization organization);
 
     /**
@@ -32,7 +32,6 @@ public interface OrganizationStruct {
      * @return объект класса Organization
      */
     @Mapping(target = "picture.id", source = "pictureId")
-    @Mapping(target = "organizationType.id", source = "organizationTypeId")
     Organization fromDto(OrganizationDto organizationDto);
 
     /**

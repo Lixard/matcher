@@ -1,5 +1,7 @@
 package ru.matcher.data.model;
 
+import ru.matcher.commons.OrganizationType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 /**
  * Таблица организации.
@@ -20,6 +23,7 @@ import javax.persistence.Table;
 public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "org_id")
     private Integer id;
 
     @ManyToOne(targetEntity = Picture.class)
@@ -29,8 +33,7 @@ public class Organization {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(targetEntity = OrganizationType.class)
-    @JoinColumn(name = "org_type_id")
+    @Column(name = "org_type_id", nullable = false)
     private OrganizationType organizationType;
 
     @Column(name = "description")
