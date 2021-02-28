@@ -22,6 +22,6 @@ public class ConverterOrganizationType implements AttributeConverter<Organizatio
 
     @Override
     public OrganizationType convertToEntityAttribute(Integer dbData) {
-        return OrganizationType.fromId(dbData).orElse(null);
+        return OrganizationType.fromId(dbData).orElseThrow();
     }
 }
