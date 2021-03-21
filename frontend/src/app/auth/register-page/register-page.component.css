@@ -1,0 +1,28 @@
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

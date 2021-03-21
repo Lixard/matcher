@@ -1,0 +1,54 @@
+<div class="login">
+  <form [formGroup]="form">
+    <mat-card>
+      <mat-card-content>
+        <div class="content">
+          <span>Войдите в аккаунт</span>
+
+          <mat-form-field>
+            <mat-label>Никнейм</mat-label>
+            <input formControlName="login" matInput />
+            <mat-error *ngIf="form.get('login')!.hasError('required')">Укажите никнейм</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Пароль</mat-label>
+            <input
+              [type]="hidePassword ? 'password' : 'text'"
+              formControlName="password"
+              matInput
+            />
+            <mat-error *ngIf="form.get('password')!.hasError('required')">Укажите пароль</mat-error>
+            <button
+              (click)="hidePassword = !hidePassword"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePassword"
+              mat-icon-button
+              matSuffix
+            >
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-error *ngIf="form.get('login')!.hasError('login-incorrect')">
+            Некорректные данные
+          </mat-error>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="buttons">
+          <button
+            (click)="login(form.value)"
+            [disabled]="!form.valid"
+            class="login-button"
+            color="primary"
+            mat-flat-button
+          >
+            Войти
+          </button>
+          <button color="primary" mat-flat-button routerLink="/register">Регистрация</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
