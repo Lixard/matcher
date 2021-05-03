@@ -1,16 +1,16 @@
-plugins {
-    id "java"
-    id "com.moowork.node" version "$node_plugin_ver"
-}
+//plugins {
+//    id "java"
+//    id "com.moowork.node" version "$node_plugin_ver"
+//}
 
-node {
-    version = "$node_ver"
-    npmVersion = "$npm_ver"
-    download = true
-}
+//node {
+//    version = "$node_ver"
+//    npmVersion = "$npm_ver"
+//    download = true
+//}
 
-jar.dependsOn "npm_run_build"
+//jar.dependsOn "npm_run_build"
 
-jar {
-    from "frontend" into "static"
-}
+//jar {
+//    from "frontend" into "static"
+//}
