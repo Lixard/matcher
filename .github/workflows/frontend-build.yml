@@ -23,5 +23,5 @@ jobs:
       - name: npm install and npm run build
         working-directory: ./frontend
         run: |
-          npm clean-install
+          npm install --no-save
           npm run build:ci
