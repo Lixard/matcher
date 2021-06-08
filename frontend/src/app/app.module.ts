@@ -15,25 +15,27 @@ import { RouterModule } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfilesModule } from './profiles/profiles.module';
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    RouterModule,
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    AuthModule,
-    ProfilesModule,
-  ],
+    imports: [
+        RouterModule,
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        CommonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        AuthModule,
+        ProfilesModule,
+        MatToolbarModule,
+    ],
   providers: [],
   bootstrap: [AppComponent],
 })

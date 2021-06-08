@@ -1,3 +1,18 @@
+<mat-toolbar
+  color="primary"
+  class="mat-elevation-z6 tbar"
+>
+  <a routerLink="/" style="font-size: 20px" mat-button>Budget Advisor</a>
+
+  <ng-container *ngIf="user != undefined">
+    <a routerLink="/groups" mat-button>groups</a>
+  </ng-container>
+
+<!--  <a routerLink="/about" mat-button>about</a>-->
+
+  <app-user-menu></app-user-menu>
+
+</mat-toolbar>
 <div>
   <router-outlet></router-outlet>
 </div>
