@@ -11,6 +11,7 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent implements OnInit {
+
   form!: FormGroup;
 
   loginData!: LoginData;
