@@ -12,6 +12,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import {MatSelectModule} from "@angular/material/select";
+import {MatOptionModule} from "@angular/material/core";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [LoginPageComponent, RegisterPageComponent],
@@ -25,6 +28,9 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatAutocompleteModule,
   ],
   providers: [LOAD_CURRENT_USER_INITIALIZER],
 })

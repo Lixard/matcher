@@ -72,6 +72,30 @@
             </mat-error>
           </mat-form-field>
 
+          <mat-form-field appearance="fill">
+            <mat-label>Занятость</mat-label>
+            <mat-select formControlName="employment">
+              <mat-option *ngFor="let employment of employments" [value]="employment" (click)="selectEmployment()">
+                {{employment}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="mat-form-selection" *ngIf="isEmployment">
+            <mat-label>Категория</mat-label>
+            <input type="text"
+                   placeholder="Выберите категорию"
+                   aria-label="Категория"
+                   matInput
+                   [formControl]="placeCtrl"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" formControlName="place">
+              <mat-option *ngFor="let place of filteredPlace | async" [value]="place">
+                {{place}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
           <mat-error *ngIf="form.get('login')!.hasError('unknown-error')"
           >Произошла ошибка. Возможно такой логин уже существует.
           </mat-error>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { switchMap } from 'rxjs/operators';
+import {map, startWith, switchMap} from 'rxjs/operators';
 import { UserCreate } from '../../models/users/user-create.model';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-register-page',
@@ -12,8 +13,13 @@ import { UserCreate } from '../../models/users/user-create.model';
 })
 export class RegisterPageComponent implements OnInit {
   form!: FormGroup;
-
+  employments: string[] = ['Студент', 'Работник'];
+  isEmployment = false;
+//TODO ubrat' posle backend'a
+  places = ['ВГТУ', 'Netcracker'];
   hidePassword = true;
+  filteredPlace: Observable<string[]> | undefined;
+  placeCtrl = new FormControl()
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
 
@@ -44,12 +50,29 @@ export class RegisterPageComponent implements OnInit {
 
   private buildForm(): void {
     this.form = this.fb.group({
-      login: this.fb.control(undefined, [Validators.required, Validators.maxLength(50)]),
-      password: this.fb.control(undefined, [Validators.required, Validators.minLength(8)]),
-      firstName: this.fb.control(undefined, [Validators.required, Validators.maxLength(50)]),
-      lastName: this.fb.control(undefined, [Validators.required, Validators.maxLength(50)]),
-      secondName: this.fb.control(undefined, [Validators.maxLength(50)]),
-      email: this.fb.control(undefined, [Validators.maxLength(50), Validators.email]),
+      login: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
+      password: this.fb.control('', [Validators.required, Validators.minLength(8)]),
+      firstName: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
+      lastName: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
+      secondName: this.fb.control('', [Validators.maxLength(50)]),
+      email: this.fb.control('', [Validators.maxLength(50), Validators.email]),
+      employment: this.fb.control(''),
+      place: this.fb.control('')
     });
+  }
+
+  selectEmployment() {
+    this.isEmployment = true;
+
+    //TODO необходимы запросы к бэку на вузы и компании
+    this.filteredPlace = this.placeCtrl.valueChanges.pipe(
+    startWith(''),
+    map(value => this._filter(value))
+    );
+  }
+
+  private _filter(value: string) {
+    const filterValue = value.toLowerCase();
+    return this.places.filter(place => place.toLowerCase().includes(filterValue));
   }
 }
