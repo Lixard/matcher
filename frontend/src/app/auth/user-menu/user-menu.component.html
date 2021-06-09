@@ -1,0 +1,30 @@
+<div class="authButtons">
+  <ng-container *ngIf="user.authenticated; else anonymousMenu ">
+    <a
+      mat-button
+      routerLink="/profile"
+      style="font-size: 15px; padding: 15px 15px;"
+    >
+      {{ user.login }}
+    </a>
+    <button mat-icon-button [mat-menu-trigger-for]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="handleLogoutClick()" routerLink="/">
+        Log out
+      </button>
+    </mat-menu>
+  </ng-container>
+
+  <ng-template #anonymousMenu>
+    <a mat-flat-button color="accent" routerLink="/register">
+      Sign Up
+    </a>
+
+    <a mat-flat-button color="accent" routerLink="/login">
+      Log In
+    </a>
+  </ng-template>
+</div>

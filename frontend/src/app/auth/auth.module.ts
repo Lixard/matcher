@@ -15,9 +15,12 @@ import { RouterModule } from '@angular/router';
 import {MatSelectModule} from "@angular/material/select";
 import {MatOptionModule} from "@angular/material/core";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {UserMenuComponent} from "./user-menu/user-menu.component";
+import {MatMenuModule} from "@angular/material/menu";
+import {ValidationModule} from "../features/validators/validation.module";
 
 @NgModule({
-  declarations: [LoginPageComponent, RegisterPageComponent],
+  declarations: [LoginPageComponent, RegisterPageComponent, UserMenuComponent],
   imports: [
     RouterModule,
     CommonModule,
@@ -28,10 +31,15 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    MatMenuModule,
+    ValidationModule,
     MatSelectModule,
     MatOptionModule,
     MatAutocompleteModule,
   ],
   providers: [LOAD_CURRENT_USER_INITIALIZER],
+  exports: [
+    UserMenuComponent
+  ]
 })
 export class AuthModule {}

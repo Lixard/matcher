@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import {map, startWith, switchMap} from 'rxjs/operators';
 import { UserCreate } from '../../models/users/user-create.model';
 import {Observable} from "rxjs";
+import {userNameRegExp} from "../../features/validators/directives/username-validator.directive";
 
 @Component({
   selector: 'app-register-page',
@@ -15,6 +16,8 @@ export class RegisterPageComponent implements OnInit {
   form!: FormGroup;
   employments: string[] = ['Студент', 'Работник'];
   isEmployment = false;
+  emailPattern = '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$';
+  namePattern = '^[a-zA-ZA-Яa-я]{1,}';
 //TODO ubrat' posle backend'a
   places = ['ВГТУ', 'Netcracker'];
   hidePassword = true;
@@ -50,15 +53,21 @@ export class RegisterPageComponent implements OnInit {
 
   private buildForm(): void {
     this.form = this.fb.group({
-      login: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
+      login: this.fb.control('', [Validators.required, userNameRegExp, this.noWhitespaceValidator, Validators.min(4)]),
       password: this.fb.control('', [Validators.required, Validators.minLength(8)]),
-      firstName: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
-      lastName: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
-      secondName: this.fb.control('', [Validators.maxLength(50)]),
-      email: this.fb.control('', [Validators.maxLength(50), Validators.email]),
+      firstName: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.namePattern),Validators.maxLength(50)]),
+      lastName: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.namePattern),Validators.maxLength(50)]),
+      secondName: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.namePattern),Validators.maxLength(50)]),
+      email: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.emailPattern), Validators.maxLength(50)]),
       employment: this.fb.control(''),
       place: this.fb.control('')
     });
+  }
+
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
   }
 
   selectEmployment() {

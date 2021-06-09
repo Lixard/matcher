@@ -34,7 +34,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
         MatButtonModule,
         AuthModule,
         ProfilesModule,
-        MatToolbarModule,
+        MatToolbarModule
     ],
   providers: [],
   bootstrap: [AppComponent],
