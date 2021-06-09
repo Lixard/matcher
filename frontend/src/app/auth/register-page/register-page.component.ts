@@ -6,6 +6,8 @@ import {map, startWith, switchMap} from 'rxjs/operators';
 import { UserCreate } from '../../models/users/user-create.model';
 import {Observable} from "rxjs";
 import {userNameRegExp} from "../../features/validators/directives/username-validator.directive";
+import {OrganizationService} from "../../services/organization.service";
+import {OrganizationModel} from "../../models/organizations/organization.model";
 
 @Component({
   selector: 'app-register-page',
@@ -19,12 +21,14 @@ export class RegisterPageComponent implements OnInit {
   emailPattern = '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$';
   namePattern = '^[a-zA-ZA-Яa-я]{1,}';
 //TODO ubrat' posle backend'a
-  places = ['ВГТУ', 'Netcracker'];
+//   places = ['ВГТУ', 'Netcracker'];
+  places!: OrganizationModel[];
   hidePassword = true;
-  filteredPlace: Observable<string[]> | undefined;
+  filteredPlace!: Observable<OrganizationModel[]>;
   placeCtrl = new FormControl()
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router,
+              private organizationService: OrganizationService) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -72,8 +76,15 @@ export class RegisterPageComponent implements OnInit {
 
   selectEmployment() {
     this.isEmployment = true;
-
-    //TODO необходимы запросы к бэку на вузы и компании
+    if (this.form.controls.employment.value == 'Студент'){
+      this.organizationService.getOrganization(1).subscribe(universities => {
+        this.places = universities;
+      });
+    } else {
+      this.organizationService.getOrganization(2).subscribe(companies => {
+        this.places = companies;
+      });
+    }
     this.filteredPlace = this.placeCtrl.valueChanges.pipe(
     startWith(''),
     map(value => this._filter(value))
@@ -82,6 +93,6 @@ export class RegisterPageComponent implements OnInit {
 
   private _filter(value: string) {
     const filterValue = value.toLowerCase();
-    return this.places.filter(place => place.toLowerCase().includes(filterValue));
+    return this.places.filter(place => place.name.toLowerCase().includes(filterValue));
   }
 }

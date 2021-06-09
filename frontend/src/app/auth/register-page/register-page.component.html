@@ -90,8 +90,8 @@
                    [formControl]="placeCtrl"
                    [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete" formControlName="place">
-              <mat-option *ngFor="let place of filteredPlace | async" [value]="place">
-                {{place}}
+              <mat-option *ngFor="let place of filteredPlace | async" [value]="place.name">
+                {{place.name}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
