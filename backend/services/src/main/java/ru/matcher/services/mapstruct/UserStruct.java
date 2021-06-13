@@ -14,6 +14,7 @@ import java.util.List;
  * Маппер для пользователя.
  *
  * @author Николай Евсюков
+ * @author Андрей Герасимов
  */
 @Mapper
 public interface UserStruct {
@@ -37,6 +38,7 @@ public interface UserStruct {
     @Mapping(target = "login", ignore = true)
     @Mapping(target = "picture", ignore = true)
     @Mapping(target = "picture.id", source = "pictureId")
+//    @Mapping(target = "userType", source = "")
     User fromDto(UserDto userDto);
 
 

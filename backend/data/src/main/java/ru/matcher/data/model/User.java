@@ -1,5 +1,7 @@
 package ru.matcher.data.model;
 
+import ru.matcher.commons.UserType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
  *
  * @author Максим Щербаков
  * @author Николай Евсюков
+ * @author Андрей Герасимов
  */
 @Entity
 @Table(name = "users", schema = "matcher")
@@ -36,6 +39,9 @@ public class User {
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
+
+    @Column(name = "user_type_id", nullable = false)
+    private UserType userType;
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
@@ -119,5 +125,13 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }
