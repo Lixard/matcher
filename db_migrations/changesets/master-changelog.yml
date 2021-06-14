@@ -10,7 +10,7 @@ databaseChangeLog:
         - onFail: MARK_RAN
         - sqlCheck:
             expectedResult: f
-            sql: SELECT exists(SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'aim');
+            sql: SELECT exists(SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'matcher');
       changes:
         - sqlFile:
             path: master/M-000.sql
