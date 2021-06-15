@@ -6,4 +6,6 @@ export interface UserCreate {
   secondName?: string;
   email?: string;
   phone?: string;
+  employment: string;
+  place: string;
 }

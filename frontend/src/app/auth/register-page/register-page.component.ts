@@ -20,12 +20,10 @@ export class RegisterPageComponent implements OnInit {
   isEmployment = false;
   emailPattern = '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$';
   namePattern = '^[a-zA-ZA-Яa-я]{1,}';
-//TODO ubrat' posle backend'a
-//   places = ['ВГТУ', 'Netcracker'];
   places!: OrganizationModel[];
   hidePassword = true;
   filteredPlace!: Observable<OrganizationModel[]>;
-  placeCtrl = new FormControl()
+  placeCtrl = new FormControl();
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router,
               private organizationService: OrganizationService) {}
@@ -35,6 +33,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   register(form: UserCreate) {
+    form.place = this.placeCtrl.value;
     this.auth.register(form).subscribe(
       () => {
         this.auth

@@ -17,6 +17,7 @@ import java.util.List;
  * Реализация интерфейса UserService.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 @Service
 public class UserServiceImpl implements IUserService {
@@ -37,9 +38,15 @@ public class UserServiceImpl implements IUserService {
     @Override
     @Transactional
     public UserDto create(UserCreateDto dto) {
+        System.out.println(dto);
         final var user = userStruct.fromDto(dto);
+        user.setFirstName(dto.getFirstName());
+        user.setSecondName(dto.getSecondName());
+        user.setLastName(dto.getLastName());
+        user.setEmail(dto.getEmail());
         user.setLogin(dto.getLogin());
         user.setPassword(passwordEncoderService.encode(dto.getPassword()));
+       // user.setUserType(dto.getUserType());
         userRepository.save(user);
         return userStruct.toDto(user);
     }
