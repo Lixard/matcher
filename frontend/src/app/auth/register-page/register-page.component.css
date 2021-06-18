@@ -26,3 +26,14 @@ mat-form-field {
   justify-content: center;
   align-items: center;
 }
+
+.container-selection {
+  width: 50%;
+}
+
+.end-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

@@ -52,18 +52,21 @@ public class UserServiceImpl implements IUserService {
     @Transactional
     public UserDto create(UserCreateDto dto) {
         final var user = userStruct.fromDto(dto);
-        user.setFirstName(dto.getFirstName());
-        user.setSecondName(dto.getSecondName());
-        user.setLastName(dto.getLastName());
-        user.setEmail(dto.getEmail());
-        user.setLogin(dto.getLogin());
-        user.setPassword(passwordEncoderService.encode(dto.getPassword()));
+        final var userBuilder = User.Builder.anUser()
+                .withFirstName(dto.getFirstName())
+                .withSecondName(dto.getSecondName())
+                .withLastName(dto.getLastName())
+                .withEmail(dto.getEmail())
+                .withLogin(dto.getLogin())
+                .withPassword(passwordEncoderService.encode(dto.getPassword()));
+
         if (Objects.equals(dto.getEmployment(), "Студент")) {
-            user.setUserType(UserType.STUDENT);
+            userBuilder.withUserType(UserType.STUDENT);
         } else {
-            user.setUserType(UserType.EMPLOYEE);
+            userBuilder.withUserType(UserType.EMPLOYEE);
         }
-        userRepository.save(user);
+
+        userRepository.save(userBuilder.build());
 
         User userDb = userRepository.findByLogin(dto.getLogin()).orElseThrow();
 

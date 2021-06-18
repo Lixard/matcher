@@ -25,6 +25,7 @@ export class RegisterPageComponent implements OnInit {
   filteredPlace!: Observable<OrganizationModel[]>;
   placeCtrl = new FormControl();
   student: boolean;
+  successfully: boolean = false;
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router,
               private organizationService: OrganizationService) {}
@@ -43,7 +44,7 @@ export class RegisterPageComponent implements OnInit {
           .subscribe(() => {
             this.auth.loadProfile().subscribe((profile) => {
               this.auth.user$.next(profile);
-              this.router.navigateByUrl(`/profile`);
+              this.successfully = true;
             });
           });
       },
