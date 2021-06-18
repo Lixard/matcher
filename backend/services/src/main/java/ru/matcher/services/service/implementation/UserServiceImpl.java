@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.commons.UserType;
 import ru.matcher.data.model.User;
-import ru.matcher.data.model.embedded.UserOrganisationEmbeddedId;
 import ru.matcher.data.repository.UserRepository;
 import ru.matcher.security.service.IPasswordEncoderService;
 import ru.matcher.services.dto.UserDto;
@@ -17,7 +16,6 @@ import ru.matcher.services.service.IUserOrganizationService;
 import ru.matcher.services.service.IUserService;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
@@ -66,30 +64,24 @@ public class UserServiceImpl implements IUserService {
             user.setUserType(UserType.EMPLOYEE);
         }
         userRepository.save(user);
-        System.out.println(dto.getPlace());
-        User userDb = userRepository.findByLogin(dto.getLogin()).orElse(null);
-        if (userDb != null) {
-            DateTimeFormatter formatter =
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+
+        User userDb = userRepository.findByLogin(dto.getLogin()).orElseThrow();
+
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
 
 
-            UserOrganizationDto userOrganizationDto = new UserOrganizationDto();
-            userOrganizationDto.setStartDate(LocalDate.parse(dto.getStartDate(), formatter));
-            userOrganizationDto.setUserId(userDb.getId());
-            userOrganizationDto.setOrganizationId(organizationService.findByName(dto.getPlace()).getId());
+        final var userOrganizationBuilder = UserOrganizationDto.Builder.anUserOrganizationDto()
+                .withUserId(userDb.getId())
+                .withOrganizationId(organizationService.findByName(dto.getPlace()).getId())
+                .withStartDate(LocalDate.parse(dto.getStartDate(), formatter))
+                .withIsAdmin(dto.isAdmin());
 
-            UserOrganisationEmbeddedId userOrganisationEmbeddedId = new UserOrganisationEmbeddedId();
-            userOrganisationEmbeddedId.setUser(userDb.getId());
-            userOrganisationEmbeddedId.setOrganization(organizationService.findByName(dto.getPlace()).getId());
-            userOrganizationDto.setId(userOrganisationEmbeddedId);
-
-            if (!dto.getEndDate().isBlank()) {
-                userOrganizationDto.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
-            }
-
-            userOrganizationDto.setAdmin(dto.isAdmin());
-            userOrganizationService.create(userOrganizationDto);
+        if (!dto.getEndDate().isBlank()) {
+            userOrganizationBuilder.withEndDate(LocalDate.parse(dto.getEndDate(), formatter));
         }
+
+        userOrganizationService.create(userOrganizationBuilder.build());
 
         return userStruct.toDto(user);
     }

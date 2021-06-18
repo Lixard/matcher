@@ -1,6 +1,6 @@
 package ru.matcher.services.service;
 
-import ru.matcher.data.model.embedded.UserOrganisationEmbeddedId;
+import ru.matcher.data.model.embedded.UserOrganizationEmbeddedId;
 import ru.matcher.services.dto.UserOrganizationDto;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public interface IUserOrganizationService {
      *
      * @param userOrganizationId идентификатор UserOrganization
      */
-    void remove(UserOrganisationEmbeddedId userOrganizationId);
+    void remove(UserOrganizationEmbeddedId userOrganizationId);
 
     /**
      * Возвращяет список UserOrganizationDto из БД.
@@ -48,5 +48,5 @@ public interface IUserOrganizationService {
      * @param userOrganizationId идентификатор UserOrganization
      * @return найденный объект класса UserOrganizationDto
      */
-    UserOrganizationDto findById(UserOrganisationEmbeddedId userOrganizationId);
+    UserOrganizationDto findById(UserOrganizationEmbeddedId userOrganizationId);
 }

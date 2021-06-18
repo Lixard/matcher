@@ -11,7 +11,8 @@ import java.util.Objects;
  * @author Максим Щербаков
  */
 @Embeddable
-public class UserOrganisationEmbeddedId implements Serializable {
+public class UserOrganizationEmbeddedId implements Serializable {
+
     @Column(name = "user_id")
     private Integer user;
 
@@ -36,9 +37,13 @@ public class UserOrganisationEmbeddedId implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserOrganisationEmbeddedId that = (UserOrganisationEmbeddedId) o;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UserOrganizationEmbeddedId that = (UserOrganizationEmbeddedId) o;
         return Objects.equals(user, that.user) &&
                 Objects.equals(organization, that.organization);
     }

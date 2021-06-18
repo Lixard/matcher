@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.UserOrganization;
-import ru.matcher.data.model.embedded.UserOrganisationEmbeddedId;
+import ru.matcher.data.model.embedded.UserOrganizationEmbeddedId;
 import ru.matcher.data.repository.UserOrganizationRepository;
 import ru.matcher.services.dto.UserOrganizationDto;
 import ru.matcher.services.mapstruct.UserOrganizationStruct;
@@ -48,7 +48,7 @@ public class UserOrganizationServiceImpl implements IUserOrganizationService {
 
     @Override
     @Transactional
-    public void remove(UserOrganisationEmbeddedId userOrganizationId) {
+    public void remove(UserOrganizationEmbeddedId userOrganizationId) {
         userOrganizationRepository.deleteById(userOrganizationId);
     }
 
@@ -58,7 +58,7 @@ public class UserOrganizationServiceImpl implements IUserOrganizationService {
     }
 
     @Override
-    public UserOrganizationDto findById(UserOrganisationEmbeddedId userOrganizationId) {
+    public UserOrganizationDto findById(UserOrganizationEmbeddedId userOrganizationId) {
         return userOrganizationStruct.toDto(userOrganizationRepository.findById(userOrganizationId).orElse(null));
     }
 }

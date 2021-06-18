@@ -1,7 +1,5 @@
 package ru.matcher.services.dto;
 
-import ru.matcher.data.model.embedded.UserOrganisationEmbeddedId;
-
 import java.time.LocalDate;
 
 /**
@@ -11,20 +9,11 @@ import java.time.LocalDate;
  */
 public class UserOrganizationDto {
 
-    private UserOrganisationEmbeddedId id;
     private Integer userId;
     private Integer organizationId;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean isAdmin;
-
-    public UserOrganisationEmbeddedId getId() {
-        return id;
-    }
-
-    public void setId(UserOrganisationEmbeddedId id) {
-        this.id = id;
-    }
 
     public Integer getUserId() {
         return userId;
@@ -64,5 +53,56 @@ public class UserOrganizationDto {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public static final class Builder {
+
+        private Integer userId;
+        private Integer organizationId;
+        private LocalDate startDate;
+        private LocalDate endDate;
+        private boolean isAdmin;
+
+        private Builder() {
+        }
+
+        public static Builder anUserOrganizationDto() {
+            return new Builder();
+        }
+
+        public Builder withUserId(Integer userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder withOrganizationId(Integer organizationId) {
+            this.organizationId = organizationId;
+            return this;
+        }
+
+        public Builder withStartDate(LocalDate startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+
+        public Builder withEndDate(LocalDate endDate) {
+            this.endDate = endDate;
+            return this;
+        }
+
+        public Builder withIsAdmin(boolean isAdmin) {
+            this.isAdmin = isAdmin;
+            return this;
+        }
+
+        public UserOrganizationDto build() {
+            UserOrganizationDto userOrganizationDto = new UserOrganizationDto();
+            userOrganizationDto.setUserId(userId);
+            userOrganizationDto.setOrganizationId(organizationId);
+            userOrganizationDto.setStartDate(startDate);
+            userOrganizationDto.setEndDate(endDate);
+            userOrganizationDto.isAdmin = this.isAdmin;
+            return userOrganizationDto;
+        }
     }
 }
