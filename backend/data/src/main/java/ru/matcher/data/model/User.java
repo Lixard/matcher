@@ -1,5 +1,7 @@
 package ru.matcher.data.model;
 
+import ru.matcher.commons.UserType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
  *
  * @author Максим Щербаков
  * @author Николай Евсюков
+ * @author Андрей Герасимов
  */
 @Entity
 @Table(name = "users", schema = "matcher")
@@ -36,6 +39,9 @@ public class User {
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
+
+    @Column(name = "user_type_id", nullable = false)
+    private UserType userType;
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
@@ -119,5 +125,98 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    public static final class Builder {
+        private Integer id;
+        private Picture picture;
+        private String login;
+        private String password;
+        private String firstName;
+        private UserType userType;
+        private String lastName;
+        private String secondName;
+        private String email;
+        private String phone;
+
+        private Builder() {
+        }
+
+        public static Builder anUser() {
+            return new Builder();
+        }
+
+        public Builder withId(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withPicture(Picture picture) {
+            this.picture = picture;
+            return this;
+        }
+
+        public Builder withLogin(String login) {
+            this.login = login;
+            return this;
+        }
+
+        public Builder withPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder withFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder withUserType(UserType userType) {
+            this.userType = userType;
+            return this;
+        }
+
+        public Builder withLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder withSecondName(String secondName) {
+            this.secondName = secondName;
+            return this;
+        }
+
+        public Builder withEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder withPhone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public User build() {
+            User user = new User();
+            user.setId(id);
+            user.setPicture(picture);
+            user.setLogin(login);
+            user.setPassword(password);
+            user.setFirstName(firstName);
+            user.setUserType(userType);
+            user.setLastName(lastName);
+            user.setSecondName(secondName);
+            user.setEmail(email);
+            user.setPhone(phone);
+            return user;
+        }
     }
 }

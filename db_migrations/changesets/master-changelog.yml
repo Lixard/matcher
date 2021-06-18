@@ -67,3 +67,15 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-004.rollback.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 5
+      author: Andrey Gerasimov
+      comment: Add user type enum
+      changes:
+        - sqlFile:
+            path: master/M-005.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-005.rollback.sql
+            relativeToChangelogFile: true

@@ -3,6 +3,7 @@ package ru.matcher.services.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.matcher.commons.OrganizationType;
 import ru.matcher.data.model.Organization;
 import ru.matcher.data.repository.OrganizationRepository;
 import ru.matcher.services.dto.OrganizationDto;
@@ -15,6 +16,7 @@ import java.util.List;
  * Реализация интерфейса OrganizationService.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 @Service
 public class OrganizationServiceImpl implements IOrganizationService {
@@ -59,5 +61,19 @@ public class OrganizationServiceImpl implements IOrganizationService {
     @Override
     public OrganizationDto findById(int organizationId) {
         return organizationStruct.toDto(organizationRepository.findById(organizationId).orElse(null));
+    }
+
+    @Override
+    public List<OrganizationDto> findByOrganizationType(Integer organizationType) {
+        if (organizationType == 1) {
+            return organizationStruct.toDto(organizationRepository.findByOrganizationType(OrganizationType.UNIVERSITY));
+        } else {
+            return organizationStruct.toDto(organizationRepository.findByOrganizationType(OrganizationType.COMPANY));
+        }
+    }
+
+    @Override
+    public OrganizationDto findByName(String name) {
+        return organizationStruct.toDto(organizationRepository.findByName(name));
     }
 }

@@ -1,4 +1,6 @@
 <div class="page">
+  <mat-horizontal-stepper linear #stepper class="container-selection">
+    <mat-step label="Информация" [stepControl]="form">
   <form [formGroup]="form">
     <mat-card class="register-card">
       <mat-card-content>
@@ -72,22 +74,84 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-error *ngIf="form.get('login')!.hasError('unknown-error')"
-          >Произошла ошибка. Возможно такой логин уже существует.
-          </mat-error>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Занятость</mat-label>
+            <mat-select formControlName="employment">
+              <mat-option *ngFor="let employment of employments" [value]="employment" (click)="selectEmployment()">
+                {{employment}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            color="primary"
+            matStepperNext
+            [disabled]="!form.valid && isEmployment"
+            class="btn btn-small btn-select"
+          >
+            Далее
+          </button>
         </div>
       </mat-card-content>
+    </mat-card>
+  </form>
+    </mat-step>
+
+    <mat-step label="Организация" [stepControl]="form">
+      <form [formGroup]="form">
+          <mat-form-field class="mat-form-selection">
+            <mat-label>Организация</mat-label>
+            <input type="text"
+                   placeholder="Выберите организацию"
+                   aria-label="Организация"
+                   matInput
+                   [formControl]="placeCtrl"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" formControlName="place">
+              <mat-option *ngFor="let place of filteredPlace | async" [value]="place.name">
+                {{place.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Дата начала</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="student">
+          <mat-label>Дата конца</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
+
       <mat-card-actions class="buttons">
         <button
           (click)="register(form.value)"
           [disabled]="!form.valid"
           color="primary"
           mat-flat-button
+          matStepperNext
           type="submit"
         >
           Зарегистрироваться
         </button>
       </mat-card-actions>
-    </mat-card>
-  </form>
+    </mat-step>
+    <mat-step label="Конец">
+      <div class="end-content">
+        <mat-error *ngIf="form.get('login')!.hasError('unknown-error')"
+        >Произошла ошибка. Возможно такой логин уже существует.
+        </mat-error>
+        <span *ngIf="successfully">Вы успешно зарегистрировались!</span>
+        <button mat-flat-button color="primary" routerLink="/profile" *ngIf="successfully">В профиль</button>
+        <button mat-flat-button color="primary" (click)="stepper.reset()" *ngIf="!successfully">Заново</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
 </div>

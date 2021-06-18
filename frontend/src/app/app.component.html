@@ -1,3 +1,18 @@
+<mat-toolbar
+  color="primary"
+  class="mat-elevation-z6 tbar"
+>
+  <a routerLink="/" style="font-size: 20px" mat-button>Matcher</a>
+
+  <ng-container *ngIf="user.authenticated">
+    <a routerLink="/groups" mat-button>Проекты</a>
+  </ng-container>
+
+<!--  <a routerLink="/about" mat-button>about</a>-->
+
+  <app-user-menu [user] = user></app-user-menu>
+
+</mat-toolbar>
 <div>
   <router-outlet></router-outlet>
 </div>

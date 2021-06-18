@@ -89,4 +89,9 @@ public class OrganizationController {
     public OrganizationDto getOrganizationById(@PathVariable Integer id) {
         return organizationService.findById(id);
     }
+
+    @GetMapping("/type/{id}")
+    public List<OrganizationDto> findByOrganizationType(@PathVariable Integer id) {
+        return organizationService.findByOrganizationType(id);
+    }
 }

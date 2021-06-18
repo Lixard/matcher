@@ -15,6 +15,8 @@ import { CurrentUser } from '../models/users/current-user.model';
 })
 export class AuthGuard implements CanActivate {
   user!: CurrentUser;
+  private next: ActivatedRouteSnapshot;
+  private state: RouterStateSnapshot;
 
   constructor(private router: Router, private auth: AuthService) {}
 
@@ -22,6 +24,8 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    this.next = next;
+    this.state = state;
     this.auth.user$.subscribe((u) => (this.user = u));
     if (this.user.authenticated) {
       return true;

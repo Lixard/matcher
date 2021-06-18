@@ -1,9 +1,13 @@
 package ru.matcher.services.dto;
 
+import ru.matcher.commons.OrganizationType;
+import ru.matcher.commons.UserType;
+
 /**
  * Dto класс для пользователя.
  *
  * @author Николай Евсюков
+ * @author Андрей Герасимов
  */
 public class UserDto {
 
@@ -14,6 +18,15 @@ public class UserDto {
     private String secondName;
     private String email;
     private String phone;
+    private UserType userType;
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
 
     public Integer getId() {
         return id;
