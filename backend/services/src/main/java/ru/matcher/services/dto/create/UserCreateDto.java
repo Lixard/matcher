@@ -18,6 +18,9 @@ public class UserCreateDto extends UserDto {
     private String email;
     private String employment;
     private String place;
+    private String startDate;
+    private String endDate;
+    private boolean isAdmin;
 
     @Override
     public String getFirstName() {
@@ -67,14 +70,6 @@ public class UserCreateDto extends UserDto {
         this.employment = employment;
     }
 
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
     public String getLogin() {
         return login;
     }
@@ -89,5 +84,37 @@ public class UserCreateDto extends UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface OrganizationRepository extends JpaRepository<Organization, Integer> {
     List<Organization> findByOrganizationType(OrganizationType organizationType);
+
+    Organization findByName(String name);
 }

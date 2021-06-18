@@ -59,4 +59,12 @@ public interface IOrganizationService {
      * @return список OrganizationDto
      */
     List<OrganizationDto> findByOrganizationType(Integer organizationType);
+
+    /**
+     * Поиск Organization по имени.
+     *
+     * @param name имя организации
+     * @return найденный объект класса OrganizationDto
+     */
+    OrganizationDto findByName(String name);
 }

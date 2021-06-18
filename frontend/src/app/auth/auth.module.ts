@@ -13,11 +13,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import {MatSelectModule} from "@angular/material/select";
-import {MatOptionModule} from "@angular/material/core";
+import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {UserMenuComponent} from "./user-menu/user-menu.component";
 import {MatMenuModule} from "@angular/material/menu";
 import {ValidationModule} from "../features/validators/validation.module";
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [LoginPageComponent, RegisterPageComponent, UserMenuComponent],
@@ -36,8 +38,15 @@ import {ValidationModule} from "../features/validators/validation.module";
     MatSelectModule,
     MatOptionModule,
     MatAutocompleteModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [LOAD_CURRENT_USER_INITIALIZER],
+  providers: [
+    LOAD_CURRENT_USER_INITIALIZER,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   exports: [
     UserMenuComponent
   ]

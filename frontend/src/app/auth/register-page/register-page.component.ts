@@ -24,6 +24,7 @@ export class RegisterPageComponent implements OnInit {
   hidePassword = true;
   filteredPlace!: Observable<OrganizationModel[]>;
   placeCtrl = new FormControl();
+  student: boolean;
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router,
               private organizationService: OrganizationService) {}
@@ -63,7 +64,9 @@ export class RegisterPageComponent implements OnInit {
       secondName: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.namePattern),Validators.maxLength(50)]),
       email: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.emailPattern), Validators.maxLength(50)]),
       employment: this.fb.control(''),
-      place: this.fb.control('')
+      place: this.fb.control(''),
+      startDate: this.fb.control(''),
+      endDate: this.fb.control('')
     });
   }
 
@@ -76,22 +79,31 @@ export class RegisterPageComponent implements OnInit {
   selectEmployment() {
     this.isEmployment = true;
     if (this.form.controls.employment.value == 'Студент'){
+      this.student = true;
       this.organizationService.getOrganization(1).subscribe(universities => {
+        this.places = [];
         this.places = universities;
+        this.filteredPlace = this.placeCtrl.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
       });
     } else {
+      this.student = false;
       this.organizationService.getOrganization(2).subscribe(companies => {
+        this.places = [];
         this.places = companies;
+        this.filteredPlace = this.placeCtrl.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
       });
     }
-    this.filteredPlace = this.placeCtrl.valueChanges.pipe(
-    startWith(''),
-    map(value => this._filter(value))
-    );
   }
 
   private _filter(value: string) {
     const filterValue = value.toLowerCase();
     return this.places.filter(place => place.name.toLowerCase().includes(filterValue));
   }
+
 }

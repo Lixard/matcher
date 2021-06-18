@@ -27,7 +27,7 @@ public interface UserStruct {
      * @return объект класса UserDto
      */
     @Mapping(target = "pictureId", source = "picture.id")
-    @Mapping(target = "userType", source = "userType.id")
+    @Mapping(target = "userType", source = "userType")
     UserDto toDto(User user);
 
     /**
@@ -40,7 +40,7 @@ public interface UserStruct {
     @Mapping(target = "login", ignore = true)
     @Mapping(target = "picture", ignore = true)
     @Mapping(target = "picture.id", source = "pictureId")
-    @Mapping(target = "userType.id", source = "userType")
+    @Mapping(target = "userType", source = "userType")
     User fromDto(UserDto userDto);
 
 

@@ -8,4 +8,7 @@ export interface UserCreate {
   phone?: string;
   employment: string;
   place: string;
+  startDate: string;
+  endDate?: string;
+  isAdmin: boolean;
 }

@@ -16,6 +16,7 @@ import java.util.List;
  * Реализация интерфейса OrganizationService.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 @Service
 public class OrganizationServiceImpl implements IOrganizationService {
@@ -69,5 +70,10 @@ public class OrganizationServiceImpl implements IOrganizationService {
         } else {
             return organizationStruct.toDto(organizationRepository.findByOrganizationType(OrganizationType.COMPANY));
         }
+    }
+
+    @Override
+    public OrganizationDto findByName(String name) {
+        return organizationStruct.toDto(organizationRepository.findByName(name));
     }
 }

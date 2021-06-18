@@ -1,4 +1,6 @@
 <div class="page">
+  <mat-horizontal-stepper [linear]="true" #stepper class="container-selection">
+    <mat-step label="Информация">
   <form [formGroup]="form">
     <mat-card class="register-card">
       <mat-card-content>
@@ -72,6 +74,7 @@
             </mat-error>
           </mat-form-field>
 
+
           <mat-form-field appearance="fill">
             <mat-label>Занятость</mat-label>
             <mat-select formControlName="employment">
@@ -80,8 +83,27 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <button
+            mat-raised-button
+            color="primary"
+            matStepperNext
+            [disabled]="!form.valid && isEmployment"
+            class="btn btn-small btn-select"
+          >
+            Далее
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-error *ngIf="form.get('login')!.hasError('unknown-error')"
+    >Произошла ошибка. Возможно такой логин уже существует.
+    </mat-error>
+  </form>
+    </mat-step>
 
-          <mat-form-field class="mat-form-selection" *ngIf="isEmployment">
+    <mat-step label="Организация">
+      <form [formGroup]="form">
+          <mat-form-field class="mat-form-selection">
             <mat-label>Организация</mat-label>
             <input type="text"
                    placeholder="Выберите организацию"
@@ -96,22 +118,36 @@
             </mat-autocomplete>
           </mat-form-field>
 
-          <mat-error *ngIf="form.get('login')!.hasError('unknown-error')"
-          >Произошла ошибка. Возможно такой логин уже существует.
-          </mat-error>
-        </div>
-      </mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Дата начала</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="student">
+          <mat-label>Дата конца</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
+
       <mat-card-actions class="buttons">
         <button
           (click)="register(form.value)"
           [disabled]="!form.valid"
           color="primary"
           mat-flat-button
+          matStepperNext
           type="submit"
         >
           Зарегистрироваться
         </button>
       </mat-card-actions>
-    </mat-card>
-  </form>
+    </mat-step>
+    <mat-step label="Конец">
+      <span>Вы успешно зарегистрировались!</span>
+    </mat-step>
+  </mat-horizontal-stepper>
 </div>
