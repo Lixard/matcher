@@ -13,4 +13,8 @@ export class OrganizationService {
   getOrganization(typeId: number): Observable<OrganizationModel[]> {
     return this.http.get<OrganizationModel[]>(`api/organizations/type/${typeId}`);
   }
+
+  createOrganization(organization: OrganizationModel): Observable<void> {
+    return this.http.post<void>(`api/organizations`, organization);
+  }
 }

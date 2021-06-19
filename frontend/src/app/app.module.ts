@@ -18,6 +18,11 @@ import {ProfilesModule} from './profiles/profiles.module';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {ProjectModule} from "./project/project.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatSelectModule} from "@angular/material/select";
+import {MatDialogModule} from "@angular/material/dialog";
+import {OrganizationModule} from "./organization/organization.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,6 +44,10 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MatToolbarModule,
     ProjectModule,
     FlexLayoutModule
+    OrganizationModule,
+    NgbModule,
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],
