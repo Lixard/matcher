@@ -1,0 +1,20 @@
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" *ngFor="let project of projects">
+      <mat-card class="mat-elevation-z4">
+        <mat-card-header>
+          <mat-card-title class="text-center">{{project.name}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="getProjectImage(project)" width="200px" height="200px">
+        <mat-card-content>
+          <p>
+            {{project.description}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-flat-button color="primary">Подробнее</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

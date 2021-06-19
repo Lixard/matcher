@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LoginPageComponent} from './login-page/login-page.component';
+import {RegisterPageComponent} from './register-page/register-page.component';
+import {ProjectsComponent} from "../project/projects/projects.component";
 
 const routes: Routes = [
   {
@@ -21,11 +22,12 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () =>
       import('../profiles/profiles-routing.module').then((m) => m.ProfilesRoutingModule),
-  },
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AuthRoutingModule {}
+export class AuthRoutingModule {
+}
