@@ -12,10 +12,11 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatCardModule} from "@angular/material/card";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [StudentProfilePageComponent, EditStudentProfilePageComponent],
-  imports: [CommonModule, ProfilesRoutingModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatStepperModule, MatSelectModule, MatCardModule, MatAutocompleteModule, MatDatepickerModule],
+  imports: [CommonModule, ProfilesRoutingModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatStepperModule, MatSelectModule, MatCardModule, MatAutocompleteModule, MatDatepickerModule, ReactiveFormsModule],
 })
 export class ProfilesModule {
 }

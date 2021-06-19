@@ -2,7 +2,7 @@
   <ng-container *ngIf="user.authenticated; else anonymousMenu ">
     <a
       mat-button
-      routerLink="/profile"
+      href="/profile/user/{{user.id}}"
       style="font-size: 15px; padding: 15px 15px;"
     >
       {{ user.login }}
