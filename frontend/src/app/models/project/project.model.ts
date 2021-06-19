@@ -1,6 +1,8 @@
+import {Picture} from "../picture/picture.model";
+
 export interface Project {
   id: number;
-  pictureId: number;
+  picture: Picture;
   name: string;
   description: string;
   isActive: boolean;
