@@ -21,6 +21,7 @@ public interface ProjectStruct {
      * @param project объект класса Project
      * @return объект класса ProjectDto
      */
+    @Mapping(target = "pictureId", source = "picture.id")
     ProjectDto toDto(Project project);
 
     /**
@@ -29,6 +30,7 @@ public interface ProjectStruct {
      * @param projectDto объект класса ProjectDto
      * @return объект класса Project
      */
+    @Mapping(target = "picture.id", source = "pictureId")
     Project fromDto(ProjectDto projectDto);
 
     /**
