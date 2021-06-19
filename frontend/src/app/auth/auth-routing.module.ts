@@ -21,11 +21,12 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () =>
       import('../profiles/profiles-routing.module').then((m) => m.ProfilesRoutingModule),
-  },
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AuthRoutingModule {}
+export class AuthRoutingModule {
+}
