@@ -38,8 +38,7 @@ public interface UserStruct {
      */
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "login", ignore = true)
-    @Mapping(target = "picture", ignore = true)
-    @Mapping(target = "picture.id", source = "pictureId")
+    @Mapping(target = "picture", source = "pictureId", qualifiedByName = "setPictureId")
     @Mapping(target = "userType", source = "userType")
     User fromDto(UserDto userDto);
 
