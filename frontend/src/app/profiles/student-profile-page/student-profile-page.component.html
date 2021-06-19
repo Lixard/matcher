@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-md-7 mx-auto">
-    <!-- Profile widget -->
     <div class="bg-white shadow rounded overflow-hidden">
       <div class="px-4 pt-0 pb-4 cover">
         <div class="media align-items-end profile-head">
           <div class="profile mr-3"><img src="" alt="(Нет фотографии)" width="250"
                                          class="rounded mb-2 img-thumbnail">
-            <a href="/edit" *ngIf="change" class="btn btn-outline-primary btn-sm btn-block">Изменить профиль</a></div>
+            <button (click)="edit()" *ngIf="change" class="btn btn-outline-primary btn-sm btn-block">Изменить профиль</button>
+          </div>
           <div class="media-body mb-5 text-white">
             <h1 class="mt-0 mb-1 font-weight-bold">{{user.lastName}} {{user.firstName}} {{user.secondName}}</h1>
             <p class="mb-4 font-weight-bold"><i class="fas fa-map-marker-alt mr-2 "></i>{{user.userType}}</p>

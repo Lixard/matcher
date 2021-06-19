@@ -13,4 +13,8 @@ export class UserService {
   getUserData(userId: number): Observable<User> {
     return this.http.get<User>(`/api/users/${userId}`)
   }
+
+  updateUser(user: User): Observable<void> {
+    return this.http.put<void>(`api/users/${user.id}`, user);
+  }
 }

@@ -3,3 +3,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/matcher
     password: 123
     username: postgres
+servlet:
+  multipart:
+    enabled: true
+    max-request-size: 20MB
+    max-file-size: 20MB

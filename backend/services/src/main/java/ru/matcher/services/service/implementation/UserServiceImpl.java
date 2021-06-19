@@ -10,8 +10,10 @@ import ru.matcher.security.service.IPasswordEncoderService;
 import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.dto.UserOrganizationDto;
 import ru.matcher.services.dto.create.UserCreateDto;
+import ru.matcher.services.mapstruct.PictureStruct;
 import ru.matcher.services.mapstruct.UserStruct;
 import ru.matcher.services.service.IOrganizationService;
+import ru.matcher.services.service.IPictureService;
 import ru.matcher.services.service.IUserOrganizationService;
 import ru.matcher.services.service.IUserService;
 
@@ -35,17 +37,21 @@ public class UserServiceImpl implements IUserService {
     private final IPasswordEncoderService passwordEncoderService;
     private final IUserOrganizationService userOrganizationService;
     private final IOrganizationService organizationService;
+    private final IPictureService pictureService;
+    private final PictureStruct pictureStruct;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            UserStruct userStruct,
                            IPasswordEncoderService passwordEncoderService,
-                           IUserOrganizationService userOrganizationService, IOrganizationService organizationService) {
+                           IUserOrganizationService userOrganizationService, IOrganizationService organizationService, IPictureService pictureService, PictureStruct pictureStruct) {
         this.userRepository = userRepository;
         this.userStruct = userStruct;
         this.passwordEncoderService = passwordEncoderService;
         this.userOrganizationService = userOrganizationService;
         this.organizationService = organizationService;
+        this.pictureService = pictureService;
+        this.pictureStruct = pictureStruct;
     }
 
     @Override
@@ -93,7 +99,19 @@ public class UserServiceImpl implements IUserService {
     @Transactional
     public UserDto update(UserDto userDto) {
         User user = userStruct.fromDto(userDto);
-        userRepository.save(user);
+        User userdb = userRepository.getOne(userDto.getId());
+        final var  userBuilder = User.Builder.anUser()
+                .withId(userdb.getId())
+                .withFirstName(userDto.getFirstName())
+                .withSecondName(userDto.getSecondName())
+                .withLastName(userDto.getLastName())
+                .withPicture(pictureStruct.fromDto(pictureService.findById(userDto.getPictureId())))
+                .withEmail(userDto.getEmail())
+                .withLogin(userdb.getLogin())
+                .withPassword(userdb.getPassword())
+                .withUserType(userDto.getUserType());
+
+        userRepository.save(userBuilder.build());
         return userStruct.toDto(user);
     }
 

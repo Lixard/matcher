@@ -1,0 +1,9 @@
+.register-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+mat-form-field {
+  width: 100%;
+}
+

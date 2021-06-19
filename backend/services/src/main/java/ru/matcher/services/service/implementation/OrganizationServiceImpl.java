@@ -76,4 +76,9 @@ public class OrganizationServiceImpl implements IOrganizationService {
     public OrganizationDto findByName(String name) {
         return organizationStruct.toDto(organizationRepository.findByName(name));
     }
+
+    @Override
+    public boolean isAdmin(Integer userId, Integer orgId) {
+        return false;
+    }
 }

@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/users/user.model";
-import {ActiveDescendantKeyManager} from "@angular/cdk/a11y";
 import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {EditStudentProfilePageComponent} from "../edit-student-profile-page/edit-student-profile-page.component";
 
 @Component({
   selector: 'app-student-profile-page',
@@ -16,7 +17,8 @@ export class StudentProfilePageComponent implements OnInit {
   user!: User;
   change: boolean = false;
 
-  constructor(private authService: AuthService, private userService: UserService, private route: ActivatedRoute) {
+  constructor(private authService: AuthService, private userService: UserService, private route: ActivatedRoute,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -36,6 +38,27 @@ export class StudentProfilePageComponent implements OnInit {
       })
     },error => {
       console.log(error)
+      });
+  }
+
+  edit() {
+    const dialogRef = this.dialog.open(EditStudentProfilePageComponent, {
+      width: '80%',
+      height: '80%',
+      data: this.user
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.user = result.value;
+          this.userService.updateUser(this.user).subscribe(() => {
+            },
+            (error) => {
+              console.log(error);
+            });
+        }
+      },
+      () => {
       });
   }
 }

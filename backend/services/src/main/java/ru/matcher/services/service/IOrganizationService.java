@@ -67,4 +67,13 @@ public interface IOrganizationService {
      * @return найденный объект класса OrganizationDto
      */
     OrganizationDto findByName(String name);
+
+    /**
+     * Проверка является ли пользователем админом организации
+     *
+     * @param userId id пользователя
+     * @param orgId id организации
+     * @return является ли пользователем админом организации
+     */
+    boolean isAdmin(Integer userId, Integer orgId);
 }

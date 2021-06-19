@@ -16,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfilesModule } from './profiles/profiles.module';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
         MatButtonModule,
         AuthModule,
         ProfilesModule,
-        MatToolbarModule
+        MatToolbarModule,
+        NgbModule
     ],
   providers: [],
   bootstrap: [AppComponent],
