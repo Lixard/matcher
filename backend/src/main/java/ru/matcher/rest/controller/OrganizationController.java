@@ -95,6 +95,11 @@ public class OrganizationController {
         return organizationService.findByOrganizationType(id);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<OrganizationDto> findOrganizationsByUserId(@PathVariable int userId) {
+        return organizationService.getOrganizationsByUser(userId);
+    }
+
 //    @PostMapping("/admin/{userId}/{orgId}")
 //    public boolean isAdmin(@PathVariable("userId") Integer userId, @PathVariable("orgId") Integer orgId) {
 //        return

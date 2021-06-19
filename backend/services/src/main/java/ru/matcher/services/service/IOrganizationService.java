@@ -1,7 +1,5 @@
 package ru.matcher.services.service;
 
-import ru.matcher.commons.OrganizationType;
-import ru.matcher.data.model.Organization;
 import ru.matcher.services.dto.OrganizationDto;
 
 import java.util.List;
@@ -68,11 +66,13 @@ public interface IOrganizationService {
      */
     OrganizationDto findByName(String name);
 
+    List<OrganizationDto> getOrganizationsByUser(int userId);
+
     /**
      * Проверка является ли пользователем админом организации
      *
      * @param userId id пользователя
-     * @param orgId id организации
+     * @param orgId  id организации
      * @return является ли пользователем админом организации
      */
     boolean isAdmin(Integer userId, Integer orgId);
