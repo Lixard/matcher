@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {ProjectService} from "../../services/project.service";
 import {Project} from "../../models/project/project.model";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../services/user.service";
-import {User} from "../../models/users/user.model";
 import {UserProject} from "../../models/users/user-project.model";
+import {PictureService} from "../../services/picture.service";
 
 @Component({
   selector: 'app-project-page',
@@ -22,7 +21,8 @@ export class ProjectPageComponent implements OnInit {
 
   constructor(private projectService: ProjectService,
               private userService: UserService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private pictureService: PictureService) {
   }
 
   ngOnInit(): void {
@@ -32,28 +32,43 @@ export class ProjectPageComponent implements OnInit {
   projectData() {
     this.projectService.getProject(this.route.snapshot.params.projectId).subscribe((projectNow) => {
         this.project = projectNow;
-        if (projectNow.isActive){
-          this.activeProject = "Проект закрыт"
-        }
-        else {
-          this.activeProject = "Проект актуален"
-        }
-        this.projectService.getParticipantsByProjectId(this.project.id).subscribe((usersNow)=>{
-          for(let user of usersNow) {
-            if(user.isAdmin) {
-              this.userAdmins.push(user);
-            } else {
-              this.users.push(user);
-            }
-          }
-        },
-          (error) => {
-            console.log(error);
-          })
+        this.isActiveProject(projectNow);
+        this.getParticipants();
       },
       error => {
-        console.log(error)
+        console.error(error)
       })
   }
 
+  setPicture(): string {
+    if (this.project.picture === null) {
+      return this.pictureService.getDefaultPictureUrl();
+    } else {
+      return 'data:' + this.project.picture.type + ';base64,' + this.project.picture.data;
+    }
+  }
+
+  isActiveProject(project: Project) {
+    if (project.active) {
+      this.activeProject = "Проект актуален"
+    } else {
+      this.activeProject = "Проект закрыт"
+    }
+  }
+
+  getParticipants() {
+    this.projectService.getParticipantsByProjectId(this.project.id).subscribe(
+      usersNow => {
+        for (let user of usersNow) {
+          if (user.isAdmin) {
+            this.userAdmins.push(user);
+          } else {
+            this.users.push(user);
+          }
+        }
+      },
+      (error) => {
+        console.error(error);
+      })
+  }
 }
