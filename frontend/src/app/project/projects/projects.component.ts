@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Project} from '../../models/project/project.model';
-import {ProjectService} from '../../services/project.service';
-import {Picture} from '../../models/picture/picture.model';
-import {PictureService} from '../../services/picture.service';
+import { Component, OnInit } from '@angular/core';
+import { Project } from '../../models/project/project.model';
+import { ProjectService } from '../../services/project.service';
+import { Picture } from '../../models/picture/picture.model';
+import { PictureService } from '../../services/picture.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-projects',
@@ -15,7 +16,8 @@ export class ProjectsComponent implements OnInit {
   picture: Picture;
 
   constructor(private projectService: ProjectService,
-              private pictureService: PictureService) {
+              private pictureService: PictureService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -30,6 +32,10 @@ export class ProjectsComponent implements OnInit {
     );
   }
 
+  navigateToProject(projectId: number) {
+    this.router.navigateByUrl(`/profile/project/${projectId}`);
+  }
+  
   setPicture(project: Project): string {
     if (project.picture === null) {
       return this.pictureService.getDefaultPictureUrl();

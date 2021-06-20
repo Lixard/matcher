@@ -41,6 +41,7 @@ import {ProjectModule} from "./project/project.module";
     ProfilesModule,
     ProjectModule,
     OrganizationModule,
+    ProjectModule,
     MatToolbarModule,
     NgbModule,
     MatSelectModule,

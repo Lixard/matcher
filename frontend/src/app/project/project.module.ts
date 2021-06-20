@@ -6,9 +6,10 @@ import {ProjectRoutingModule} from "./project-routing.module";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { ProjectPageComponent } from './project-page/project-page.component';
 
 @NgModule({
-  declarations: [ProjectsComponent],
+  declarations: [ProjectsComponent, ProjectPageComponent],
   imports: [CommonModule, ProjectRoutingModule, MatCardModule, MatButtonModule, FlexLayoutModule]
 })
 export class ProjectModule {

@@ -11,20 +11,12 @@ import java.time.LocalDate;
  */
 public class ProjectParticipationDto {
 
-    private ProjectUserEmbeddedId id;
     private Integer userId;
     private Integer projectId;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean isAdmin;
 
-    public ProjectUserEmbeddedId getId() {
-        return id;
-    }
-
-    public void setId(ProjectUserEmbeddedId id) {
-        this.id = id;
-    }
 
     public Integer getUserId() {
         return userId;

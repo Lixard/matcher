@@ -22,14 +22,6 @@ public class ProjectParticipation {
     @EmbeddedId
     private ProjectUserEmbeddedId id;
 
-    @MapsId("user_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
-
-    @MapsId("project_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Project project;
-
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
@@ -45,22 +37,6 @@ public class ProjectParticipation {
 
     public void setId(ProjectUserEmbeddedId id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
     }
 
     public LocalDate getStartDate() {
