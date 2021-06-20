@@ -9,6 +9,8 @@ import {User} from "../../models/users/user.model";
 import {UserService} from "../../services/user.service";
 import {map, startWith} from "rxjs/operators";
 import {PictureService} from "../../services/picture.service";
+import {UserUpdate} from "../../models/users/user-update.model";
+
 
 @Component({
   selector: 'app-edit-student-profile-page',
@@ -49,7 +51,6 @@ export class EditStudentProfilePageComponent implements OnInit {
       email: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.emailPattern), Validators.maxLength(50)]),
       userType: this.fb.control(''),
       place: this.fb.control(''),
-      orgTypeId: this.fb.control(''),
       picture: this.fb.control('')
     });
   }
@@ -59,7 +60,7 @@ export class EditStudentProfilePageComponent implements OnInit {
     this.form.controls.lastName.setValue(this.data.lastName);
     this.form.controls.secondName.setValue(this.data.secondName);
     this.form.controls.email.setValue(this.data.email);
-    this.form.controls.employment.setValue(this.data.userType);
+    this.form.controls.userType.setValue(this.data.userType);
   }
 
   public noWhitespaceValidator(control: FormControl) {
@@ -71,15 +72,13 @@ export class EditStudentProfilePageComponent implements OnInit {
   public onFileInput(event: any) {
     const file: File = event.target.files.item(0);
     this.picturesService.createPicture(file).subscribe((event: any) => {
-
       if (event.body != undefined) {
         this.pictureId = event.body.id;
       }
       this.file = true;
       this.fileName = file.name;
     },
-      (error: any) => {
-      console.log(error);
+      () => {
         this.fileName = "Не удалось загрузить";
       });
   }
@@ -112,7 +111,8 @@ export class EditStudentProfilePageComponent implements OnInit {
       return this.places.filter(place => place.name.toLowerCase().includes(filterValue));
     }
 
-  updateUser(form: User) {
+  updateUser(form: UserUpdate) {
+    form.place = this.placeCtrl.value;
     form.id = this.data.id;
     if(this.pictureId) {
       form.pictureId = this.pictureId;

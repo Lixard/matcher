@@ -2,6 +2,7 @@ package ru.matcher.services.service;
 
 import ru.matcher.data.model.embedded.UserOrganizationEmbeddedId;
 import ru.matcher.services.dto.UserOrganizationDto;
+import ru.matcher.services.dto.update.UserOrganizationUpdate;
 
 import java.util.List;
 
@@ -23,10 +24,10 @@ public interface IUserOrganizationService {
     /**
      * Обновление UserOrganization в БД.
      *
-     * @param userOrganizationDto объект класса UserOrganizationDto
+     * @param userOrganizationUpdate объект класса UserOrganizationUpdate
      * @return объект класса UserOrganizationDto
      */
-    UserOrganizationDto update(UserOrganizationDto userOrganizationDto);
+    UserOrganizationDto update(UserOrganizationUpdate userOrganizationUpdate);
 
     /**
      * Удаление UserOrganization из БД.

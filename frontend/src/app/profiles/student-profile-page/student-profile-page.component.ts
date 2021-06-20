@@ -64,7 +64,9 @@ export class StudentProfilePageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.userService.updateUser(result).subscribe(()=> {
-        window.location.reload();
+        this.userService.updateUserOrganization(result.id, result.place).subscribe(() => {
+          window.location.reload();
+        })
       })
     });
   }

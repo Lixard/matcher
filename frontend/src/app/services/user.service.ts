@@ -22,4 +22,8 @@ export class UserService {
   getPicture(pictureId: number): Observable<Picture> {
     return this.http.get<Picture>(`api/pictures/picture/${pictureId}`);
   }
+
+  updateUserOrganization(userId: number, place: string): Observable<void> {
+    return this.http.post<void>(`api/users/organization`, {userId, place});
+  }
 }

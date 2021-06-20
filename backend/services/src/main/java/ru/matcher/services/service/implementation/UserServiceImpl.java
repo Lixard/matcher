@@ -105,12 +105,14 @@ public class UserServiceImpl implements IUserService {
                 .withFirstName(userDto.getFirstName())
                 .withSecondName(userDto.getSecondName())
                 .withLastName(userDto.getLastName())
-                .withPicture(pictureStruct.fromDto(pictureService.findById(userDto.getPictureId())))
                 .withEmail(userDto.getEmail())
                 .withLogin(userdb.getLogin())
                 .withPassword(userdb.getPassword())
                 .withUserType(userDto.getUserType());
 
+        if (userDto.getPictureId() != null) {
+            userBuilder.withPicture(pictureStruct.fromDto(pictureService.findById(userDto.getPictureId())));
+        }
         userRepository.save(userBuilder.build());
         return userStruct.toDto(user);
     }
