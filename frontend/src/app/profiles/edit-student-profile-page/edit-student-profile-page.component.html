@@ -1,0 +1,87 @@
+<div class="page justify-content-center">
+        <mat-card>
+          <mat-card-content class="register-card">
+              <span>Изменение профиля</span>
+            <form [formGroup]="form">
+              <mat-form-field>
+                <mat-label>Имя</mat-label>
+                <input formControlName="firstName" matInput/>
+                <mat-error *ngIf="form.get('firstName')!.hasError('required')">Укажите имя</mat-error>
+                <mat-error *ngIf="form.get('firstName')!.hasError('maxlength')"
+                >Не может быть больше 50 символов
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Фамилия</mat-label>
+                <input formControlName="lastName" matInput/>
+                <mat-error *ngIf="form.get('lastName')!.hasError('required')"
+                >Укажите фамилию
+                </mat-error>
+                <mat-error *ngIf="form.get('lastName')!.hasError('maxlength')"
+                >Не может быть больше 50 символов
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Отчество</mat-label>
+                <input formControlName="secondName" matInput/>
+                <mat-error *ngIf="form.get('secondName')!.hasError('maxlength')"
+                >Не может быть больше 50 символов
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput/>
+                <mat-error *ngIf="form.get('email')!.hasError('email')"
+                >Не соответствует формату электронной почты
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Занятость</mat-label>
+                <mat-select formControlName="userType">
+                  <mat-option *ngFor="let employment of employments" [value]="employment" (click)="selectEmployment()">
+                    {{employment}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            <mat-form-field class="mat-form-selection">
+              <mat-label>Организация</mat-label>
+              <input type="text"
+                     placeholder="Выберите организацию"
+                     aria-label="Организация"
+                     matInput
+                     [formControl]="placeCtrl"
+                     [matAutocomplete]="auto"/>
+              <mat-autocomplete #auto="matAutocomplete" formControlName="place">
+                <mat-option *ngFor="let place of filteredPlace | async" [value]="place.name">
+                  {{place.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <button mat-flat-button color="primary" type="button" (click)="fileInput.click()">
+              <span>Загрузить фотографию</span>
+              <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" />
+            </button>
+              <span *ngIf="file" class="ml-2">{{fileName}}</span>
+            </form>
+
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              [disabled]="!form.valid"
+              color="primary"
+              mat-flat-button
+              type="submit"
+              style="width: 100%"
+              [mat-dialog-close]="updateUser(form.value)"
+            >
+              Сохранить
+            </button>
+          </mat-card-actions>
+        </mat-card>
+</div>

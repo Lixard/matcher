@@ -9,7 +9,7 @@ import {CurrentUser} from "./models/users/current-user.model";
 })
 export class AppComponent {
   title = 'frontend';
-  user: CurrentUser;
+  user!: CurrentUser;
 
   constructor(private readonly currentUserService: AuthService) {
   }

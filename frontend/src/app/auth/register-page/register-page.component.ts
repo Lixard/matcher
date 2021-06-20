@@ -26,8 +26,9 @@ export class RegisterPageComponent implements OnInit {
   hidePassword = true;
   filteredPlace!: Observable<OrganizationModel[]>;
   placeCtrl = new FormControl();
-  student: boolean;
+  student!: boolean;
   successfully: boolean = false;
+  userId!: number
   isAdmin: boolean = false;
   organization!: OrganizationModel;
   addOrganization: boolean = false;
@@ -50,6 +51,7 @@ export class RegisterPageComponent implements OnInit {
           .pipe(switchMap(() => this.auth.loadProfile()))
           .subscribe(() => {
             this.auth.loadProfile().subscribe((profile) => {
+              this.userId = profile.id as number;
               this.auth.user$.next(profile);
               this.successfully = true;
             });

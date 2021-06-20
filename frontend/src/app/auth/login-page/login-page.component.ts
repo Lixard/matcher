@@ -16,6 +16,7 @@ export class LoginPageComponent implements OnInit {
 
   loginData!: LoginData;
   hidePassword = true;
+  userId!: number
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,8 +35,9 @@ export class LoginPageComponent implements OnInit {
       .subscribe(
         (profile) => {
           console.log(profile);
+          this.userId = profile.id as number
           this.auth.user$.next(profile);
-          this.router.navigateByUrl('/profile');
+          this.router.navigateByUrl(`/profile/user/${this.userId}`);
         },
         () => {
           this.form.setErrors({

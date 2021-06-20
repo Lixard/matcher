@@ -157,7 +157,7 @@
         >Произошла ошибка. Возможно такой логин уже существует.
         </mat-error>
         <span *ngIf="successfully">Вы успешно зарегистрировались!</span>
-        <button mat-flat-button color="primary" routerLink="/profile" *ngIf="successfully">В профиль</button>
+        <button mat-flat-button color="primary" routerLink="/profile/user/{{userId}}" *ngIf="successfully">В профиль</button>
         <button mat-flat-button color="primary" (click)="stepper.reset()" *ngIf="!successfully">Заново</button>
       </div>
     </mat-step>

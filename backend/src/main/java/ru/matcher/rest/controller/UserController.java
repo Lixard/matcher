@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.UserDto;
+import ru.matcher.services.dto.UserOrganizationDto;
 import ru.matcher.services.dto.create.UserCreateDto;
+import ru.matcher.services.dto.update.UserOrganizationUpdate;
+import ru.matcher.services.service.IOrganizationService;
+import ru.matcher.services.service.IUserOrganizationService;
 import ru.matcher.services.service.IUserService;
 
 import java.util.List;
@@ -20,6 +24,7 @@ import java.util.List;
  * Контроллер для пользователя.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 @RestController
 @RequestMapping(
@@ -29,10 +34,12 @@ import java.util.List;
 public class UserController {
 
     private final IUserService userService;
+    private final IUserOrganizationService userOrganizationService;
 
     @Autowired
-    public UserController(IUserService userService) {
+    public UserController(IUserService userService, IUserOrganizationService userOrganizationService, IOrganizationService organizationService) {
         this.userService = userService;
+        this.userOrganizationService = userOrganizationService;
     }
 
     /**
@@ -90,4 +97,10 @@ public class UserController {
     public UserDto getUserById(@PathVariable Integer id) {
         return userService.findById(id);
     }
+
+    @PostMapping("/organization")
+    public UserOrganizationDto updateUserOrganization(@RequestBody UserOrganizationUpdate userOrganizationUpdate) {
+        return userOrganizationService.update(userOrganizationUpdate);
+    }
+
 }

@@ -1,4 +1,4 @@
-export interface User {
+export interface UserUpdate {
   id: number;
   pictureId?: number;
   firstName: string;
@@ -7,4 +7,5 @@ export interface User {
   email?: string;
   phone?: string;
   userType: string;
+  place: string;
 }

@@ -94,4 +94,9 @@ public class OrganizationController {
     public List<OrganizationDto> findByOrganizationType(@PathVariable Integer id) {
         return organizationService.findByOrganizationType(id);
     }
+
+    @GetMapping("/user/{userId}")
+    public List<OrganizationDto> findOrganizationsByUserId(@PathVariable int userId) {
+        return organizationService.getOrganizationsByUser(userId);
+    }
 }
