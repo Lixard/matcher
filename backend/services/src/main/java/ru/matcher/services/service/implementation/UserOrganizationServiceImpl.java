@@ -30,7 +30,8 @@ public class UserOrganizationServiceImpl implements IUserOrganizationService {
 
     @Autowired
     public UserOrganizationServiceImpl(UserOrganizationRepository userOrganizationRepository,
-                                       UserOrganizationStruct userOrganizationStruct, IOrganizationService organizationService) {
+                                       UserOrganizationStruct userOrganizationStruct,
+                                       IOrganizationService organizationService) {
         this.userOrganizationRepository = userOrganizationRepository;
         this.userOrganizationStruct = userOrganizationStruct;
         this.organizationService = organizationService;

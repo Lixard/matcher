@@ -44,7 +44,10 @@ public class UserServiceImpl implements IUserService {
     public UserServiceImpl(UserRepository userRepository,
                            UserStruct userStruct,
                            IPasswordEncoderService passwordEncoderService,
-                           IUserOrganizationService userOrganizationService, IOrganizationService organizationService, IPictureService pictureService, PictureStruct pictureStruct) {
+                           IUserOrganizationService userOrganizationService,
+                           IOrganizationService organizationService,
+                           IPictureService pictureService,
+                           PictureStruct pictureStruct) {
         this.userRepository = userRepository;
         this.userStruct = userStruct;
         this.passwordEncoderService = passwordEncoderService;

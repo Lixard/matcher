@@ -16,12 +16,12 @@ import {UserOrganizationService} from "../../services/user-organization.service"
 })
 export class StudentProfilePageComponent implements OnInit {
 
-  userId!: any;
+  userId!: number;
   user!: User;
   change: boolean = false;
   organizations: OrganizationModel[];
-  pictureData: any
-  pictureType: any
+  pictureData: string;
+  pictureType: string;
 
   constructor(private authService: AuthService, private userService: UserService, private userOrgService: UserOrganizationService, private route: ActivatedRoute,
               public dialog: MatDialog) {
@@ -33,7 +33,6 @@ export class StudentProfilePageComponent implements OnInit {
         this.change = true;
       }
       this.userService.getUserData(this.route.snapshot.params.userId).subscribe((userNow) => {
-        console.log(userNow);
         this.user = userNow;
         if (this.user.userType == "STUDENT") {
           this.user.userType = "Студент";
@@ -45,7 +44,6 @@ export class StudentProfilePageComponent implements OnInit {
           this.organizations = organizationNow;
         })
         this.userService.getPicture(this.user.pictureId).subscribe((picture) => {
-          console.log(picture)
           this.pictureType = picture.type;
           this.pictureData = picture.data;
         })
