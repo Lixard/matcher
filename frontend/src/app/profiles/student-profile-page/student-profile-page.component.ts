@@ -7,6 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditStudentProfilePageComponent} from '../edit-student-profile-page/edit-student-profile-page.component';
 import {OrganizationModel} from "../../models/organizations/organization.model";
 import {UserOrganizationService} from '../../services/user-organization.service';
+import {PictureService} from "../../services/picture.service";
 
 @Component({
   selector: 'app-student-profile-page',
@@ -15,8 +16,6 @@ import {UserOrganizationService} from '../../services/user-organization.service'
 })
 export class StudentProfilePageComponent implements OnInit {
 
-  defaultPictureUrl: string = "https://sun9-6.userapi.com/impg/6Im8y-x7TNREGEyCmuOfonopIQoJXiGX8G6a5Q/xUFVT81Sz-8.jpg?size=256x256&quality=96&sign=2ad339c6d3b66f34103777c7a342ff59&type=album";
-
   userId!: number;
   user!: User;
   change: boolean = false;
@@ -24,8 +23,12 @@ export class StudentProfilePageComponent implements OnInit {
   pictureData: string;
   pictureType: string;
 
-  constructor(private authService: AuthService, private userService: UserService, private userOrgService: UserOrganizationService, private route: ActivatedRoute,
-              public dialog: MatDialog) {
+  constructor(private authService: AuthService,
+              private userService: UserService,
+              private userOrgService: UserOrganizationService,
+              private route: ActivatedRoute,
+              public dialog: MatDialog,
+              private pictureService: PictureService) {
   }
 
   ngOnInit(): void {
@@ -71,7 +74,7 @@ export class StudentProfilePageComponent implements OnInit {
 
   setPicture(): string {
     if (this.user.pictureId === null) {
-      return this.defaultPictureUrl;
+      return this.pictureService.getDefaultPictureUrl();
     } else {
       return 'data:' + this.pictureType + ';base64,' + this.pictureData;
     }

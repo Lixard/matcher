@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OrganizationModel} from "../../models/organizations/organization.model";
 import {OrganizationService} from "../../services/organization.service";
 import {ActivatedRoute} from "@angular/router";
@@ -14,8 +14,6 @@ import {EditOrganizationComponent} from "../edit-organization/edit-organization.
 })
 export class CompanyProfilePageComponent implements OnInit {
 
-  defaultPictureUrl: string = "https://sun9-6.userapi.com/impg/6Im8y-x7TNREGEyCmuOfonopIQoJXiGX8G6a5Q/xUFVT81Sz-8.jpg?size=256x256&quality=96&sign=2ad339c6d3b66f34103777c7a342ff59&type=album";
-
   organization!: OrganizationModel;
   change: boolean = false;
   pictureType!: string;
@@ -25,7 +23,8 @@ export class CompanyProfilePageComponent implements OnInit {
               private pictureService: PictureService,
               private route: ActivatedRoute,
               private authService: AuthService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((u) => {
@@ -61,7 +60,7 @@ export class CompanyProfilePageComponent implements OnInit {
 
   setPicture(): string {
     if (this.organization.pictureId === null) {
-      return this.defaultPictureUrl;
+      return this.pictureService.getDefaultPictureUrl();
     } else {
       return 'data:' + this.pictureType + ';base64,' + this.pictureData;
     }
