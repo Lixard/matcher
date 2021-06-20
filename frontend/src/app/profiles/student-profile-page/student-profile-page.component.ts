@@ -1,13 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {UserService} from "../../services/user.service";
+import {UserService} from '../../services/user.service';
 import {User} from "../../models/users/user.model";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {EditStudentProfilePageComponent} from "../edit-student-profile-page/edit-student-profile-page.component";
-import {OrganizationService} from "../../services/organization.service";
+import {EditStudentProfilePageComponent} from '../edit-student-profile-page/edit-student-profile-page.component';
 import {OrganizationModel} from "../../models/organizations/organization.model";
-import {UserOrganizationService} from "../../services/user-organization.service";
+import {UserOrganizationService} from '../../services/user-organization.service';
 
 @Component({
   selector: 'app-student-profile-page',

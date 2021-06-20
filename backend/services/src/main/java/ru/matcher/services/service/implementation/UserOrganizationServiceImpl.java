@@ -15,11 +15,13 @@ import ru.matcher.services.service.IOrganizationService;
 import ru.matcher.services.service.IUserOrganizationService;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Реализация интерфейса UserOrganizationService.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 @Service
 public class UserOrganizationServiceImpl implements IUserOrganizationService {
@@ -72,5 +74,16 @@ public class UserOrganizationServiceImpl implements IUserOrganizationService {
     @Override
     public UserOrganizationDto findById(UserOrganizationEmbeddedId userOrganizationId) {
         return userOrganizationStruct.toDto(userOrganizationRepository.findById(userOrganizationId).orElse(null));
+    }
+
+    @Override
+    public boolean isAdmin(Integer userId, Integer orgId) {
+        List<UserOrganization> userOrganizations = userOrganizationRepository.findByIdUser(userId);
+        for (UserOrganization userOrganization : userOrganizations) {
+            if (Objects.equals(userOrganization.getId().getOrganization(), orgId)) {
+                return userOrganization.isAdmin();
+            }
+        }
+        return false;
     }
 }
