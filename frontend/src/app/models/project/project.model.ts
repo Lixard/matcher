@@ -5,5 +5,5 @@ export interface Project {
   picture: Picture;
   name: string;
   description: string;
-  isActive: boolean;
+  active: boolean;
 }
