@@ -49,6 +49,7 @@ export class EditStudentProfilePageComponent implements OnInit {
       email: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.emailPattern), Validators.maxLength(50)]),
       userType: this.fb.control(''),
       place: this.fb.control(''),
+      orgTypeId: this.fb.control(''),
       picture: this.fb.control('')
     });
   }
@@ -116,7 +117,6 @@ export class EditStudentProfilePageComponent implements OnInit {
     if(this.pictureId) {
       form.pictureId = this.pictureId;
     }
-    this.userService.updateUser(form).subscribe(() => {
-    })
+    return form;
   }
 }

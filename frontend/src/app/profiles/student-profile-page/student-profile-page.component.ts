@@ -5,6 +5,9 @@ import {User} from "../../models/users/user.model";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {EditStudentProfilePageComponent} from "../edit-student-profile-page/edit-student-profile-page.component";
+import {OrganizationService} from "../../services/organization.service";
+import {OrganizationModel} from "../../models/organizations/organization.model";
+import {UserOrganizationService} from "../../services/user-organization.service";
 
 @Component({
   selector: 'app-student-profile-page',
@@ -16,8 +19,11 @@ export class StudentProfilePageComponent implements OnInit {
   userId!: any;
   user!: User;
   change: boolean = false;
+  organizations: OrganizationModel[];
+  pictureData: any
+  pictureType: any
 
-  constructor(private authService: AuthService, private userService: UserService, private route: ActivatedRoute,
+  constructor(private authService: AuthService, private userService: UserService, private userOrgService: UserOrganizationService, private route: ActivatedRoute,
               public dialog: MatDialog) {
   }
 
@@ -35,6 +41,14 @@ export class StudentProfilePageComponent implements OnInit {
         else if (this.user.userType == "EMPLOYEE") {
           this.user.userType = "Работник"
         }
+        this.userOrgService.getUserOrganization(this.user.id).subscribe((organizationNow)=>{
+          this.organizations = organizationNow;
+        })
+        this.userService.getPicture(this.user.pictureId).subscribe((picture) => {
+          console.log(picture)
+          this.pictureType = picture.type;
+          this.pictureData = picture.data;
+        })
       })
     },error => {
       console.log(error)
@@ -49,16 +63,9 @@ export class StudentProfilePageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.user = result.value;
-          this.userService.updateUser(this.user).subscribe(() => {
-            },
-            (error) => {
-              console.log(error);
-            });
-        }
-      },
-      () => {
-      });
+      this.userService.updateUser(result).subscribe(()=> {
+        window.location.reload();
+      })
+    });
   }
 }

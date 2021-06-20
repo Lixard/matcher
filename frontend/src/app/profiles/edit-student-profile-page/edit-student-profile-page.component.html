@@ -53,6 +53,7 @@
               <input type="text"
                      placeholder="Выберите организацию"
                      aria-label="Организация"
+                     formControlName="orgTypeId"
                      matInput
                      [formControl]="placeCtrl"
                      [matAutocomplete]="auto"/>
@@ -78,7 +79,7 @@
               mat-flat-button
               type="submit"
               style="width: 100%"
-              (click)="updateUser(form.value)"
+              [mat-dialog-close]="updateUser(form.value)"
             >
               Сохранить
             </button>
