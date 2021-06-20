@@ -4,6 +4,7 @@ import {Project} from "../../models/project/project.model";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {UserProject} from "../../models/users/user-project.model";
+import {PictureService} from "../../services/picture.service";
 
 @Component({
   selector: 'app-project-page',
