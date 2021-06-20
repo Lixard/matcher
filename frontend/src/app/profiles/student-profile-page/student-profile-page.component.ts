@@ -15,6 +15,8 @@ import {UserOrganizationService} from '../../services/user-organization.service'
 })
 export class StudentProfilePageComponent implements OnInit {
 
+  defaultPictureUrl: string = "https://sun9-6.userapi.com/impg/6Im8y-x7TNREGEyCmuOfonopIQoJXiGX8G6a5Q/xUFVT81Sz-8.jpg?size=256x256&quality=96&sign=2ad339c6d3b66f34103777c7a342ff59&type=album";
+
   userId!: number;
   user!: User;
   change: boolean = false;
@@ -35,11 +37,10 @@ export class StudentProfilePageComponent implements OnInit {
         this.user = userNow;
         if (this.user.userType == "STUDENT") {
           this.user.userType = "Студент";
-        }
-        else if (this.user.userType == "EMPLOYEE") {
+        } else if (this.user.userType == "EMPLOYEE") {
           this.user.userType = "Работник"
         }
-        this.userOrgService.getUserOrganization(this.user.id).subscribe((organizationNow)=>{
+        this.userOrgService.getUserOrganization(this.user.id).subscribe((organizationNow) => {
           this.organizations = organizationNow;
         })
         this.userService.getPicture(this.user.pictureId).subscribe((picture) => {
@@ -47,9 +48,9 @@ export class StudentProfilePageComponent implements OnInit {
           this.pictureData = picture.data;
         })
       })
-    },error => {
+    }, error => {
       console.log(error)
-      });
+    });
   }
 
   edit() {
@@ -60,11 +61,19 @@ export class StudentProfilePageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.userService.updateUser(result).subscribe(()=> {
+      this.userService.updateUser(result).subscribe(() => {
         this.userService.updateUserOrganization(result.id, result.place).subscribe(() => {
           window.location.reload();
         })
       })
     });
+  }
+
+  setPicture(): string {
+    if (this.user.pictureId === null) {
+      return this.defaultPictureUrl;
+    } else {
+      return 'data:' + this.pictureType + ';base64,' + this.pictureData;
+    }
   }
 }

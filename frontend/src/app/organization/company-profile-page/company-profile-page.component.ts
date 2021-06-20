@@ -13,6 +13,9 @@ import {EditOrganizationComponent} from "../edit-organization/edit-organization.
   styleUrls: ['./company-profile-page.component.css']
 })
 export class CompanyProfilePageComponent implements OnInit {
+
+  defaultPictureUrl: string = "https://sun9-6.userapi.com/impg/6Im8y-x7TNREGEyCmuOfonopIQoJXiGX8G6a5Q/xUFVT81Sz-8.jpg?size=256x256&quality=96&sign=2ad339c6d3b66f34103777c7a342ff59&type=album";
+
   organization!: OrganizationModel;
   change: boolean = false;
   pictureType!: string;
@@ -54,5 +57,13 @@ export class CompanyProfilePageComponent implements OnInit {
           window.location.reload();
       })
     });
+  }
+
+  setPicture(): string {
+    if (this.organization.pictureId === null) {
+      return this.defaultPictureUrl;
+    } else {
+      return 'data:' + this.pictureType + ';base64,' + this.pictureData;
+    }
   }
 }

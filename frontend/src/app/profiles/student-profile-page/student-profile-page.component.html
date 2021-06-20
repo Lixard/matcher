@@ -3,7 +3,7 @@
     <div class="bg-white shadow rounded overflow-hidden">
       <div class="px-4 pt-0 pb-4 cover">
         <div class="media align-items-end profile-head">
-          <div class="profile mr-3"><img src="data:{{pictureType}};base64,{{pictureData}}" alt="(Нет фотографии)" width="250"
+          <div class="profile mr-3"><img [src]="setPicture()" alt="(Нет фотографии)" width="250"
                                          class="rounded mb-2 img-thumbnail">
             <button (click)="edit()" *ngIf="change" class="btn btn-outline-primary btn-sm btn-block">Изменить профиль</button>
           </div>
