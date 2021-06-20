@@ -108,6 +108,14 @@
                    matInput
                    [formControl]="placeCtrl"
                    [matAutocomplete]="auto">
+            <button
+              (click)="addPlace()"
+              mat-icon-button
+              matSuffix
+              *ngIf="!student"
+            >
+              <mat-icon class="icon">add</mat-icon>
+            </button>
             <mat-autocomplete #auto="matAutocomplete" formControlName="place">
               <mat-option *ngFor="let place of filteredPlace | async" [value]="place.name">
                 {{place.name}}

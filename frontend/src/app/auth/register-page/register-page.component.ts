@@ -8,6 +8,8 @@ import {Observable} from "rxjs";
 import {userNameRegExp} from "../../features/validators/directives/username-validator.directive";
 import {OrganizationService} from "../../services/organization.service";
 import {OrganizationModel} from "../../models/organizations/organization.model";
+import {MatDialog} from "@angular/material/dialog";
+import {AddOrganizationComponent} from "../../organization/add-organization/add-organization.component";
 
 @Component({
   selector: 'app-register-page',
@@ -27,9 +29,12 @@ export class RegisterPageComponent implements OnInit {
   student!: boolean;
   successfully: boolean = false;
   userId!: number
+  isAdmin: boolean = false;
+  organization!: OrganizationModel;
+  addOrganization: boolean = false;
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router,
-              private organizationService: OrganizationService) {}
+              public dialog: MatDialog, private organizationService: OrganizationService) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -37,6 +42,8 @@ export class RegisterPageComponent implements OnInit {
 
   register(form: UserCreate) {
     form.place = this.placeCtrl.value;
+    form.isAdmin = this.isAdmin;
+
     this.auth.register(form).subscribe(
       () => {
         this.auth
@@ -109,4 +116,28 @@ export class RegisterPageComponent implements OnInit {
     return this.places.filter(place => place.name.toLowerCase().includes(filterValue));
   }
 
+  addPlace() {
+    this.addOrganization = true;
+    const dialogRef = this.dialog.open(AddOrganizationComponent, {
+      width: '60%',
+      height: '60%'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.isAdmin = true;
+        this.organization = result.value;
+        this.organizationService.createOrganization(this.organization).subscribe(() => {
+          this.form.controls.place.setValue(this.organization.name);
+          this.placeCtrl.setValue(this.organization.name);
+        },
+          (error) => {
+            console.log(error);
+          });
+      }
+    },
+      () => {
+        this.addOrganization = false;
+      });
+  }
 }

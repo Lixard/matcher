@@ -21,5 +21,8 @@ export class PictureService {
     });
 
     return this.http.request(req);
+
+  getPicture(pictureId: number): Observable<Picture> {
+    return this.http.get<Picture>(`api/pictures/picture/${pictureId}`);
   }
 }
