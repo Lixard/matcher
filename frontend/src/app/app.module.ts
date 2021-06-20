@@ -16,26 +16,35 @@ import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfilesModule } from './profiles/profiles.module';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatSelectModule} from "@angular/material/select";
+import {MatDialogModule} from "@angular/material/dialog";
+import {OrganizationModule} from "./organization/organization.module";
 
 @NgModule({
   declarations: [AppComponent],
-    imports: [
-        RouterModule,
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        CommonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatButtonModule,
-        AuthModule,
-        ProfilesModule,
-        MatToolbarModule
-    ],
+  imports: [
+    RouterModule,
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    AuthModule,
+    ProfilesModule,
+    OrganizationModule,
+    MatToolbarModule,
+    NgbModule,
+    MatSelectModule,
+    MatDialogModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

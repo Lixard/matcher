@@ -1,0 +1,76 @@
+<div class="container-organization">
+  <form [formGroup]="organizationForm">
+    <mat-card>
+      <mat-card-content>
+        <div class="content">
+          <span class="text-center">Добавление организации</span>
+
+          <mat-form-field>
+            <mat-label>Название организации</mat-label>
+            <input formControlName="name" matInput/>
+            <mat-error *ngIf="organizationForm.get('name')!.hasError('required')">Укажите название</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Описание</mat-label>
+            <textarea
+              formControlName="description"
+              matInput
+            ></textarea>
+            <mat-error *ngIf="organizationForm.get('description')!.hasError('required')">Укажите описание</mat-error>
+            <mat-error *ngIf="organizationForm.get('description')!.hasError('minlength')"
+            >Описание не должно быть меньше 8 символов
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Ссылка на сайт</mat-label>
+            <input formControlName="url" matInput/>
+            <mat-error *ngIf="organizationForm.get('url')!.hasError('required')">Укажите ссылку</mat-error>
+            <mat-error *ngIf="organizationForm.get('url')!.hasError('maxlength')"
+            >Не может быть больше 200 символов
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Адрес</mat-label>
+            <input formControlName="address" matInput/>
+            <mat-error *ngIf="organizationForm.get('address')!.hasError('required')"
+            >Укажите адрес
+            </mat-error>
+            <mat-error *ngIf="organizationForm.get('address')!.hasError('maxlength')"
+            >Не может быть больше 150 символов
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput/>
+            <mat-error *ngIf="organizationForm.get('email')!.hasError('email')"
+            >Не соответствует формату электронной почты
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="fill">
+            <mat-label>Тип</mat-label>
+            <mat-select formControlName="organizationType">
+              <mat-option *ngFor="let type of types" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!organizationForm.valid"
+            class="btn btn-small btn-select"
+            [mat-dialog-close]="_organization(organizationForm)"
+          >
+            Далее
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

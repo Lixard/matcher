@@ -20,9 +20,11 @@ import {MatMenuModule} from "@angular/material/menu";
 import {ValidationModule} from "../features/validators/validation.module";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {AddOrganizationComponent} from "../organization/add-organization/add-organization.component";
 
 @NgModule({
   declarations: [LoginPageComponent, RegisterPageComponent, UserMenuComponent],
+  entryComponents: [AddOrganizationComponent],
   imports: [
     RouterModule,
     CommonModule,

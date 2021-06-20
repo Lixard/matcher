@@ -103,4 +103,9 @@ public class PictureController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pictureDto.getName() + "\"")
                 .body(pictureDto.getData());
     }
+
+    @GetMapping("/picture/{id}")
+    public PictureDto getFullPictureById(@PathVariable Integer id) {
+        return pictureService.findById(id);
+    }
 }

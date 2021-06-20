@@ -8,7 +8,7 @@ package ru.matcher.services.dto;
 public class ProjectDto {
 
     private Integer id;
-    private Integer pictureId;
+    private PictureDto picture;
     private String name;
     private String description;
     private boolean isActive;
@@ -21,12 +21,12 @@ public class ProjectDto {
         this.id = id;
     }
 
-    public Integer getPictureId() {
-        return pictureId;
+    public PictureDto getPicture() {
+        return picture;
     }
 
-    public void setPictureId(Integer pictureId) {
-        this.pictureId = pictureId;
+    public void setPicture(PictureDto picture) {
+        this.picture = picture;
     }
 
     public String getName() {
