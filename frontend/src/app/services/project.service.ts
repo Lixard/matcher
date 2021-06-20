@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Project} from "../models/project/project.model";
 import {Observable} from "rxjs";
+import {User} from "../models/users/user.model";
+import {UserProject} from "../models/users/user-project.model";
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +31,9 @@ export class ProjectService {
 
   getProject(projectId: number): Observable<Project> {
     return this.http.get<Project>(`api/projects/${projectId}`);
+  }
+
+  getParticipantsByProjectId(projectId: number): Observable<UserProject[]>{
+    return this.http.get<UserProject[]>(`api/projects/participants/${projectId}`)
   }
 }

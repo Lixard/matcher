@@ -1,0 +1,52 @@
+<div class="padding justify-content-center ">
+  <div class="row container d-flex justify-content-center ">
+    <div class="col-xl-6 col-md-12">
+      <div class="card user-card-full">
+        <div class="">
+          <div class="col-sm-12 bg-c-lite-green">
+            <!--граидент длина-->
+            <div class="card-block text-center text-white col-sm-20">
+              <img class="round" src="data:{{project.picture.type}};base64,{{project.picture.data}}" width="350"
+                   height="320"
+                   alt="User-Profile-Image">
+              <h3 class="f-w-600">Проект</h3>
+              <p>{{project.name}}</p> <i class="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-18"></i>
+            </div>
+          </div>
+          <div class="col-sm-20 justify-content-center">
+            <div class="card-block">
+              <h2 class="m-b-20 p-b-5 b-b-default f-w-600">Описание</h2>
+              <h6 class="m-b-20 p-b-5 b-b-default f-w-600">{{project.description}}</h6>
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Статус проекта</p>
+                  <h6 class="text-muted f-w-400">{{activeProject}}</h6>
+                </div>
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Компания</p>
+                  <h6 class="text-muted f-w-400">(Какая-то компания)</h6>
+                </div>
+              </div>
+              <h3 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Дополнительная информация</h3>
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Администраторы проекта</p>
+                  <h6 class="text-muted f-w-400" *ngFor="let userAdmin of userAdmins">
+                    <a href="/profile/user/{{userAdmin.id}}"
+                       class="text-decoration-none">{{userAdmin.firstName}} {{userAdmin.lastName}}</a>
+                  </h6>
+                </div>
+                <div class="col-sm-6">
+                  <p class="m-b-10 f-w-600">Участники</p>
+                  <h6 *ngFor="let user of users" class="text-muted f-w-400">
+                    <a href="/profile/user/{{user.id}}"
+                       class="text-decoration-none">{{user.firstName}} {{user.lastName}}</a></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

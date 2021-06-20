@@ -21,8 +21,8 @@ public interface ProjectParticipationStruct {
      * @param projectParticipation объект класса ProjectParticipation
      * @return объект класса ProjectParticipationDto
      */
-    @Mapping(target = "userId", source = "user.id")
-    @Mapping(target = "projectId", source = "project.id")
+    @Mapping(target = "userId", source = "id.user")
+    @Mapping(target = "projectId", source = "id.project")
     ProjectParticipationDto toDto(ProjectParticipation projectParticipation);
 
     /**
@@ -31,8 +31,8 @@ public interface ProjectParticipationStruct {
      * @param projectParticipationDto объект класса ProjectParticipationDto
      * @return объект класса ProjectParticipation
      */
-    @Mapping(target = "user.id", source = "userId")
-    @Mapping(target = "project.id", source = "projectId")
+    @Mapping(target = "id.user", source = "userId")
+    @Mapping(target = "id.project", source = "projectId")
     ProjectParticipation fromDto(ProjectParticipationDto projectParticipationDto);
 
     /**

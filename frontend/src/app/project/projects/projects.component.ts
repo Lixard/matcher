@@ -3,6 +3,7 @@ import { Project } from '../../models/project/project.model';
 import { ProjectService } from '../../services/project.service';
 import { Picture } from '../../models/picture/picture.model';
 import { PictureService } from '../../services/picture.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-projects',
@@ -15,7 +16,8 @@ export class ProjectsComponent implements OnInit {
   picture: Picture;
 
   constructor(private projectService: ProjectService,
-              private pictureService: PictureService) {
+              private pictureService: PictureService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -28,6 +30,10 @@ export class ProjectsComponent implements OnInit {
         this.projects = res;
       }
     );
+  }
+
+  navigateToProject(projectId: number) {
+    this.router.navigateByUrl(`/profile/project/${projectId}`);
   }
 
   getProjectImage(project: Project): string {

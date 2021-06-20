@@ -5,14 +5,14 @@
         <mat-card-header>
           <mat-card-title class="text-center">{{project.name}}</mat-card-title>
         </mat-card-header>
-        <img [src]="getProjectImage(project)" height="200px" mat-card-image width="200px">
+        <img [src]="getProjectImage(project)" alt="Нет изображения" mat-card-image height="500px">
         <mat-card-content>
           <p>
             {{project.description}}
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button color="primary" mat-flat-button>Подробнее</button>
+          <button color="primary" mat-flat-button (click)="navigateToProject(project.id)">Подробнее</button>
         </mat-card-actions>
       </mat-card>
     </div>

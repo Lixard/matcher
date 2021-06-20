@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.ProjectDto;
+import ru.matcher.services.dto.get.UserProjectGetDto;
+import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
 
 import java.util.List;
@@ -28,10 +30,12 @@ import java.util.List;
 public class ProjectController {
 
     private final IProjectService projectService;
+    private final IProjectParticipationService projectParticipationService;
 
     @Autowired
-    public ProjectController(IProjectService projectService) {
+    public ProjectController(IProjectService projectService, IProjectParticipationService projectParticipationService) {
         this.projectService = projectService;
+        this.projectParticipationService = projectParticipationService;
     }
 
     /**
@@ -88,5 +92,11 @@ public class ProjectController {
     @GetMapping("/{id}")
     public ProjectDto getProjectById(@PathVariable Integer id) {
         return projectService.findById(id);
+    }
+
+
+    @GetMapping("/participants/{projectId}")
+    public List<UserProjectGetDto> getParticipantsOfProject(@PathVariable Integer projectId) {
+        return projectParticipationService.getParticipationsByIdProject(projectId);
     }
 }

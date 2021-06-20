@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {ProjectsComponent} from "./projects/projects.component";
 import {AuthGuard} from "../guards/auth.guard";
+import {ProjectPageComponent} from "./project-page/project-page.component";
 
 const routes: Routes = [
   {
@@ -9,6 +10,11 @@ const routes: Routes = [
     component: ProjectsComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'profile/project/:projectId',
+    component: ProjectPageComponent,
+    canActivate: [AuthGuard]
+  }
 ]
 
 @NgModule({

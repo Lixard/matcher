@@ -21,6 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatSelectModule} from "@angular/material/select";
 import {MatDialogModule} from "@angular/material/dialog";
 import {OrganizationModule} from "./organization/organization.module";
+import {ProjectModule} from "./project/project.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,6 +41,7 @@ import {OrganizationModule} from "./organization/organization.module";
     AuthModule,
     ProfilesModule,
     OrganizationModule,
+    ProjectModule,
     MatToolbarModule,
     NgbModule,
     MatSelectModule,
