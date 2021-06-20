@@ -7,17 +7,24 @@ import {MatSelectModule} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
+import {CompanyProfilePageComponent} from "./company-profile-page/company-profile-page.component";
+import {MatIconModule} from "@angular/material/icon";
+import {OrganizationRoutingModule} from "./organization-routing.module";
+import { EditOrganizationComponent } from './edit-organization/edit-organization.component';
 
 @NgModule({
-  declarations: [AddOrganizationComponent],
+  declarations: [AddOrganizationComponent, CompanyProfilePageComponent, EditOrganizationComponent],
+  entryComponents: [EditOrganizationComponent],
   imports: [
     CommonModule,
     MatDialogModule,
+    OrganizationRoutingModule,
     MatButtonModule,
     MatSelectModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ]
 })
 export class OrganizationModule { }

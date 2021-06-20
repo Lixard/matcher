@@ -85,7 +85,7 @@ export class EditStudentProfilePageComponent implements OnInit {
 
   selectEmployment() {
     if (this.form.controls.userType.value == 'STUDENT'){
-      this.organizationService.getOrganization(1).subscribe(universities => {
+      this.organizationService.getOrganizations(1).subscribe(universities => {
         this.places = [];
         this.places = universities;
         this.filteredPlace = this.placeCtrl.valueChanges.pipe(
@@ -94,7 +94,7 @@ export class EditStudentProfilePageComponent implements OnInit {
         );
       });
     } else {
-      this.organizationService.getOrganization(2).subscribe(companies => {
+      this.organizationService.getOrganizations(2).subscribe(companies => {
         this.places = [];
         this.places = companies;
         this.filteredPlace = this.placeCtrl.valueChanges.pipe(
