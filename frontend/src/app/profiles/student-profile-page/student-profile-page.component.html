@@ -3,7 +3,7 @@
     <div class="bg-white shadow rounded overflow-hidden">
       <div class="px-4 pt-0 pb-4 cover">
         <div class="media align-items-end profile-head">
-          <div class="profile mr-3"><img src="data:{{pictureType}};base64,{{pictureData}}" alt="(Нет фотографии)" width="250"
+          <div class="profile mr-3"><img [src]="setPicture()" alt="(Нет фотографии)" width="250"
                                          class="rounded mb-2 img-thumbnail">
             <button (click)="edit()" *ngIf="change" class="btn btn-outline-primary btn-sm btn-block">Изменить профиль</button>
           </div>
@@ -20,7 +20,10 @@
         </h3>
         <li class="list-inline-item">
           <h1 class="font-weight-bold mb-0 d-block">Организация</h1>
-          <h2 class="text-muted font-weight-bold" *ngFor="let organization of organizations"><i class="fas fa-image mr-1"></i>{{organization.name}}</h2>
+          <h2 class="text-muted font-weight-bold" *ngFor="let organization of organizations">
+            <i class="fas fa-image mr-1"></i>
+          <a href="profile/organization/{{organization.id}}" class="text-decoration-none">{{organization.name}}</a>
+          </h2>
         </li>
       </div>
       <div class="py-4 px-4">

@@ -90,7 +90,7 @@ export class RegisterPageComponent implements OnInit {
     this.isEmployment = true;
     if (this.form.controls.employment.value == 'Студент'){
       this.student = true;
-      this.organizationService.getOrganization(1).subscribe(universities => {
+      this.organizationService.getOrganizations(1).subscribe(universities => {
         this.places = [];
         this.places = universities;
         this.filteredPlace = this.placeCtrl.valueChanges.pipe(
@@ -100,7 +100,7 @@ export class RegisterPageComponent implements OnInit {
       });
     } else {
       this.student = false;
-      this.organizationService.getOrganization(2).subscribe(companies => {
+      this.organizationService.getOrganizations(2).subscribe(companies => {
         this.places = [];
         this.places = companies;
         this.filteredPlace = this.placeCtrl.valueChanges.pipe(

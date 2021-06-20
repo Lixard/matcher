@@ -5,7 +5,7 @@
         <mat-card-header>
           <mat-card-title class="text-center">{{project.name}}</mat-card-title>
         </mat-card-header>
-        <img [src]="getProjectImage(project)" alt="Нет изображения" mat-card-image height="500px">
+        <img [src]="setPicture(project)" height="200px" mat-card-image width="200px">
         <mat-card-content>
           <p>
             {{project.description}}

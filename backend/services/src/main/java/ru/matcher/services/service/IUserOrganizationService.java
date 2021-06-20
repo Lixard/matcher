@@ -10,6 +10,7 @@ import java.util.List;
  * Интерфейс сервиса для организаций пользователя.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 public interface IUserOrganizationService {
 
@@ -50,4 +51,12 @@ public interface IUserOrganizationService {
      * @return найденный объект класса UserOrganizationDto
      */
     UserOrganizationDto findById(UserOrganizationEmbeddedId userOrganizationId);
+
+    /**
+     * Проверка является ли пользователь администратором организации
+     * @param userId id пользователя
+     * @param orgId id организации
+     * @return является ли пользователь администратором организации
+     */
+    boolean isAdmin(Integer userId, Integer orgId);
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.service.IOrganizationService;
+import ru.matcher.services.service.IUserOrganizationService;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * Контроллер для организаций.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 @RestController
 @RequestMapping(
@@ -28,10 +30,13 @@ import java.util.List;
 public class OrganizationController {
 
     private final IOrganizationService organizationService;
+    private final IUserOrganizationService userOrganizationService;
 
     @Autowired
-    public OrganizationController(IOrganizationService organizationService) {
+    public OrganizationController(IOrganizationService organizationService,
+                                  IUserOrganizationService userOrganizationService) {
         this.organizationService = organizationService;
+        this.userOrganizationService = userOrganizationService;
     }
 
     /**
@@ -98,5 +103,10 @@ public class OrganizationController {
     @GetMapping("/user/{userId}")
     public List<OrganizationDto> findOrganizationsByUserId(@PathVariable int userId) {
         return organizationService.getOrganizationsByUser(userId);
+    }
+
+    @GetMapping("/admin/{userId}/{orgId}")
+    public boolean isAdmin(@PathVariable("userId") Integer userId, @PathVariable("orgId") Integer orgId) {
+        return userOrganizationService.isAdmin(userId, orgId);
     }
 }

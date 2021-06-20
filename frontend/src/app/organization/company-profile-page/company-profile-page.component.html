@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-7 mx-auto">
+    <div class="bg-white shadow rounded overflow-hidden">
+      <div class="px-4 pt-0 pb-4 cover">
+        <div class="media align-items-end profile-head mb-3">
+          <div class="profile mr-3"><img [src]="setPicture()" alt="(Нет фотографии)" width="250"
+                                         class="rounded mb-2 img-thumbnail">
+            <button (click)="edit()" *ngIf="change" class="btn btn-outline-primary btn-sm btn-block">Изменить профиль</button>
+          </div>
+          <div class="media-body mb-5 text-white">
+            <h1 class="mt-0 mb-1 font-weight-bold">{{organization.name}}</h1>
+            <p class="mb-4 font-weight-bold"><i class="fas fa-map-marker-alt mr-2 "></i>{{organization.organizationType}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-light mt-5 p-4 text-center">
+        <h1 class="mb-0 d-flex justify-content-center font-weight-bold">Описание</h1>
+        <h3 class="mb-0 d-flex justify-content-start">{{organization.description}}</h3>
+      </div>
+      <div class="bg-light container d-inline-flex m-auto">
+        <div class="bg-light p-4 d-flex text-center">
+          <h3 class="mb-0 p-4 font-weight-bold">
+            <mat-icon>maps_home_work</mat-icon>
+            {{organization.address}}
+          </h3>
+        </div>
+        <span class="example-spacer"></span>
+        <div class="bg-light p-4 d-flex  text-center">
+          <h3 class="mb-0 p-4 font-weight-bold">
+            <mat-icon>language</mat-icon>
+            <a href="{{organization.url}}" class="text-decoration-none">Сайт</a>
+          </h3>
+        </div>
+        <span class="example-spacer"></span>
+        <div class="bg-light p-4 d-flex text-center">
+          <h3 class="mb-0 p-4 font-weight-bold">
+            <mat-icon>mail</mat-icon>
+            {{organization.email}}
+          </h3>
+        </div>
+      </div>
+      <div class="py-4 px-4">
+        <h1 class="text-dark font-weight-bold">Проекты:</h1>
+        <ol class="list-group list-group-numbered">
+          <!--          <li class="list-group-item"-->
+          <!--              *ngFor="let place of filteredPlace | async">{{place.name}}</li>-->
+          <li class="list-group-item">Первый проект</li>
+          <li class="list-group-item">Матчер</li>
+          <li class="list-group-item">Что-то еще</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

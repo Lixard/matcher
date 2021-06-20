@@ -35,8 +35,12 @@ export class ProjectsComponent implements OnInit {
   navigateToProject(projectId: number) {
     this.router.navigateByUrl(`/profile/project/${projectId}`);
   }
-
-  getProjectImage(project: Project): string {
-    return 'data:' + project.picture.type + ';base64,' + project.picture.data;
+  
+  setPicture(project: Project): string {
+    if (project.picture === null) {
+      return this.pictureService.getDefaultPictureUrl();
+    } else {
+      return 'data:' + project.picture.type + ';base64,' + project.picture.data;
+    }
   }
 }

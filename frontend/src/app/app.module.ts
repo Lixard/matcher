@@ -16,7 +16,6 @@ import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfilesModule } from './profiles/profiles.module';
 import {MatToolbarModule} from "@angular/material/toolbar";
-import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatSelectModule} from "@angular/material/select";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -40,6 +39,7 @@ import {ProjectModule} from "./project/project.module";
     MatButtonModule,
     AuthModule,
     ProfilesModule,
+    ProjectModule,
     OrganizationModule,
     ProjectModule,
     MatToolbarModule,
