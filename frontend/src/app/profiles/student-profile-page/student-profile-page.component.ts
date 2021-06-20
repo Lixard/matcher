@@ -7,6 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditStudentProfilePageComponent} from '../edit-student-profile-page/edit-student-profile-page.component';
 import {OrganizationModel} from "../../models/organizations/organization.model";
 import {UserOrganizationService} from '../../services/user-organization.service';
+import {PictureService} from "../../services/picture.service";
 
 @Component({
   selector: 'app-student-profile-page',
@@ -22,8 +23,12 @@ export class StudentProfilePageComponent implements OnInit {
   pictureData: string;
   pictureType: string;
 
-  constructor(private authService: AuthService, private userService: UserService, private userOrgService: UserOrganizationService, private route: ActivatedRoute,
-              public dialog: MatDialog) {
+  constructor(private authService: AuthService,
+              private userService: UserService,
+              private userOrgService: UserOrganizationService,
+              private route: ActivatedRoute,
+              public dialog: MatDialog,
+              private pictureService: PictureService) {
   }
 
   ngOnInit(): void {
@@ -35,11 +40,10 @@ export class StudentProfilePageComponent implements OnInit {
         this.user = userNow;
         if (this.user.userType == "STUDENT") {
           this.user.userType = "Студент";
-        }
-        else if (this.user.userType == "EMPLOYEE") {
+        } else if (this.user.userType == "EMPLOYEE") {
           this.user.userType = "Работник"
         }
-        this.userOrgService.getUserOrganization(this.user.id).subscribe((organizationNow)=>{
+        this.userOrgService.getUserOrganization(this.user.id).subscribe((organizationNow) => {
           this.organizations = organizationNow;
         })
         this.userService.getPicture(this.user.pictureId).subscribe((picture) => {
@@ -47,9 +51,9 @@ export class StudentProfilePageComponent implements OnInit {
           this.pictureData = picture.data;
         })
       })
-    },error => {
+    }, error => {
       console.log(error)
-      });
+    });
   }
 
   edit() {
@@ -60,11 +64,19 @@ export class StudentProfilePageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.userService.updateUser(result).subscribe(()=> {
+      this.userService.updateUser(result).subscribe(() => {
         this.userService.updateUserOrganization(result.id, result.place).subscribe(() => {
           window.location.reload();
         })
       })
     });
+  }
+
+  setPicture(): string {
+    if (this.user.pictureId === null) {
+      return this.pictureService.getDefaultPictureUrl();
+    } else {
+      return 'data:' + this.pictureType + ';base64,' + this.pictureData;
+    }
   }
 }

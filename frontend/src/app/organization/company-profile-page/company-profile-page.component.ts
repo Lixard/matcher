@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OrganizationModel} from "../../models/organizations/organization.model";
 import {OrganizationService} from "../../services/organization.service";
 import {ActivatedRoute} from "@angular/router";
@@ -13,6 +13,7 @@ import {EditOrganizationComponent} from "../edit-organization/edit-organization.
   styleUrls: ['./company-profile-page.component.css']
 })
 export class CompanyProfilePageComponent implements OnInit {
+
   organization!: OrganizationModel;
   change: boolean = false;
   pictureType!: string;
@@ -22,7 +23,8 @@ export class CompanyProfilePageComponent implements OnInit {
               private pictureService: PictureService,
               private route: ActivatedRoute,
               private authService: AuthService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((u) => {
@@ -54,5 +56,13 @@ export class CompanyProfilePageComponent implements OnInit {
           window.location.reload();
       })
     });
+  }
+
+  setPicture(): string {
+    if (this.organization.pictureId === null) {
+      return this.pictureService.getDefaultPictureUrl();
+    } else {
+      return 'data:' + this.pictureType + ';base64,' + this.pictureData;
+    }
   }
 }

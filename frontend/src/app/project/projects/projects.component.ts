@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Project } from '../../models/project/project.model';
-import { ProjectService } from '../../services/project.service';
-import { Picture } from '../../models/picture/picture.model';
-import { PictureService } from '../../services/picture.service';
+import {Component, OnInit} from '@angular/core';
+import {Project} from '../../models/project/project.model';
+import {ProjectService} from '../../services/project.service';
+import {Picture} from '../../models/picture/picture.model';
+import {PictureService} from '../../services/picture.service';
 
 @Component({
   selector: 'app-projects',
@@ -30,7 +30,11 @@ export class ProjectsComponent implements OnInit {
     );
   }
 
-  getProjectImage(project: Project): string {
-    return 'data:' + project.picture.type + ';base64,' + project.picture.data;
+  setPicture(project: Project): string {
+    if (project.picture === null) {
+      return this.pictureService.getDefaultPictureUrl();
+    } else {
+      return 'data:' + project.picture.type + ';base64,' + project.picture.data;
+    }
   }
 }
