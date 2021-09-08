@@ -44,6 +44,14 @@ export class RegisterPageComponent implements OnInit {
     form.place = this.placeCtrl.value;
     form.isAdmin = this.isAdmin;
 
+    switch (form.employment) {
+      case "Студент":
+        form.employment = "Student"
+        break
+      default:
+        form.employment = "Employee"
+    }
+
     this.auth.register(form).subscribe(
       () => {
         this.auth

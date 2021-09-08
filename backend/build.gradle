@@ -26,6 +26,8 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:$spring_boot_ver"
     implementation "io.springfox:springfox-boot-starter:$springfox_starter_ver"
     implementation "io.springfox:springfox-swagger-ui:$springfox_ui_ver"
+//    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
 
     implementation project(":backend:services")
     implementation project(":backend:security")

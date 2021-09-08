@@ -1,5 +1,7 @@
 package ru.matcher.rest.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,6 +35,7 @@ import java.util.List;
 )
 public class UserController {
 
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final IUserService userService;
     private final IUserOrganizationService userOrganizationService;
 
@@ -50,6 +53,7 @@ public class UserController {
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserDto createUser(@RequestBody UserCreateDto userDto) {
+        logger.info("userDto: {}", userDto);
         return userService.create(userDto);
     }
 
@@ -64,6 +68,7 @@ public class UserController {
     public UserDto updateUser(@PathVariable Integer id,
                               @RequestBody UserDto userDto) {
         userDto.setId(id);
+        logger.info("userDto: {}", userDto);
         return userService.update(userDto);
     }
 
