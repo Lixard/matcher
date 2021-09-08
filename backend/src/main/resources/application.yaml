@@ -8,8 +8,3 @@ servlet:
     enabled: true
     max-request-size: 20MB
     max-file-size: 20MB
-logging:
-  level:
-    root: debug
-    org.springframework.web: debug
-    org.hibernate: debug

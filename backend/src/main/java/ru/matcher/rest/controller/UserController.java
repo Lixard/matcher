@@ -53,7 +53,7 @@ public class UserController {
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserDto createUser(@RequestBody UserCreateDto userDto) {
-        logger.info("userDto: {}", userDto);
+        logger.info("User to create: {}", userDto);
         return userService.create(userDto);
     }
 
@@ -68,7 +68,7 @@ public class UserController {
     public UserDto updateUser(@PathVariable Integer id,
                               @RequestBody UserDto userDto) {
         userDto.setId(id);
-        logger.info("userDto: {}", userDto);
+        logger.info("User to update: {}", userDto);
         return userService.update(userDto);
     }
 

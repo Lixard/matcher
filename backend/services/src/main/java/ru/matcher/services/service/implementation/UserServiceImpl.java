@@ -34,7 +34,7 @@ import java.util.Objects;
 @Service
 public class UserServiceImpl implements IUserService {
 
-    private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
     private final UserStruct userStruct;
     private final IPasswordEncoderService passwordEncoderService;
