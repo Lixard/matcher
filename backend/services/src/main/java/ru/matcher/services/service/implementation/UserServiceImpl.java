@@ -1,5 +1,7 @@
 package ru.matcher.services.service.implementation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,7 @@ import java.util.Objects;
 @Service
 public class UserServiceImpl implements IUserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
     private final UserStruct userStruct;
     private final IPasswordEncoderService passwordEncoderService;
@@ -69,11 +72,12 @@ public class UserServiceImpl implements IUserService {
                 .withLogin(dto.getLogin())
                 .withPassword(passwordEncoderService.encode(dto.getPassword()));
 
-        if (Objects.equals(dto.getEmployment(), "Студент")) {
+        if (Objects.equals(dto.getEmployment(), "Student")) {
             userBuilder.withUserType(UserType.STUDENT);
         } else {
             userBuilder.withUserType(UserType.EMPLOYEE);
         }
+        logger.info("userBuilder: {}", userBuilder.build());
 
         userRepository.save(userBuilder.build());
 
