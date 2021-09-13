@@ -1,0 +1,3 @@
+INSERT INTO matcher.organizations (name, org_type_id, description, url, email, address) VALUES ('ВГТУ',1,'Воронежский государственный технический университет', 'https://cchgeu.ru', 'rectorat@vgasu.vrn.ru',  'ул. 20-летия Октября, 84');
+INSERT INTO matcher.organizations (name, org_type_id, description, url, email, address) VALUES ('ВГУ',1,'Воронежский государственный университет', 'https://www.vsu.ru', 'test@vsu.ru',  'Университетская площадь, 1');
+INSERT INTO matcher.organizations (name, org_type_id, description, url, email, address) VALUES ('Neoflex',2,'The best company in the world', 'www.neoflex.ru', 'test@neoflex.ru',  'ул. Ленина, 104Б');
