@@ -32,6 +32,8 @@ export class RegisterPageComponent implements OnInit {
   isAdmin: boolean = false;
   organization!: OrganizationModel;
   addOrganization: boolean = false;
+  organizationName: string;
+  organizationPlaceholder: string;
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router,
               public dialog: MatDialog, private organizationService: OrganizationService) {}
@@ -97,6 +99,8 @@ export class RegisterPageComponent implements OnInit {
   selectEmployment() {
     this.isEmployment = true;
     if (this.form.controls.employment.value == 'Студент'){
+      this.organizationName = 'ВУЗ';
+      this.organizationPlaceholder = 'Выберите название ВУЗа';
       this.student = true;
       this.organizationService.getOrganizations(1).subscribe(universities => {
         this.places = [];
@@ -108,6 +112,8 @@ export class RegisterPageComponent implements OnInit {
       });
     } else {
       this.student = false;
+      this.organizationName = 'Организация';
+      this.organizationPlaceholder = 'Выберите название организации';
       this.organizationService.getOrganizations(2).subscribe(companies => {
         this.places = [];
         this.places = companies;

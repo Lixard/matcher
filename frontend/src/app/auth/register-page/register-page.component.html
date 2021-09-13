@@ -101,9 +101,9 @@
     <mat-step label="Организация" [stepControl]="form">
       <form [formGroup]="form">
           <mat-form-field class="mat-form-selection">
-            <mat-label>Организация</mat-label>
+            <mat-label>{{organizationName}}</mat-label>
             <input type="text"
-                   placeholder="Выберите организацию"
+                   placeholder="{{organizationPlaceholder}}"
                    aria-label="Организация"
                    matInput
                    [formControl]="placeCtrl"
