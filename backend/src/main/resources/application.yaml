@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/matcher
-    password: 54321
+    password: 123
     username: postgres
 servlet:
   multipart:
