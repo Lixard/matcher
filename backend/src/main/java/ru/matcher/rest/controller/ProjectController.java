@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.ProjectDto;
+import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
@@ -41,12 +42,12 @@ public class ProjectController {
     /**
      * Добавление проекта.
      *
-     * @param projectDto проект для добавления
+     * @param projectCreateDto проект для добавления
      * @return добавленный проект
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ProjectDto createProject(@RequestBody ProjectDto projectDto) {
-        return projectService.create(projectDto);
+    public ProjectDto createProject(@RequestBody ProjectCreateDto projectCreateDto) {
+        return projectService.create(projectCreateDto);
     }
 
     /**

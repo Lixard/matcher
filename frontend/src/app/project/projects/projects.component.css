@@ -5,3 +5,8 @@
 .content > mat-card {
   width: 200px;
 }
+.create-button {
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+}

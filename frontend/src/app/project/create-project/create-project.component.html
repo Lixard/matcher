@@ -1,0 +1,45 @@
+<div class="page justify-content-center">
+  <form [formGroup]="projectForm">
+    <mat-card>
+      <mat-card-content>
+        <div class="content">
+          <span class="text-center">Добавление проекта</span>
+
+          <mat-form-field>
+            <mat-label>Название проекта</mat-label>
+            <input formControlName="name" matInput/>
+            <mat-error *ngIf="projectForm.get('name')!.hasError('required')">Укажите название</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Описание</mat-label>
+            <textarea
+              formControlName="description"
+              matInput
+            ></textarea>
+            <mat-error *ngIf="projectForm.get('description')!.hasError('required')">Укажите описание</mat-error>
+            <mat-error *ngIf="projectForm.get('description')!.hasError('minlength')"
+            >Описание не должно быть меньше 8 символов
+            </mat-error>
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" class="mb-3">
+            <span>Загрузить фотографию</span>
+            <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" />
+          </button>
+          <span *ngIf="file" class="ml-2">{{fileName}}</span>
+
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!projectForm.valid"
+            class="btn btn-small btn-select"
+            [mat-dialog-close]="_project(projectForm)"
+          >
+            Создать
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

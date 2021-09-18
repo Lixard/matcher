@@ -4,6 +4,7 @@ package ru.matcher.services.dto;
  * Dto класс для проектов.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 public class ProjectDto {
 
@@ -12,6 +13,7 @@ public class ProjectDto {
     private String name;
     private String description;
     private boolean isActive;
+    private Integer organizationId;
 
     public Integer getId() {
         return id;
@@ -51,5 +53,13 @@ public class ProjectDto {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
 }

@@ -1,8 +1,15 @@
 package ru.matcher.services.mapstruct;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import ru.matcher.data.model.Organization;
+import ru.matcher.data.model.Picture;
 import ru.matcher.data.model.Project;
+import ru.matcher.data.model.User;
 import ru.matcher.services.dto.ProjectDto;
+import ru.matcher.services.dto.create.ProjectCreateDto;
+import ru.matcher.services.dto.create.UserCreateDto;
 
 import java.util.List;
 
@@ -20,6 +27,7 @@ public interface ProjectStruct {
      * @param project объект класса Project
      * @return объект класса ProjectDto
      */
+    @Mapping(target = "organizationId", source = "organization.id")
     ProjectDto toDto(Project project);
 
     /**
@@ -28,7 +36,17 @@ public interface ProjectStruct {
      * @param projectDto объект класса ProjectDto
      * @return объект класса Project
      */
+    @Mapping(target = "organization", source = "organizationId", qualifiedByName = "setOrganizationId")
     Project fromDto(ProjectDto projectDto);
+
+    /**
+     * Создание сущности проекта с данными для входа из DTO.
+     *
+     * @param dto dto для конвертации
+     * @return сущность проекта
+     */
+    @Mapping(target = "organization", source = "organizationId", qualifiedByName = "setOrganizationId")
+    Project fromDto(ProjectCreateDto dto);
 
     /**
      * Превращение списка Project в список ProjectDto.
@@ -45,4 +63,14 @@ public interface ProjectStruct {
      * @return список Project
      */
     List<Project> fromDto(List<ProjectDto> projectDtos);
+
+    @Named("setOrganizationId")
+    default Organization setOrganizationId(Integer organizationId) {
+        if (organizationId == null) {
+            return null;
+        }
+        final var organization = new Organization();
+        organization.setId(organizationId);
+        return organization;
+    }
 }

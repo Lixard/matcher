@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectService} from "../../services/project.service";
-import {Project} from "../../models/project/project.model";
+import {ProjectModel} from "../../models/project/project.model";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {UserProject} from "../../models/users/user-project.model";
@@ -13,7 +13,7 @@ import {PictureService} from "../../services/picture.service";
 })
 export class ProjectPageComponent implements OnInit {
 
-  project: Project;
+  project: ProjectModel;
   projectId: number;
   activeProject: string;
   users: UserProject[] = [];
@@ -48,7 +48,7 @@ export class ProjectPageComponent implements OnInit {
     }
   }
 
-  isActiveProject(project: Project) {
+  isActiveProject(project: ProjectModel) {
     if (project.active) {
       this.activeProject = "Проект актуален"
     } else {
