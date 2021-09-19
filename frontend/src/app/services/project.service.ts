@@ -36,4 +36,8 @@ export class ProjectService {
   getParticipantsByProjectId(projectId: number): Observable<UserProject[]>{
     return this.http.get<UserProject[]>(`api/projects/participants/${projectId}`)
   }
+
+  getProjectsByUserId(userId: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`api/projects/user/${userId}`)
+  }
 }

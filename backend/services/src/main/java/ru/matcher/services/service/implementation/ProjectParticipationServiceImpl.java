@@ -10,7 +10,6 @@ import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 import ru.matcher.services.mapstruct.ProjectParticipationStruct;
-import ru.matcher.services.mapstruct.UserStruct;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IUserService;
 

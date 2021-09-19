@@ -99,4 +99,9 @@ public class ProjectController {
     public List<UserProjectGetDto> getParticipantsOfProject(@PathVariable Integer projectId) {
         return projectParticipationService.getParticipationsByIdProject(projectId);
     }
+
+    @GetMapping("/user/{userId}")
+    public List<ProjectDto> getProjectsByUserId(@PathVariable Integer userId) {
+        return projectService.getProjectsByUserId(userId);
+    }
 }

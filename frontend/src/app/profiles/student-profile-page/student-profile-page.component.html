@@ -29,11 +29,10 @@
       <div class="py-4 px-4">
         <h1 class="text-dark font-weight-bold">Проекты:</h1>
         <ol class="list-group list-group-numbered">
-          <!--          <li class="list-group-item"-->
-          <!--              *ngFor="let place of filteredPlace | async">{{place.name}}</li>-->
-          <li class="list-group-item">Первый проект</li>
-          <li class="list-group-item">Матчер</li>
-          <li class="list-group-item">Что-то еще</li>
+          <li class="list-group-item"
+              *ngFor="let project of projects">
+            <a href="profile/project/{{project.id}}" class="text-decoration-none">{{project.name}}</a>
+          </li>
         </ol>
       </div>
     </div>
