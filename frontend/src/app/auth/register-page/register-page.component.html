@@ -100,28 +100,44 @@
 
     <mat-step label="Организация" [stepControl]="form">
       <form [formGroup]="form">
-          <mat-form-field class="mat-form-selection">
-            <mat-label>Организация</mat-label>
+          <mat-form-field class="mat-form-selection" *ngIf="student">
+            <mat-label>ВУЗ</mat-label>
             <input type="text"
-                   placeholder="Выберите организацию"
-                   aria-label="Организация"
+                   placeholder="Выберите ВУЗ"
+                   aria-label="ВУЗ"
                    matInput
                    [formControl]="placeCtrl"
                    [matAutocomplete]="auto">
-            <button
-              (click)="addPlace()"
-              mat-icon-button
-              matSuffix
-              *ngIf="!student"
-            >
-              <mat-icon class="icon">add</mat-icon>
-            </button>
+
             <mat-autocomplete #auto="matAutocomplete" formControlName="place">
               <mat-option *ngFor="let place of filteredPlace | async" [value]="place.name">
                 {{place.name}}
               </mat-option>
             </mat-autocomplete>
+            <mat-hint>Если вашего ВУЗа нет в списке, сообщите в поддержку сервиса</mat-hint>
           </mat-form-field>
+
+        <mat-form-field class="mat-form-selection" *ngIf="!student">
+          <mat-label>Организация</mat-label>
+          <input type="text"
+                 placeholder="Выберите организацию"
+                 aria-label="Организация"
+                 matInput
+                 [formControl]="placeCtrl"
+                 [matAutocomplete]="auto">
+          <button
+            (click)="addPlace()"
+            mat-icon-button
+            matSuffix
+          >
+            <mat-icon class="icon">add</mat-icon>
+          </button>
+          <mat-autocomplete #auto="matAutocomplete" formControlName="place">
+            <mat-option *ngFor="let place of filteredPlace | async" [value]="place.name">
+              {{place.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Дата начала</mat-label>
