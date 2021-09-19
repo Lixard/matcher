@@ -11,6 +11,7 @@ import {EditOrganizationComponent} from "../../organization/edit-organization/ed
 import {MatDialog} from "@angular/material/dialog";
 import {EditProjectComponent} from "../edit-project/edit-project.component";
 import {AuthService} from "../../services/auth.service";
+import {UserOrganizationService} from "../../services/user-organization.service";
 
 @Component({
   selector: 'app-project-page',
@@ -27,6 +28,8 @@ export class ProjectPageComponent implements OnInit {
   users: UserProject[] = [];
   userAdmins: UserProject[] = [];
   isAdmin: boolean = false;
+  isParticipant: boolean = false;
+  userOrganization: OrganizationModel;
 
   constructor(private projectService: ProjectService,
               private userService: UserService,
@@ -34,22 +37,25 @@ export class ProjectPageComponent implements OnInit {
               private pictureService: PictureService,
               private organizationService: OrganizationService,
               public dialog: MatDialog,
-              private readonly authService: AuthService) {
+              private readonly authService: AuthService,
+              private readonly userOrgService: UserOrganizationService) {
   }
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((user) => {
       this.userId = user.id
       this.projectData();
+
     })
   }
 
   projectData() {
     this.projectService.getProject(this.route.snapshot.params.projectId).subscribe((projectNow) => {
-        this.project = projectNow;
-        this.isActiveProject(projectNow);
-        this.getParticipants();
-        this.getOrganization();
+      this.project = projectNow;
+      this.isActiveProject(projectNow);
+      this.getParticipants();
+      this.getOrganization();
+      this.getUserOganization();
       },
       error => {
         console.error(error)
@@ -83,6 +89,9 @@ export class ProjectPageComponent implements OnInit {
             }
           } else {
             this.users.push(user);
+            if (this.userId == user.id) {
+              this.isParticipant = true;
+            }
           }
         }
       },
@@ -133,6 +142,12 @@ export class ProjectPageComponent implements OnInit {
   subscribe() {
     this.projectService.subscribe(this.route.snapshot.params.projectId, this.userId).subscribe(() => {
       window.location.reload();
+    })
+  }
+
+  getUserOganization() {
+    this.userOrgService.getUserOrganization(this.userId).subscribe((organization) => {
+      this.userOrganization = organization[0]
     })
   }
 }

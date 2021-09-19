@@ -8,14 +8,17 @@
             <div class="card-block text-center text-white col-sm-20">
               <img class="round" [src]="setPicture()" width="350"
                    height="320"
-                   alt="User-Profile-Image">
+                   alt="Project-Profile-Image">
               <h3 class="f-w-600">Проект</h3>
               <p>{{project.name}}</p> <i class="mdi mdi-square-edit-outline feather icon-edit  f-18"></i>
               <div class="buttons-admin" *ngIf="project.active && isAdmin">
                 <button mat-raised-button color="basic" class="button-admin" (click)="edit()">Редактировать</button>
                 <button mat-raised-button color="basic" class="button-admin" (click)="complete()">Завершить</button>
               </div>
-              <div *ngIf="project.active && !isAdmin">
+              <div *ngIf="project.active
+                  && !isAdmin
+                  && !isParticipant
+                  && !(userOrganization.organizationType == organization.organizationType)">
                 <button mat-raised-button color="basic" style="width: 100%" (click)="subscribe()">Вступить</button>
               </div>
             </div>
