@@ -34,9 +34,10 @@ public interface IProjectParticipationService {
     /**
      * Удаление ProjectParticipation из БД.
      *
-     * @param projectParticipationId идентификатор ProjectParticipation
+     * @param projectId идентификатор Project
+     * @param userId идентификатор User
      */
-    void remove(ProjectUserEmbeddedId projectParticipationId);
+    void remove(Integer projectId, Integer userId);
 
     /**
      * Возвращяет список ProjectParticipationDto из БД.

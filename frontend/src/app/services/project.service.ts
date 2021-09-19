@@ -49,6 +49,10 @@ export class ProjectService {
     return this.http.get<void>(`api/projects/${projectId}/admin/${userId}`)
   }
 
+  delete(projectId: number, userId: number): Observable<void> {
+    return this.http.delete<void>(`api/projects/${projectId}/${userId}`)
+  }
+
   getAdminOrganizations(projectId: number): Observable<OrganizationModel[]> {
     return this.http.get<OrganizationModel[]>(`api/projects/${projectId}/organizations/admin`)
   }

@@ -155,4 +155,10 @@ export class ProjectPageComponent implements OnInit {
       window.location.reload();
     })
   }
+
+  delete(user: UserProject) {
+    this.projectService.delete(this.route.snapshot.params.projectId, user.id).subscribe(() => {
+      window.location.reload();
+    })
+  }
 }

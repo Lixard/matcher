@@ -54,8 +54,19 @@
                   <h6 *ngFor="let user of users" class="text-muted f-w-400">
                     <a href="/profile/user/{{user.id}}"
                        class="text-decoration-none">{{user.firstName}} {{user.lastName}}</a>
-                    <button mat-mini-fab color="primary" aria-label="Назначить администратором" (click)="admin(user)">
+                    <button mat-mini-fab
+                            color="primary"
+                            aria-label="Назначить администратором"
+                            *ngIf="project.active && isAdmin"
+                            (click)="admin(user)">
                       <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-mini-fab
+                            color="primary"
+                            aria-label="Исключить из проекта"
+                            *ngIf="project.active && isAdmin"
+                            (click)="delete(user)">
+                      <mat-icon>delete</mat-icon>
                     </button>
                   </h6>
                 </div>

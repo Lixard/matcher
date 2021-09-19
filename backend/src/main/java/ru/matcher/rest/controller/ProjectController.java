@@ -121,4 +121,9 @@ public class ProjectController {
     public List<OrganizationDto> getAdminOrganizations(@PathVariable Integer projectId) {
         return projectParticipationService.getAdminOrganizations(projectId);
     }
+
+    @DeleteMapping("/{projectId}/{userId}")
+    public void remove (@PathVariable Integer projectId, @PathVariable Integer userId) {
+        projectParticipationService.remove(projectId, userId);
+    }
 }

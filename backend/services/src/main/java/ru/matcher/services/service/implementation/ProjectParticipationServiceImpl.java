@@ -63,7 +63,10 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
 
     @Override
     @Transactional
-    public void remove(ProjectUserEmbeddedId projectParticipationId) {
+    public void remove(Integer projectId, Integer userId) {
+        ProjectUserEmbeddedId projectParticipationId = new ProjectUserEmbeddedId();
+        projectParticipationId.setProject(projectId);
+        projectParticipationId.setUser(userId);
         projectParticipationRepository.deleteById(projectParticipationId);
     }
 
