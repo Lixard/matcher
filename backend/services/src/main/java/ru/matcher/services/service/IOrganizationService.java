@@ -1,6 +1,7 @@
 package ru.matcher.services.service;
 
 import ru.matcher.services.dto.OrganizationDto;
+import ru.matcher.services.dto.UserDto;
 
 import java.util.List;
 
@@ -67,6 +68,8 @@ public interface IOrganizationService {
     OrganizationDto findByName(String name);
 
     List<OrganizationDto> getOrganizationsByUser(int userId);
+
+    List<UserDto> getUsersByOrganization(int organizationId);
 
     /**
      * Проверка является ли пользователем админом организации

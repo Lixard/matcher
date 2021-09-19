@@ -1,0 +1,4 @@
+<h2>Сотрудники</h2>
+  <h4 *ngFor="let user of users" class="text-muted f-w-400">
+    <a href="/profile/user/{{user.id}}"
+       class="text-decoration-none">{{user.firstName}} {{user.lastName}}</a></h4>
