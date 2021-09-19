@@ -93,7 +93,7 @@ public class UserServiceImpl implements IUserService {
                 .withStartDate(LocalDate.parse(dto.getStartDate(), formatter))
                 .withIsAdmin(dto.isAdmin());
 
-            if (!dto.getEndDate().isBlank() && dto.getEndDate() != null) {
+            if (dto.getEndDate() != null && !dto.getEndDate().isBlank()) {
                 userOrganizationBuilder.withEndDate(LocalDate.parse(dto.getEndDate(), formatter));
             }
 
