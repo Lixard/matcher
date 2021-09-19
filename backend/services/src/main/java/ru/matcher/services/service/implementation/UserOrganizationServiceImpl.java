@@ -1,7 +1,6 @@
 package ru.matcher.services.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.UserOrganization;
@@ -55,7 +54,7 @@ public class UserOrganizationServiceImpl implements IUserOrganizationService {
         UserOrganization userOrganization = userOrganizations.get(0);
         userOrganization.getId().setOrganization(organizationDto.getId());
         userOrganizationRepository.saveByIdUser(userOrganizationUpdate.getUserId(),
-                                                    organizationDto.getId());
+                organizationDto.getId());
 
         return userOrganizationStruct.toDto(userOrganization);
     }

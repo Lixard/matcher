@@ -6,6 +6,9 @@ import {AuthService} from "../../services/auth.service";
 import {PictureService} from "../../services/picture.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EditOrganizationComponent} from "../edit-organization/edit-organization.component";
+import {ListOfEmployeesPageComponent} from "../list-of-employees-page/list-of-employees-page.component";
+import {UserOrganizationService} from "../../services/user-organization.service";
+import {UserOrganizationModel} from "../../models/users/user-organization";
 
 @Component({
   selector: 'app-company-profile-page',
@@ -15,11 +18,16 @@ import {EditOrganizationComponent} from "../edit-organization/edit-organization.
 export class CompanyProfilePageComponent implements OnInit {
 
   organization!: OrganizationModel;
+  user!: UserOrganizationModel[];
+
   change: boolean = false;
   pictureType!: string;
   pictureData!: string;
+  firstName!: string;
+  lastName!: string;
 
-  constructor(private organizationService: OrganizationService,
+  constructor(private userOrganizationService: UserOrganizationService,
+              private organizationService: OrganizationService,
               private pictureService: PictureService,
               private route: ActivatedRoute,
               private authService: AuthService,
@@ -35,12 +43,16 @@ export class CompanyProfilePageComponent implements OnInit {
 
     this.organizationService.getOrganization(this.route.snapshot.params.orgId).subscribe((organization) => {
       this.organization = organization;
+      if (organization.organizationType == 'COMPANY') {
+        this.organization.organizationType = 'Компания'
+      } else if (organization.organizationType == 'UNIVERSITY') {
+        this.organization.organizationType = 'Университет'
+      }
       this.pictureService.getPicture(organization.pictureId).subscribe((picture) => {
         this.pictureType = picture.type;
         this.pictureData = picture.data;
       })
     })
-
   }
 
   edit() {
@@ -52,8 +64,8 @@ export class CompanyProfilePageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: OrganizationModel) => {
       result.id = this.organization.id;
-      this.organizationService.updateOrganization(result).subscribe(()=> {
-          window.location.reload();
+      this.organizationService.updateOrganization(result).subscribe(() => {
+        window.location.reload();
       })
     });
   }
@@ -64,5 +76,13 @@ export class CompanyProfilePageComponent implements OnInit {
     } else {
       return 'data:' + this.pictureType + ';base64,' + this.pictureData;
     }
+  }
+
+  openListOfEmployees() {
+    const dialogRef = this.dialog.open(ListOfEmployeesPageComponent, {
+      width: '25%',
+      height: '45%',
+      data: this.organization
+    });
   }
 }
