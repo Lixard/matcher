@@ -16,6 +16,6 @@ export class UserOrganizationService {
   }
 
   getUsersByOrganization(organizationId: number): Observable<UserOrganizationModel[]> {
-    return this.http.get<UserOrganizationModel[]>(`api/organizations/user_organizations/${organizationId}`);
+    return this.http.get<UserOrganizationModel[]>(`api/organizations/${organizationId}/users`);
   }
 }

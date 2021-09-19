@@ -111,7 +111,7 @@ public class OrganizationController {
         return userOrganizationService.isAdmin(userId, orgId);
     }
 
-    @GetMapping("/user_organizations/{orgId}")
+    @GetMapping("/{orgId}/users")
     public List<UserDto> findUsersByOrganizationId(@PathVariable Integer orgId) {
         return organizationService.getUsersByOrganization(orgId);
     }
