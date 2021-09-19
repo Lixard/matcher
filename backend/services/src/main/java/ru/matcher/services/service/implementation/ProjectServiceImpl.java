@@ -18,6 +18,7 @@ import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.mapstruct.OrganizationStruct;
 import ru.matcher.services.mapstruct.PictureStruct;
 import ru.matcher.services.mapstruct.ProjectStruct;
+import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
 
 import java.time.LocalDate;
@@ -39,11 +40,11 @@ public class ProjectServiceImpl implements IProjectService {
     private final UserOrganizationRepository userOrganizationRepository;
     private final OrganizationRepository organizationRepository;
     private final PictureRepository pictureRepository;
-    private final ProjectParticipationServiceImpl projectParticipationService;
+    private final IProjectParticipationService projectParticipationService;
 
     @Autowired
     public ProjectServiceImpl(ProjectRepository projectRepository,
-                              ProjectStruct projectStruct, OrganizationStruct organizationStruct, UserOrganizationRepository userOrganizationRepository, OrganizationRepository organizationRepository, PictureRepository pictureRepository, PictureStruct pictureStruct, ProjectParticipationServiceImpl projectParticipationService) {
+                              ProjectStruct projectStruct, OrganizationStruct organizationStruct, UserOrganizationRepository userOrganizationRepository, OrganizationRepository organizationRepository, PictureRepository pictureRepository, ProjectParticipationServiceImpl projectParticipationService) {
         this.projectRepository = projectRepository;
         this.projectStruct = projectStruct;
         this.organizationStruct = organizationStruct;

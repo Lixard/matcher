@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {ProjectModel} from "../models/project/project.model";
 import {Observable} from "rxjs";
 import {UserProject} from "../models/users/user-project.model";
+import {OrganizationModel} from "../models/organizations/organization.model";
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,9 @@ export class ProjectService {
 
   admin(projectId: number, userId: number): Observable<void> {
     return this.http.get<void>(`api/projects/${projectId}/admin/${userId}`)
+  }
+
+  getAdminOrganizations(projectId: number): Observable<OrganizationModel[]> {
+    return this.http.get<OrganizationModel[]>(`api/projects/${projectId}/organizations/admin`)
   }
 }

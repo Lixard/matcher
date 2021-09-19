@@ -8,12 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.ProjectParticipation;
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
 import ru.matcher.data.repository.ProjectParticipationRepository;
-import ru.matcher.services.dto.ProjectDto;
+import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 import ru.matcher.services.mapstruct.ProjectParticipationStruct;
-import ru.matcher.services.mapstruct.UserStruct;
+import ru.matcher.services.service.IOrganizationService;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IUserService;
 
@@ -33,14 +33,16 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     private final ProjectParticipationRepository projectParticipationRepository;
     private final ProjectParticipationStruct projectParticipationStruct;
     private final IUserService userService;
+    private final IOrganizationService organizationService;
 
     @Autowired
     public ProjectParticipationServiceImpl(ProjectParticipationRepository projectParticipationRepository,
                                            ProjectParticipationStruct projectParticipationStruct,
-                                           IUserService userService) {
+                                           IUserService userService, IOrganizationService organizationService) {
         this.projectParticipationRepository = projectParticipationRepository;
         this.projectParticipationStruct = projectParticipationStruct;
         this.userService = userService;
+        this.organizationService = organizationService;
     }
 
     @Override
@@ -120,5 +122,15 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
         ProjectParticipationDto projectParticipationDto = findById(projectUserEmbeddedId);
         projectParticipationDto.setAdmin(true);
         update(projectParticipationDto);
+    }
+
+    @Override
+    public List<OrganizationDto> getAdminOrganizations(Integer projectId) {
+        List<ProjectParticipationDto> projectParticipations = projectParticipationStruct.toDto(projectParticipationRepository.findByProjectId(projectId));
+        List<OrganizationDto> organizationDtos = new ArrayList<>();
+        for (ProjectParticipationDto projectParticipation : projectParticipations) {
+            organizationDtos.addAll(organizationService.getOrganizationsByUser(projectParticipation.getUserId()));
+        }
+        return organizationDtos;
     }
 }

@@ -23,6 +23,20 @@
             </mat-error>
           </mat-form-field>
 
+          <mat-form-field>
+            <input type="text"
+                   placeholder="Выберите организацию"
+                   aria-label="Организация"
+                   matInput
+                   [formControl]="orgCtrl"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" formControlName="place">
+              <mat-option *ngFor="let place of filteredPlace | async" [value]="place.name">
+                {{place.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
           <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" class="mb-3">
             <span>Загрузить фотографию</span>
             <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" />

@@ -1,6 +1,7 @@
 package ru.matcher.services.service;
 
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
+import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 
@@ -60,4 +61,6 @@ public interface IProjectParticipationService {
     void subscribe(Integer projectId, Integer userId);
 
     void admin(Integer projectId, Integer userId);
+
+    List<OrganizationDto> getAdminOrganizations(Integer projectId);
 }

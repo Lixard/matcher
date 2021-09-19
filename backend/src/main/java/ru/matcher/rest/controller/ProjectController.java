@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
@@ -114,5 +115,10 @@ public class ProjectController {
     @GetMapping("/{projectId}/admin/{userId}")
     public void admin(@PathVariable Integer projectId, @PathVariable Integer userId) {
         projectParticipationService.admin(projectId, userId);
+    }
+
+    @GetMapping("/{projectId}/organizations/admin")
+    public List<OrganizationDto> getAdminOrganizations(@PathVariable Integer projectId) {
+        return projectParticipationService.getAdminOrganizations(projectId);
     }
 }

@@ -1,10 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {PictureService} from "../../services/picture.service";
-import {ProjectCreateModel} from "../../models/project/project-create.model";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {ProjectModel} from "../../models/project/project.model";
-import {Picture} from "../../models/picture/picture.model";
+import {Observable} from "rxjs";
+import {OrganizationModel} from "../../models/organizations/organization.model";
+import {map, startWith} from "rxjs/operators";
+import {ProjectService} from "../../services/project.service";
 
 @Component({
   selector: 'app-edit-project',
@@ -13,6 +15,9 @@ import {Picture} from "../../models/picture/picture.model";
 })
 export class EditProjectComponent implements OnInit {
   projectForm: FormGroup;
+  orgCtrl = new FormControl();
+  filteredPlace!: Observable<OrganizationModel[]>;
+  organizations!: OrganizationModel[];
   file: boolean = false;
   fileName!: string;
   pictureId: number;
@@ -20,7 +25,8 @@ export class EditProjectComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: ProjectModel,
-              private picturesService: PictureService) { }
+              private picturesService: PictureService,
+              private projectService: ProjectService) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -30,13 +36,22 @@ export class EditProjectComponent implements OnInit {
   private buildForm(): void {
     this.projectForm = this.fb.group({
       name: this.fb.control('', [Validators.required]),
-      description: this.fb.control('', [Validators.required, Validators.minLength(8)])
+      description: this.fb.control('', [Validators.required, Validators.minLength(8)]),
+      place: this.fb.control('')
     });
   }
 
   setData() {
     this.projectForm.controls.name.setValue(this.data.name);
     this.projectForm.controls.description.setValue(this.data.description);
+    this.projectService.getAdminOrganizations(this.data.id).subscribe(org => {
+      this.organizations = [];
+      this.organizations = org;
+      this.filteredPlace = this.orgCtrl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    });
   }
 
   public noWhitespaceValidator(control: FormControl) {
@@ -63,6 +78,11 @@ export class EditProjectComponent implements OnInit {
     const project = projectForm.value as unknown as ProjectModel;
     project.active = this.data.active;
     project.organizationId = this.data.organizationId;
+    for (let organization of this.organizations) {
+      if (organization.name == this.orgCtrl.value) {
+        project.organizationId = organization.id;
+      }
+    }
     project.id = this.data.id;
     if (this.pictureId) {
       project.picture.id = this.pictureId;
@@ -70,5 +90,10 @@ export class EditProjectComponent implements OnInit {
       project.picture = this.data.picture;
     }
     return project;
+  }
+
+  private _filter(value: string) {
+    const filterValue = value.toLowerCase();
+    return this.organizations.filter(place => place.name.toLowerCase().includes(filterValue));
   }
 }

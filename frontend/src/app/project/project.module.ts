@@ -14,6 +14,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import { EditProjectComponent } from './edit-project/edit-project.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatOptionModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent],
@@ -28,7 +30,10 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
     MatFormFieldModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MatInputModule]
+    MatInputModule,
+    MatAutocompleteModule,
+    MatOptionModule
+  ]
 })
 export class ProjectModule {
 }
