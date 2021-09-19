@@ -5,6 +5,8 @@ import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {UserProject} from "../../models/users/user-project.model";
 import {PictureService} from "../../services/picture.service";
+import {OrganizationService} from "../../services/organization.service";
+import {OrganizationModel} from "../../models/organizations/organization.model";
 
 @Component({
   selector: 'app-project-page',
@@ -14,6 +16,7 @@ import {PictureService} from "../../services/picture.service";
 export class ProjectPageComponent implements OnInit {
 
   project: ProjectModel;
+  organization: OrganizationModel;
   projectId: number;
   activeProject: string;
   users: UserProject[] = [];
@@ -22,7 +25,8 @@ export class ProjectPageComponent implements OnInit {
   constructor(private projectService: ProjectService,
               private userService: UserService,
               private route: ActivatedRoute,
-              private pictureService: PictureService) {
+              private pictureService: PictureService,
+              private organizationService: OrganizationService) {
   }
 
   ngOnInit(): void {
@@ -34,6 +38,7 @@ export class ProjectPageComponent implements OnInit {
         this.project = projectNow;
         this.isActiveProject(projectNow);
         this.getParticipants();
+        this.getOrganization();
       },
       error => {
         console.error(error)
@@ -70,5 +75,16 @@ export class ProjectPageComponent implements OnInit {
       (error) => {
         console.error(error);
       })
+  }
+
+  getOrganization() {
+    this.organizationService.getOrganization(this.project.organizationId).subscribe(
+      organization => {
+          this.organization = organization;
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
   }
 }
