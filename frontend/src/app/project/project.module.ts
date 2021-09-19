@@ -13,10 +13,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
+import { EditProjectComponent } from './edit-project/edit-project.component';
 
 @NgModule({
-  declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent],
-  entryComponents: [CreateProjectComponent],
+  declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent],
+  entryComponents: [CreateProjectComponent, EditProjectComponent],
   imports: [
     CommonModule,
     ProjectRoutingModule,

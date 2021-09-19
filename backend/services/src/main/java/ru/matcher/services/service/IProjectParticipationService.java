@@ -2,7 +2,6 @@ package ru.matcher.services.service;
 
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
 import ru.matcher.services.dto.ProjectParticipationDto;
-import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 
 import java.util.List;
@@ -11,6 +10,7 @@ import java.util.List;
  * Интерфейс сервиса для пользователей учавствовавших в проектах.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 public interface IProjectParticipationService {
 
@@ -55,5 +55,5 @@ public interface IProjectParticipationService {
 
     List<UserProjectGetDto> getParticipationsByIdProject(Integer projectId);
 
-
+    void setEndDateIfCompleteProject(Integer projectId);
 }

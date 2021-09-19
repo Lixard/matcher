@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.ProjectParticipation;
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
 import ru.matcher.data.repository.ProjectParticipationRepository;
+import ru.matcher.services.dto.ProjectDto;
 import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
@@ -14,6 +15,7 @@ import ru.matcher.services.mapstruct.UserStruct;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IUserService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,5 +87,14 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
             userProjectGetDtos.add(builder.build());
         }
         return userProjectGetDtos;
+    }
+
+    @Override
+    public void setEndDateIfCompleteProject(Integer projectId) {
+        List<ProjectParticipationDto> projectParticipations = projectParticipationStruct.toDto(projectParticipationRepository.findByProjectId(projectId));
+        for (ProjectParticipationDto projectParticipation : projectParticipations) {
+            projectParticipation.setEndDate(LocalDate.now());
+            projectParticipationRepository.save(projectParticipationStruct.fromDto(projectParticipation));
+        }
     }
 }

@@ -7,6 +7,9 @@ import {UserProject} from "../../models/users/user-project.model";
 import {PictureService} from "../../services/picture.service";
 import {OrganizationService} from "../../services/organization.service";
 import {OrganizationModel} from "../../models/organizations/organization.model";
+import {EditOrganizationComponent} from "../../organization/edit-organization/edit-organization.component";
+import {MatDialog} from "@angular/material/dialog";
+import {EditProjectComponent} from "../edit-project/edit-project.component";
 
 @Component({
   selector: 'app-project-page',
@@ -26,7 +29,8 @@ export class ProjectPageComponent implements OnInit {
               private userService: UserService,
               private route: ActivatedRoute,
               private pictureService: PictureService,
-              private organizationService: OrganizationService) {
+              private organizationService: OrganizationService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -91,8 +95,28 @@ export class ProjectPageComponent implements OnInit {
   complete() {
     this.project.active = false;
     this.projectService.updateProject(this.route.snapshot.params.projectId, this.project).subscribe(() => {
+      this.projectService.setEndDateIfCompleteProject(this.route.snapshot.params.projectId).subscribe(() => {
         window.location.reload();
+      })
       }
     )
+  }
+
+  edit() {
+    const dialogRef = this.dialog.open(EditProjectComponent, {
+      width: '65%',
+      height: '65%',
+      data: this.project
+    });
+
+    dialogRef.afterClosed().subscribe((result: ProjectModel) => {
+      this.pictureService.getPicture(result.picture.id).subscribe((picture) => {
+        result.picture = picture
+      })
+      console.log(result.picture)
+      this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(()=> {
+        window.location.reload();
+      })
+    });
   }
 }

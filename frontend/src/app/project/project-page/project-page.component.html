@@ -13,7 +13,7 @@
               <p>{{project.name}}</p> <i class="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-18"></i>
             </div>
             <div>
-              <button mat-raised-button color="basic">Редактировать</button>
+              <button mat-raised-button color="basic" (click)="edit()">Редактировать</button>
               <button mat-raised-button color="basic" (click)="complete()">Завершить</button>
             </div>
             <div *ngIf="false">

@@ -100,4 +100,9 @@ public class ProjectController {
     public List<UserProjectGetDto> getParticipantsOfProject(@PathVariable Integer projectId) {
         return projectParticipationService.getParticipationsByIdProject(projectId);
     }
+
+    @GetMapping("/complete/participants/{projectId}")
+    public void setEndDateIfCompleteProject(@PathVariable Integer projectId) {
+        projectParticipationService.setEndDateIfCompleteProject(projectId);
+    }
 }

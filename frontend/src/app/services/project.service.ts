@@ -36,4 +36,8 @@ export class ProjectService {
   getParticipantsByProjectId(projectId: number): Observable<UserProject[]>{
     return this.http.get<UserProject[]>(`api/projects/participants/${projectId}`)
   }
+
+  setEndDateIfCompleteProject(projectId: number): Observable<void>{
+    return this.http.get<void>(`api/projects/complete/participants/${projectId}`)
+  }
 }
