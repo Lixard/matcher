@@ -79,3 +79,15 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-005.rollback.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 6
+      author: Ilya Novichikhin
+      comment: Add data to tables
+      changes:
+        - sqlFile:
+            path: master/M-006.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-006.rollback.sql
+            relativeToChangelogFile: true
