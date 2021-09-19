@@ -1,5 +1,7 @@
 package ru.matcher.services.service.implementation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,7 @@ import java.util.List;
 @Service
 public class ProjectParticipationServiceImpl implements IProjectParticipationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final ProjectParticipationRepository projectParticipationRepository;
     private final ProjectParticipationStruct projectParticipationStruct;
     private final IUserService userService;
@@ -96,5 +99,16 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
             projectParticipation.setEndDate(LocalDate.now());
             projectParticipationRepository.save(projectParticipationStruct.fromDto(projectParticipation));
         }
+    }
+
+    @Override
+    public void subscribe(Integer projectId, Integer userId) {
+        final var projectParticipationBuilder = ProjectParticipationDto.Builder.aProjectParticipationDto()
+                .withProjectId(projectId)
+                .withUserId(userId)
+                .withStartDate(LocalDate.now())
+                .withIsAdmin(false);
+        logger.info("projectParticipationBuilder: {}", projectParticipationBuilder.build());
+        create(projectParticipationBuilder.build());
     }
 }

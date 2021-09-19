@@ -56,4 +56,6 @@ public interface IProjectParticipationService {
     List<UserProjectGetDto> getParticipationsByIdProject(Integer projectId);
 
     void setEndDateIfCompleteProject(Integer projectId);
+
+    void subscribe(Integer projectId, Integer userId);
 }

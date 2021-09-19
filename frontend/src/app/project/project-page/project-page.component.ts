@@ -10,6 +10,7 @@ import {OrganizationModel} from "../../models/organizations/organization.model";
 import {EditOrganizationComponent} from "../../organization/edit-organization/edit-organization.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EditProjectComponent} from "../edit-project/edit-project.component";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-project-page',
@@ -20,21 +21,27 @@ export class ProjectPageComponent implements OnInit {
 
   project: ProjectModel;
   organization: OrganizationModel;
+  userId: number;
   projectId: number;
   activeProject: string;
   users: UserProject[] = [];
   userAdmins: UserProject[] = [];
+  isAdmin: boolean = false;
 
   constructor(private projectService: ProjectService,
               private userService: UserService,
               private route: ActivatedRoute,
               private pictureService: PictureService,
               private organizationService: OrganizationService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private readonly authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.projectData();
+    this.authService.loadProfile().subscribe((user) => {
+      this.userId = user.id
+      this.projectData();
+    })
   }
 
   projectData() {
@@ -71,6 +78,9 @@ export class ProjectPageComponent implements OnInit {
         for (let user of usersNow) {
           if (user.isAdmin) {
             this.userAdmins.push(user);
+            if (this.userId == user.id) {
+              this.isAdmin = true;
+            }
           } else {
             this.users.push(user);
           }
@@ -118,5 +128,11 @@ export class ProjectPageComponent implements OnInit {
         window.location.reload();
       })
     });
+  }
+
+  subscribe() {
+    this.projectService.subscribe(this.route.snapshot.params.projectId, this.userId).subscribe(() => {
+      window.location.reload();
+    })
   }
 }

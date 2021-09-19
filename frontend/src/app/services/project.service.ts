@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ProjectModel} from "../models/project/project.model";
 import {Observable} from "rxjs";
-import {User} from "../models/users/user.model";
 import {UserProject} from "../models/users/user-project.model";
 
 @Injectable({
@@ -37,7 +36,11 @@ export class ProjectService {
     return this.http.get<UserProject[]>(`api/projects/participants/${projectId}`)
   }
 
-  setEndDateIfCompleteProject(projectId: number): Observable<void>{
+  setEndDateIfCompleteProject(projectId: number): Observable<void> {
     return this.http.get<void>(`api/projects/complete/participants/${projectId}`)
+  }
+
+  subscribe(projectId: number, userId: number): Observable<void> {
+    return this.http.get<void>(`api/projects/${projectId}/subscribe/${userId}`)
   }
 }

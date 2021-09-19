@@ -136,3 +136,13 @@ h6 {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out
 }
+
+.buttons-admin {
+  flex-direction: column;
+  width:100%
+}
+
+.button-admin {
+  width: 45%;
+  margin-right: 5%;
+}

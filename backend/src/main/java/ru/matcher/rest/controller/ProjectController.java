@@ -105,4 +105,9 @@ public class ProjectController {
     public void setEndDateIfCompleteProject(@PathVariable Integer projectId) {
         projectParticipationService.setEndDateIfCompleteProject(projectId);
     }
+
+    @GetMapping("/{projectId}/subscribe/{userId}")
+    public void subscribe(@PathVariable Integer projectId, @PathVariable Integer userId) {
+        projectParticipationService.subscribe(projectId, userId);
+    }
 }
