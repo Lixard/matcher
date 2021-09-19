@@ -7,7 +7,6 @@ import {UserProject} from "../../models/users/user-project.model";
 import {PictureService} from "../../services/picture.service";
 import {OrganizationService} from "../../services/organization.service";
 import {OrganizationModel} from "../../models/organizations/organization.model";
-import {EditOrganizationComponent} from "../../organization/edit-organization/edit-organization.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EditProjectComponent} from "../edit-project/edit-project.component";
 import {AuthService} from "../../services/auth.service";
@@ -148,6 +147,12 @@ export class ProjectPageComponent implements OnInit {
   getUserOganization() {
     this.userOrgService.getUserOrganization(this.userId).subscribe((organization) => {
       this.userOrganization = organization[0]
+    })
+  }
+
+  admin(user: UserProject) {
+    this.projectService.admin(this.route.snapshot.params.projectId, user.id).subscribe(() => {
+      window.location.reload();
     })
   }
 }

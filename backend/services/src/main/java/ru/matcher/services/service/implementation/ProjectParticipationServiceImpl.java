@@ -111,4 +111,14 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
         logger.info("projectParticipationBuilder: {}", projectParticipationBuilder.build());
         create(projectParticipationBuilder.build());
     }
+
+    @Override
+    public void admin(Integer projectId, Integer userId) {
+        ProjectUserEmbeddedId projectUserEmbeddedId = new ProjectUserEmbeddedId();
+        projectUserEmbeddedId.setProject(projectId);
+        projectUserEmbeddedId.setUser(userId);
+        ProjectParticipationDto projectParticipationDto = findById(projectUserEmbeddedId);
+        projectParticipationDto.setAdmin(true);
+        update(projectParticipationDto);
+    }
 }

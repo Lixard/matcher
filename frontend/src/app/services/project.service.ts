@@ -43,4 +43,8 @@ export class ProjectService {
   subscribe(projectId: number, userId: number): Observable<void> {
     return this.http.get<void>(`api/projects/${projectId}/subscribe/${userId}`)
   }
+
+  admin(projectId: number, userId: number): Observable<void> {
+    return this.http.get<void>(`api/projects/${projectId}/admin/${userId}`)
+  }
 }

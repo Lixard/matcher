@@ -110,4 +110,9 @@ public class ProjectController {
     public void subscribe(@PathVariable Integer projectId, @PathVariable Integer userId) {
         projectParticipationService.subscribe(projectId, userId);
     }
+
+    @GetMapping("/{projectId}/admin/{userId}")
+    public void admin(@PathVariable Integer projectId, @PathVariable Integer userId) {
+        projectParticipationService.admin(projectId, userId);
+    }
 }

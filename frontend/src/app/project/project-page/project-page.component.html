@@ -53,7 +53,11 @@
                   <p class="m-b-10 f-w-600">Участники</p>
                   <h6 *ngFor="let user of users" class="text-muted f-w-400">
                     <a href="/profile/user/{{user.id}}"
-                       class="text-decoration-none">{{user.firstName}} {{user.lastName}}</a></h6>
+                       class="text-decoration-none">{{user.firstName}} {{user.lastName}}</a>
+                    <button mat-mini-fab color="primary" aria-label="Назначить администратором" (click)="admin(user)">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </h6>
                 </div>
               </div>
             </div>
