@@ -12,6 +12,13 @@
               <h3 class="f-w-600">Проект</h3>
               <p>{{project.name}}</p> <i class="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-18"></i>
             </div>
+            <div>
+              <button mat-raised-button color="basic">Редактировать</button>
+              <button mat-raised-button color="basic" (click)="complete()">Завершить</button>
+            </div>
+            <div *ngIf="false">
+              <button mat-raised-button color="primary">Записаться</button>
+            </div>
           </div>
           <div class="col-sm-20 justify-content-center">
             <div class="card-block">

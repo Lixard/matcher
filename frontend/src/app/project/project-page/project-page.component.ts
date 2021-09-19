@@ -87,4 +87,12 @@ export class ProjectPageComponent implements OnInit {
       }
     )
   }
+
+  complete() {
+    this.project.active = false;
+    this.projectService.updateProject(this.route.snapshot.params.projectId, this.project).subscribe(() => {
+        window.location.reload();
+      }
+    )
+  }
 }
