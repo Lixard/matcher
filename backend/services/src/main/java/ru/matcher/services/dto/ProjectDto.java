@@ -13,7 +13,7 @@ public class ProjectDto {
     private String name;
     private String description;
     private boolean isActive;
-    private Integer organizationId;
+    private int organizationId;
 
     public Integer getId() {
         return id;
@@ -55,11 +55,11 @@ public class ProjectDto {
         isActive = active;
     }
 
-    public Integer getOrganizationId() {
+    public int getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(Integer organizationId) {
+    public void setOrganizationId(int organizationId) {
         this.organizationId = organizationId;
     }
 }

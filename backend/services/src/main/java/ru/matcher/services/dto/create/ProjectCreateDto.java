@@ -6,8 +6,8 @@ public class ProjectCreateDto extends ProjectDto {
     private String name;
     private String description;
     private Integer pictureId;
-    private Integer userId;
-    private Integer organizationId;
+    private int userId;
+    private int organizationId;
 
     @Override
     public String getName() {
@@ -54,12 +54,12 @@ public class ProjectCreateDto extends ProjectDto {
     }
 
     @Override
-    public Integer getOrganizationId() {
+    public int getOrganizationId() {
         return organizationId;
     }
 
     @Override
-    public void setOrganizationId(Integer organizationId) {
+    public void setOrganizationId(int organizationId) {
         this.organizationId = organizationId;
     }
 }

@@ -59,7 +59,7 @@ public interface IProjectParticipationService {
 
     void setEndDateIfCompleteProject(Integer projectId);
 
-    void subscribe(Integer projectId, Integer userId);
+    void subscribe(Integer projectId);
 
     void admin(Integer projectId, Integer userId);
 

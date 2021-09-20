@@ -41,8 +41,8 @@ export class ProjectService {
     return this.http.get<void>(`api/projects/complete/participants/${projectId}`)
   }
 
-  subscribe(projectId: number, userId: number): Observable<void> {
-    return this.http.get<void>(`api/projects/${projectId}/subscribe/${userId}`)
+  subscribe(projectId: number): Observable<void> {
+    return this.http.get<void>(`api/projects/${projectId}/subscribe`)
   }
 
   admin(projectId: number, userId: number): Observable<void> {

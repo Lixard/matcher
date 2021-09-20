@@ -139,7 +139,7 @@ export class ProjectPageComponent implements OnInit {
   }
 
   subscribe() {
-    this.projectService.subscribe(this.route.snapshot.params.projectId, this.userId).subscribe(() => {
+    this.projectService.subscribe(this.route.snapshot.params.projectId).subscribe(() => {
       window.location.reload();
     })
   }

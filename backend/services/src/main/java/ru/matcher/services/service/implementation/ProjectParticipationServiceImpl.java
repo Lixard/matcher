@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.ProjectParticipation;
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
 import ru.matcher.data.repository.ProjectParticipationRepository;
+import ru.matcher.security.model.ICurrentUser;
 import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.UserDto;
@@ -29,16 +30,18 @@ import java.util.List;
 @Service
 public class ProjectParticipationServiceImpl implements IProjectParticipationService {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
+    private final ICurrentUser currentUser;
     private final ProjectParticipationRepository projectParticipationRepository;
     private final ProjectParticipationStruct projectParticipationStruct;
     private final IUserService userService;
     private final IOrganizationService organizationService;
 
     @Autowired
-    public ProjectParticipationServiceImpl(ProjectParticipationRepository projectParticipationRepository,
+    public ProjectParticipationServiceImpl(ICurrentUser currentUser, ProjectParticipationRepository projectParticipationRepository,
                                            ProjectParticipationStruct projectParticipationStruct,
                                            IUserService userService, IOrganizationService organizationService) {
+        this.currentUser = currentUser;
         this.projectParticipationRepository = projectParticipationRepository;
         this.projectParticipationStruct = projectParticipationStruct;
         this.userService = userService;
@@ -107,13 +110,13 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     }
 
     @Override
-    public void subscribe(Integer projectId, Integer userId) {
+    public void subscribe(Integer projectId) {
         final var projectParticipationBuilder = ProjectParticipationDto.Builder.aProjectParticipationDto()
                 .withProjectId(projectId)
-                .withUserId(userId)
+                .withUserId(currentUser.getId())
                 .withStartDate(LocalDate.now())
                 .withIsAdmin(false);
-        logger.info("projectParticipationBuilder: {}", projectParticipationBuilder.build());
+        logger.info("User({}) subscribe to project project({})", currentUser.getId(), projectId);
         create(projectParticipationBuilder.build());
     }
 

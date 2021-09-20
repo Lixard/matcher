@@ -70,7 +70,7 @@ public class ProjectServiceImpl implements IProjectService {
                 .withUserId(projectCreateDto.getUserId())
                 .withStartDate(LocalDate.now())
                 .withIsAdmin(true);
-        logger.info("projectParticipationBuilder: {}", projectParticipationBuilder.build());
+        logger.info("User({}) create project({})", projectCreateDto.getUserId(), project.getId());
         projectParticipationService.create(projectParticipationBuilder.build());
 
         return projectStruct.toDto(project);
