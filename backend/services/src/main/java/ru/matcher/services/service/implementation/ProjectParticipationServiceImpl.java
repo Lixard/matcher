@@ -116,7 +116,7 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
                 .withUserId(currentUser.getId())
                 .withStartDate(LocalDate.now())
                 .withIsAdmin(false);
-        logger.info("User(id = {}) subscribe to project project(id = {})", currentUser.getId(), projectId);
+        logger.info("User(id = {}) subscribes to project(id = {})", currentUser.getId(), projectId);
         create(projectParticipationBuilder.build());
     }
 
