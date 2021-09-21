@@ -70,7 +70,7 @@ public class ProjectServiceImpl implements IProjectService {
     }
 
     @Override
-    public List<ProjectDto> getProjectsByUserId(Integer userId) {
+    public List<ProjectDto> getProjectsByUserId(int userId) {
         List<ProjectParticipationDto> projectParticipations = projectParticipationStruct.toDto(projectParticipationRepository.findByUserId(userId));
         List<ProjectDto> projectDtos = new ArrayList<>();
         for (ProjectParticipationDto projectParticipation : projectParticipations) {

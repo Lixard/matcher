@@ -49,5 +49,5 @@ public interface IProjectService {
      */
     ProjectDto findById(int projectId);
 
-    List<ProjectDto> getProjectsByUserId (Integer userId);
+    List<ProjectDto> getProjectsByUserId(int userId);
 }

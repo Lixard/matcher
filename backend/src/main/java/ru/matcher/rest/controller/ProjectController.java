@@ -101,7 +101,7 @@ public class ProjectController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<ProjectDto> getProjectsByUserId(@PathVariable Integer userId) {
+    public List<ProjectDto> getProjectsByUserId(@PathVariable int userId) {
         return projectService.getProjectsByUserId(userId);
     }
 }
