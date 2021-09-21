@@ -1,8 +1,8 @@
 package ru.matcher.services.service;
 
 import ru.matcher.data.model.embedded.ProjectUserEmbeddedId;
+import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectParticipationDto;
-import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 
 import java.util.List;
@@ -11,6 +11,7 @@ import java.util.List;
  * Интерфейс сервиса для пользователей учавствовавших в проектах.
  *
  * @author Николай Евсюков
+ * @author Максим Щербаков
  */
 public interface IProjectParticipationService {
 
@@ -33,9 +34,10 @@ public interface IProjectParticipationService {
     /**
      * Удаление ProjectParticipation из БД.
      *
-     * @param projectParticipationId идентификатор ProjectParticipation
+     * @param projectId идентификатор Project
+     * @param userId идентификатор User
      */
-    void remove(ProjectUserEmbeddedId projectParticipationId);
+    void remove(Integer projectId, Integer userId);
 
     /**
      * Возвращяет список ProjectParticipationDto из БД.
@@ -55,5 +57,11 @@ public interface IProjectParticipationService {
 
     List<UserProjectGetDto> getParticipationsByIdProject(Integer projectId);
 
+    void setEndDateIfCompleteProject(Integer projectId);
 
+    void subscribe(Integer projectId);
+
+    void admin(Integer projectId, Integer userId);
+
+    List<OrganizationDto> getAdminOrganizations(Integer projectId);
 }

@@ -11,10 +11,11 @@ import {CompanyProfilePageComponent} from "./company-profile-page/company-profil
 import {MatIconModule} from "@angular/material/icon";
 import {OrganizationRoutingModule} from "./organization-routing.module";
 import { EditOrganizationComponent } from './edit-organization/edit-organization.component';
+import { ListOfEmployeesPageComponent } from './list-of-employees-page/list-of-employees-page.component';
 
 @NgModule({
-  declarations: [AddOrganizationComponent, CompanyProfilePageComponent, EditOrganizationComponent],
-  entryComponents: [EditOrganizationComponent],
+  declarations: [AddOrganizationComponent, CompanyProfilePageComponent, EditOrganizationComponent, ListOfEmployeesPageComponent],
+  entryComponents: [EditOrganizationComponent, ListOfEmployeesPageComponent],
   imports: [
     CommonModule,
     MatDialogModule,

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Project } from '../../models/project/project.model';
+import { ProjectModel } from '../../models/project/project.model';
 import { ProjectService } from '../../services/project.service';
 import { Picture } from '../../models/picture/picture.model';
 import { PictureService } from '../../services/picture.service';
 import {Router} from "@angular/router";
+import {CreateProjectComponent} from "../create-project/create-project.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-projects',
@@ -12,11 +14,12 @@ import {Router} from "@angular/router";
 })
 export class ProjectsComponent implements OnInit {
 
-  projects: Project[];
+  projects: ProjectModel[];
   picture: Picture;
 
   constructor(private projectService: ProjectService,
               private pictureService: PictureService,
+              public dialog: MatDialog,
               private router: Router) {
   }
 
@@ -35,8 +38,21 @@ export class ProjectsComponent implements OnInit {
   navigateToProject(projectId: number) {
     this.router.navigateByUrl(`/profile/project/${projectId}`);
   }
-  
-  setPicture(project: Project): string {
+
+  createProject() {
+    const dialogRef = this.dialog.open(CreateProjectComponent, {
+      width: '80%',
+      height: '80%'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.projectService.createProject(result).subscribe(() => {
+          window.location.reload();
+      })
+    });
+  }
+
+  setPicture(project: ProjectModel): string {
     if (project.picture === null) {
       return this.pictureService.getDefaultPictureUrl();
     } else {

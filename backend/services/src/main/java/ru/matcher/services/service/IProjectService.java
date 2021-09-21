@@ -1,6 +1,7 @@
 package ru.matcher.services.service;
 
 import ru.matcher.services.dto.ProjectDto;
+import ru.matcher.services.dto.create.ProjectCreateDto;
 
 import java.util.List;
 
@@ -14,10 +15,10 @@ public interface IProjectService {
     /**
      * Добавление Project в БД.
      *
-     * @param projectDto объект класса ProjectDto
+     * @param projectCreateDto объект класса ProjectCreateDto
      * @return объект класса ProjectDto
      */
-    ProjectDto create(ProjectDto projectDto);
+    ProjectDto create(ProjectCreateDto projectCreateDto);
 
     /**
      * Обновление Project в БД.
