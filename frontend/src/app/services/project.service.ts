@@ -57,7 +57,7 @@ export class ProjectService {
     return this.http.get<OrganizationModel[]>(`api/projects/${projectId}/organizations/admin`)
   }
 
-  getProjectsByUserId(userId: number): Observable<Project[]> {
+  getProjectsByUserId(userId: number): Observable<ProjectModel[]> {
     return this.http.get<ProjectModel[]>(`api/projects/user/${userId}`)
   }
 }

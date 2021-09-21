@@ -49,8 +49,11 @@ public class ProjectServiceImpl implements IProjectService {
 
     @Autowired
     public ProjectServiceImpl(ProjectRepository projectRepository,
-                              ProjectStruct projectStruct, OrganizationStruct organizationStruct, UserOrganizationRepository userOrganizationRepository, OrganizationRepository organizationRepository, PictureRepository pictureRepository, ProjectParticipationServiceImpl projectParticipationService) {
-                              ProjectStruct projectStruct, ProjectParticipationRepository projectParticipationRepository, ProjectParticipationStruct projectParticipationStruct) {
+                              ProjectStruct projectStruct, OrganizationStruct organizationStruct,
+                              UserOrganizationRepository userOrganizationRepository, OrganizationRepository organizationRepository,
+                              PictureRepository pictureRepository, ProjectParticipationServiceImpl projectParticipationService,
+                              ProjectParticipationRepository projectParticipationRepository, ProjectParticipationStruct projectParticipationStruct) {
+
         this.projectRepository = projectRepository;
         this.projectStruct = projectStruct;
         this.organizationStruct = organizationStruct;
@@ -112,6 +115,7 @@ public class ProjectServiceImpl implements IProjectService {
     public List<ProjectDto> getProjectsByUserId(int userId) {
         List<ProjectParticipationDto> projectParticipations = projectParticipationStruct.toDto(projectParticipationRepository.findByUserId(userId));
         List<ProjectDto> projectDtos = new ArrayList<>();
+        //fixme needed fix n+1 problem
         for (ProjectParticipationDto projectParticipation : projectParticipations) {
             projectDtos.add(projectStruct.toDto(projectRepository.findById(projectParticipation.getProjectId()).orElse(null)));
         }

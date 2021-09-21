@@ -8,7 +8,7 @@ import {EditStudentProfilePageComponent} from '../edit-student-profile-page/edit
 import {OrganizationModel} from "../../models/organizations/organization.model";
 import {UserOrganizationService} from '../../services/user-organization.service';
 import {PictureService} from "../../services/picture.service";
-import {Project} from "../../models/project/project.model";
+import {ProjectModel} from "../../models/project/project.model";
 import {ProjectService} from "../../services/project.service";
 
 @Component({
@@ -24,7 +24,7 @@ export class StudentProfilePageComponent implements OnInit {
   organizations: OrganizationModel[];
   pictureData: string;
   pictureType: string;
-  projects: Project[];
+  projects: ProjectModel[];
 
   constructor(private authService: AuthService,
               private userService: UserService,
