@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,11 +40,10 @@ import {ProjectModule} from "./project/project.module";
     ProfilesModule,
     ProjectModule,
     OrganizationModule,
-    ProjectModule,
     MatToolbarModule,
     NgbModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

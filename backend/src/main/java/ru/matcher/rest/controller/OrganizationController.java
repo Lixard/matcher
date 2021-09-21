@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.OrganizationDto;
+import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.service.IOrganizationService;
 import ru.matcher.services.service.IUserOrganizationService;
 
@@ -108,5 +109,10 @@ public class OrganizationController {
     @GetMapping("/admin/{userId}/{orgId}")
     public boolean isAdmin(@PathVariable("userId") Integer userId, @PathVariable("orgId") Integer orgId) {
         return userOrganizationService.isAdmin(userId, orgId);
+    }
+
+    @GetMapping("/{orgId}/users")
+    public List<UserDto> findUsersByOrganizationId(@PathVariable Integer orgId) {
+        return organizationService.getUsersByOrganization(orgId);
     }
 }

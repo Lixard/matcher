@@ -59,4 +59,5 @@ public interface IUserOrganizationService {
      * @return является ли пользователь администратором организации
      */
     boolean isAdmin(Integer userId, Integer orgId);
+
 }

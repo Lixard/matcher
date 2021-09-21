@@ -18,6 +18,8 @@ public interface UserOrganizationRepository extends JpaRepository<UserOrganizati
 
     List<UserOrganization> findByIdUser(int userId);
 
+    List<UserOrganization> findByIdOrganization(int organizationId);
+
     @Modifying
     @Query(value = "update matcher.user_organizations set org_id=:orgId where user_id=:userId", nativeQuery = true)
     void saveByIdUser(@Param("userId") int userId, @Param("orgId") int orgId);
