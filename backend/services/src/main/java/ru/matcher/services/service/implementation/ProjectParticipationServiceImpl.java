@@ -30,7 +30,7 @@ import java.util.List;
 @Service
 public class ProjectParticipationServiceImpl implements IProjectParticipationService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProjectParticipationServiceImpl.class);
     private final ICurrentUser currentUser;
     private final ProjectParticipationRepository projectParticipationRepository;
     private final ProjectParticipationStruct projectParticipationStruct;
@@ -116,7 +116,7 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
                 .withUserId(currentUser.getId())
                 .withStartDate(LocalDate.now())
                 .withIsAdmin(false);
-        logger.info("User({}) subscribe to project project({})", currentUser.getId(), projectId);
+        logger.info("User(id = {}) subscribe to project project(id = {})", currentUser.getId(), projectId);
         create(projectParticipationBuilder.build());
     }
 

@@ -16,7 +16,6 @@ import ru.matcher.services.dto.ProjectDto;
 import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.mapstruct.OrganizationStruct;
-import ru.matcher.services.mapstruct.PictureStruct;
 import ru.matcher.services.mapstruct.ProjectStruct;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
@@ -70,7 +69,7 @@ public class ProjectServiceImpl implements IProjectService {
                 .withUserId(projectCreateDto.getUserId())
                 .withStartDate(LocalDate.now())
                 .withIsAdmin(true);
-        logger.info("User({}) create project({})", projectCreateDto.getUserId(), project.getId());
+        logger.info("User(id = {}) create project(id = {})", projectCreateDto.getUserId(), project.getId());
         projectParticipationService.create(projectParticipationBuilder.build());
 
         return projectStruct.toDto(project);
