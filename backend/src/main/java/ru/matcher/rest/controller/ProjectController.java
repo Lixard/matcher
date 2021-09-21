@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectDto;
+import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
@@ -41,12 +43,12 @@ public class ProjectController {
     /**
      * Добавление проекта.
      *
-     * @param projectDto проект для добавления
+     * @param projectCreateDto проект для добавления
      * @return добавленный проект
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ProjectDto createProject(@RequestBody ProjectDto projectDto) {
-        return projectService.create(projectDto);
+    public ProjectDto createProject(@RequestBody ProjectCreateDto projectCreateDto) {
+        return projectService.create(projectCreateDto);
     }
 
     /**
@@ -98,5 +100,30 @@ public class ProjectController {
     @GetMapping("/participants/{projectId}")
     public List<UserProjectGetDto> getParticipantsOfProject(@PathVariable Integer projectId) {
         return projectParticipationService.getParticipationsByIdProject(projectId);
+    }
+
+    @GetMapping("/complete/participants/{projectId}")
+    public void setEndDateIfCompleteProject(@PathVariable Integer projectId) {
+        projectParticipationService.setEndDateIfCompleteProject(projectId);
+    }
+
+    @GetMapping("/{projectId}/subscribe")
+    public void subscribe(@PathVariable Integer projectId) {
+        projectParticipationService.subscribe(projectId);
+    }
+
+    @GetMapping("/{projectId}/admin/{userId}")
+    public void admin(@PathVariable Integer projectId, @PathVariable Integer userId) {
+        projectParticipationService.admin(projectId, userId);
+    }
+
+    @GetMapping("/{projectId}/organizations/admin")
+    public List<OrganizationDto> getAdminOrganizations(@PathVariable Integer projectId) {
+        return projectParticipationService.getAdminOrganizations(projectId);
+    }
+
+    @DeleteMapping("/{projectId}/{userId}")
+    public void remove (@PathVariable Integer projectId, @PathVariable Integer userId) {
+        projectParticipationService.remove(projectId, userId);
     }
 }

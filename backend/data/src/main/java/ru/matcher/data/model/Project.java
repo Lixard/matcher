@@ -36,6 +36,10 @@ public class Project {
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
+    @ManyToOne(targetEntity = Organization.class)
+    @JoinColumn(name = "org_id")
+    private Organization organization;
+
     public Integer getId() {
         return id;
     }
@@ -74,5 +78,13 @@ public class Project {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }

@@ -7,8 +7,8 @@ import { UserCreate } from '../../models/users/user-create.model';
 import {Observable} from "rxjs";
 import {userNameRegExp} from "../../features/validators/directives/username-validator.directive";
 import {OrganizationService} from "../../services/organization.service";
-import {OrganizationModel} from "../../models/organizations/organization.model";
 import {MatDialog} from "@angular/material/dialog";
+import {OrganizationModel} from "../../models/organizations/organization.model";
 import {AddOrganizationComponent} from "../../organization/add-organization/add-organization.component";
 
 @Component({
