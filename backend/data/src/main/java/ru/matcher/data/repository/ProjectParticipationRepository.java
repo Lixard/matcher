@@ -18,4 +18,7 @@ public interface ProjectParticipationRepository extends JpaRepository<ProjectPar
     @Modifying
     @Query(value = "select * from matcher.project_participation where project_id =:projectId", nativeQuery = true)
     List<ProjectParticipation> findByProjectId(@Param("projectId") int projectId);
+
+    @Query(value = "select * from matcher.project_participation where user_id =:userId", nativeQuery = true)
+    List<ProjectParticipation> findByUserId(@Param("userId") int userId);
 }

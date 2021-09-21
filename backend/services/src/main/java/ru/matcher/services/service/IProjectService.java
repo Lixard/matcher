@@ -49,4 +49,6 @@ public interface IProjectService {
      * @return найденный объект класса ProjectDto
      */
     ProjectDto findById(int projectId);
+
+    List<ProjectDto> getProjectsByUserId(int userId);
 }

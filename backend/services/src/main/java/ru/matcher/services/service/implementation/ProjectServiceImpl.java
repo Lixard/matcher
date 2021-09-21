@@ -9,10 +9,13 @@ import ru.matcher.data.model.Project;
 import ru.matcher.data.model.UserOrganization;
 import ru.matcher.data.repository.OrganizationRepository;
 import ru.matcher.data.repository.PictureRepository;
+import ru.matcher.data.repository.ProjectParticipationRepository;
 import ru.matcher.data.repository.ProjectRepository;
 import ru.matcher.data.repository.UserOrganizationRepository;
 import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectDto;
+import ru.matcher.services.dto.ProjectParticipationDto;
+import ru.matcher.services.mapstruct.ProjectParticipationStruct;
 import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.mapstruct.OrganizationStruct;
@@ -20,6 +23,7 @@ import ru.matcher.services.mapstruct.ProjectStruct;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
 
+import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -35,6 +39,8 @@ public class ProjectServiceImpl implements IProjectService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final ProjectRepository projectRepository;
     private final ProjectStruct projectStruct;
+    private final ProjectParticipationRepository projectParticipationRepository;
+    private final ProjectParticipationStruct projectParticipationStruct;
     private final OrganizationStruct organizationStruct;
     private final UserOrganizationRepository userOrganizationRepository;
     private final OrganizationRepository organizationRepository;
@@ -43,7 +49,11 @@ public class ProjectServiceImpl implements IProjectService {
 
     @Autowired
     public ProjectServiceImpl(ProjectRepository projectRepository,
-                              ProjectStruct projectStruct, OrganizationStruct organizationStruct, UserOrganizationRepository userOrganizationRepository, OrganizationRepository organizationRepository, PictureRepository pictureRepository, ProjectParticipationServiceImpl projectParticipationService) {
+                              ProjectStruct projectStruct, OrganizationStruct organizationStruct,
+                              UserOrganizationRepository userOrganizationRepository, OrganizationRepository organizationRepository,
+                              PictureRepository pictureRepository, ProjectParticipationServiceImpl projectParticipationService,
+                              ProjectParticipationRepository projectParticipationRepository, ProjectParticipationStruct projectParticipationStruct) {
+
         this.projectRepository = projectRepository;
         this.projectStruct = projectStruct;
         this.organizationStruct = organizationStruct;
@@ -51,6 +61,8 @@ public class ProjectServiceImpl implements IProjectService {
         this.organizationRepository = organizationRepository;
         this.pictureRepository = pictureRepository;
         this.projectParticipationService = projectParticipationService;
+        this.projectParticipationRepository = projectParticipationRepository;
+        this.projectParticipationStruct = projectParticipationStruct;
     }
 
     @Override
@@ -97,5 +109,16 @@ public class ProjectServiceImpl implements IProjectService {
     @Override
     public ProjectDto findById(int projectId) {
         return projectStruct.toDto(projectRepository.findById(projectId).orElse(null));
+    }
+
+    @Override
+    public List<ProjectDto> getProjectsByUserId(int userId) {
+        List<ProjectParticipationDto> projectParticipations = projectParticipationStruct.toDto(projectParticipationRepository.findByUserId(userId));
+        List<ProjectDto> projectDtos = new ArrayList<>();
+        //fixme needed fix n+1 problem
+        for (ProjectParticipationDto projectParticipation : projectParticipations) {
+            projectDtos.add(projectStruct.toDto(projectRepository.findById(projectParticipation.getProjectId()).orElse(null)));
+        }
+        return projectDtos;
     }
 }

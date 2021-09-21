@@ -56,4 +56,8 @@ export class ProjectService {
   getAdminOrganizations(projectId: number): Observable<OrganizationModel[]> {
     return this.http.get<OrganizationModel[]>(`api/projects/${projectId}/organizations/admin`)
   }
+
+  getProjectsByUserId(userId: number): Observable<ProjectModel[]> {
+    return this.http.get<ProjectModel[]>(`api/projects/user/${userId}`)
+  }
 }

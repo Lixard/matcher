@@ -126,4 +126,9 @@ public class ProjectController {
     public void remove (@PathVariable Integer projectId, @PathVariable Integer userId) {
         projectParticipationService.remove(projectId, userId);
     }
+
+    @GetMapping("/user/{userId}")
+    public List<ProjectDto> getProjectsByUserId(@PathVariable int userId) {
+        return projectService.getProjectsByUserId(userId);
+    }
 }

@@ -8,6 +8,8 @@ import {EditStudentProfilePageComponent} from '../edit-student-profile-page/edit
 import {OrganizationModel} from "../../models/organizations/organization.model";
 import {UserOrganizationService} from '../../services/user-organization.service';
 import {PictureService} from "../../services/picture.service";
+import {ProjectModel} from "../../models/project/project.model";
+import {ProjectService} from "../../services/project.service";
 
 @Component({
   selector: 'app-student-profile-page',
@@ -22,10 +24,12 @@ export class StudentProfilePageComponent implements OnInit {
   organizations: OrganizationModel[];
   pictureData: string;
   pictureType: string;
+  projects: ProjectModel[];
 
   constructor(private authService: AuthService,
               private userService: UserService,
               private userOrgService: UserOrganizationService,
+              private projectService: ProjectService,
               private route: ActivatedRoute,
               public dialog: MatDialog,
               private pictureService: PictureService) {
@@ -49,6 +53,9 @@ export class StudentProfilePageComponent implements OnInit {
         this.userService.getPicture(this.user.pictureId).subscribe((picture) => {
           this.pictureType = picture.type;
           this.pictureData = picture.data;
+        })
+        this.projectService.getProjectsByUserId(this.user.id).subscribe((projects) => {
+          this.projects = projects;
         })
       })
     }, error => {
