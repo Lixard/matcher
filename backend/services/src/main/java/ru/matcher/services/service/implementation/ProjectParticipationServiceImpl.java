@@ -93,7 +93,8 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
                     .withId(userDto.getId())
                     .withFirstName(userDto.getFirstName())
                     .withLastName(userDto.getLastName())
-                    .withIsAdmin(projectParticipation.isAdmin());
+                    .withIsAdmin(projectParticipation.isAdmin())
+                    .withUserRole(projectParticipation.getUserRole());
 
             userProjectGetDtos.add(builder.build());
         }

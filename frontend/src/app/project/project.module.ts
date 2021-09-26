@@ -16,10 +16,11 @@ import {MatInputModule} from "@angular/material/input";
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
+import { RolesInProjectComponent } from './roles-in-project/roles-in-project.component';
 
 @NgModule({
-  declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent],
-  entryComponents: [CreateProjectComponent, EditProjectComponent],
+  declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent, RolesInProjectComponent],
+  entryComponents: [CreateProjectComponent, EditProjectComponent, RolesInProjectComponent],
   imports: [
     CommonModule,
     ProjectRoutingModule,

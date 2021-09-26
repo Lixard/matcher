@@ -103,7 +103,8 @@ public class ProjectServiceImpl implements IProjectService {
 
     @Override
     public List<ProjectDto> getProjects() {
-        return projectStruct.toDto(projectRepository.findAll());
+        List<ProjectDto> projectDtos = projectStruct.toDto(projectRepository.findAll());
+        return projectDtos;
     }
 
     @Override

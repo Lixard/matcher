@@ -11,6 +11,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditProjectComponent} from "../edit-project/edit-project.component";
 import {AuthService} from "../../services/auth.service";
 import {UserOrganizationService} from "../../services/user-organization.service";
+import {ListOfEmployeesPageComponent} from "../../organization/list-of-employees-page/list-of-employees-page.component";
+import {RolesInProjectComponent} from "../roles-in-project/roles-in-project.component";
 
 @Component({
   selector: 'app-project-page',
@@ -160,5 +162,19 @@ export class ProjectPageComponent implements OnInit {
     this.projectService.delete(this.route.snapshot.params.projectId, user.id).subscribe(() => {
       window.location.reload();
     })
+  }
+
+  openRoleOfUser(user: UserProject) {
+    console.log(user);
+    // @ts-ignore
+    const dialogRef = this.dialog.open(RolesInProjectComponent, {
+      width: '15%',
+      height: '20%',
+      dataProject: this.project,
+      data: {
+          userData: user,
+          projectData: this.project,
+      },
+    });
   }
 }
