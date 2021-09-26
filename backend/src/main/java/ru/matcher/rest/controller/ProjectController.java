@@ -135,7 +135,7 @@ public class ProjectController {
     @PutMapping("/{projectId}/{userId}")
     public void updateUserRoleByProjectIdAndUserId(@PathVariable int projectId,
                                                    @PathVariable int userId,
-                                                   @RequestBody String newUserRole) {
-        projectParticipationService.updateUserRoleByProjectIdAndUserId(projectId, userId, newUserRole);
+                                                   @RequestBody UserProjectGetDto userProjectDto) {
+        projectParticipationService.updateUserRoleByProjectIdAndUserId(projectId, userId, userProjectDto);
     }
 }

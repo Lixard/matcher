@@ -141,10 +141,10 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     }
 
     @Override
-    public void updateUserRoleByProjectIdAndUserId(int projectId, int userId, String newUserRole) {
+    public void updateUserRoleByProjectIdAndUserId(int projectId, int userId, UserProjectGetDto userProjectDto) {
         ProjectParticipation projectParticipation = projectParticipationRepository
                 .findByProjectIdAndUserId(projectId, userId);
-        projectParticipation.setUserRole(newUserRole);
+        projectParticipation.setUserRole(userProjectDto.getUserRole());
         projectParticipationRepository.save(projectParticipation);
     }
 }

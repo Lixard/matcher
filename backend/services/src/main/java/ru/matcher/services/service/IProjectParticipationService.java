@@ -65,5 +65,5 @@ public interface IProjectParticipationService {
 
     List<OrganizationDto> getAdminOrganizations(Integer projectId);
 
-    void updateUserRoleByProjectIdAndUserId(int projectId, int userId, String userRole);
+    void updateUserRoleByProjectIdAndUserId(int projectId, int userId, UserProjectGetDto userProjectDto);
 }
