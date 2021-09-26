@@ -1,0 +1,1 @@
+ALTER TABLE matcher.project_participation ADD COLUMN user_role varchar(100);
