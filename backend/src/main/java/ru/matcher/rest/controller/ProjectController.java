@@ -123,12 +123,19 @@ public class ProjectController {
     }
 
     @DeleteMapping("/{projectId}/{userId}")
-    public void remove (@PathVariable Integer projectId, @PathVariable Integer userId) {
+    public void remove(@PathVariable Integer projectId, @PathVariable Integer userId) {
         projectParticipationService.remove(projectId, userId);
     }
 
     @GetMapping("/user/{userId}")
     public List<ProjectDto> getProjectsByUserId(@PathVariable int userId) {
         return projectService.getProjectsByUserId(userId);
+    }
+
+    @PutMapping("/{projectId}/{userId}")
+    public void updateUserRoleByProjectIdAndUserId(@PathVariable int projectId,
+                                                   @PathVariable int userId,
+                                                   @RequestBody String newUserRole) {
+        projectParticipationService.updateUserRoleByProjectIdAndUserId(projectId, userId, newUserRole);
     }
 }
