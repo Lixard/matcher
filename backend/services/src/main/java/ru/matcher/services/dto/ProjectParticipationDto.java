@@ -16,7 +16,7 @@ public class ProjectParticipationDto {
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean isAdmin;
-
+    private String userRole;
 
     public Integer getUserId() {
         return userId;
@@ -58,12 +58,21 @@ public class ProjectParticipationDto {
         isAdmin = admin;
     }
 
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
     public static final class Builder {
         private Integer userId;
         private Integer projectId;
         private LocalDate startDate;
         private LocalDate endDate;
         private boolean isAdmin;
+        private String userRole;
 
         private Builder() {
         }
@@ -97,12 +106,18 @@ public class ProjectParticipationDto {
             return this;
         }
 
+        public Builder withUserRole(String userRole) {
+            this.userRole = userRole;
+            return this;
+        }
+
         public ProjectParticipationDto build() {
             ProjectParticipationDto projectParticipationDto = new ProjectParticipationDto();
             projectParticipationDto.setUserId(userId);
             projectParticipationDto.setProjectId(projectId);
             projectParticipationDto.setStartDate(startDate);
             projectParticipationDto.setEndDate(endDate);
+            projectParticipationDto.setUserRole(userRole);
             projectParticipationDto.isAdmin = this.isAdmin;
             return projectParticipationDto;
         }
