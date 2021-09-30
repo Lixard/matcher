@@ -110,8 +110,10 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: master/M-008.sql
+            splitStatements: false
             relativeToChangelogFile: true
       rollback:
         - sqlFile:
             path: rollback/M-008.rollback.sql
+            splitStatements: false
             relativeToChangelogFile: true
