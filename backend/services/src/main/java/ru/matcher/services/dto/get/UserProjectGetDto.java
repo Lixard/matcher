@@ -6,13 +6,7 @@ public class UserProjectGetDto {
     private String lastName;
     private String firstName;
     private boolean isAdmin;
-
-    public UserProjectGetDto(int id, String lastName, String firstName, boolean isAdmin) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.isAdmin = isAdmin;
-    }
+    private String userRole;
 
     public int getId() {
         return id;
@@ -42,15 +36,25 @@ public class UserProjectGetDto {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean admin) {
+    public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
 
     public static final class Builder {
         private int id;
         private String lastName;
         private String firstName;
         private boolean isAdmin;
+        private String userRole;
 
         private Builder() {
         }
@@ -79,8 +83,19 @@ public class UserProjectGetDto {
             return this;
         }
 
+        public Builder withUserRole(String userRole) {
+            this.userRole = userRole;
+            return this;
+        }
+
         public UserProjectGetDto build() {
-            return new UserProjectGetDto(id, lastName, firstName, isAdmin);
+            UserProjectGetDto userProjectGetDto = new UserProjectGetDto();
+            userProjectGetDto.setId(id);
+            userProjectGetDto.setLastName(lastName);
+            userProjectGetDto.setFirstName(firstName);
+            userProjectGetDto.setUserRole(userRole);
+            userProjectGetDto.isAdmin = this.isAdmin;
+            return userProjectGetDto;
         }
     }
 }

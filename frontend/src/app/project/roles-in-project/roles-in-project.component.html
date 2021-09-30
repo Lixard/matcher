@@ -1,0 +1,27 @@
+<div class="page justify-content-center">
+  <form [formGroup]="roleForm">
+    <mat-card>
+      <mat-card-content>
+        <div class="content">
+          <mat-form-field>
+            <mat-label>Роль пользователя - {{data.userData.lastName}} {{data.userData.firstName}}</mat-label>
+            <input formControlName="role"
+                   placeholder="Введите роль"
+                   value="{{data.userData.userRole}}"
+                   matInput/>
+            <mat-error *ngIf="roleForm.get('role')!.hasError('required')">Укажите роль</mat-error>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!roleForm.valid"
+            class="btn btn-small btn-select"
+            (click)="updateUserRole()"
+          >
+            Изменить роль
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

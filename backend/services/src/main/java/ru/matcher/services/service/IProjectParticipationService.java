@@ -64,4 +64,6 @@ public interface IProjectParticipationService {
     void admin(Integer projectId, Integer userId);
 
     List<OrganizationDto> getAdminOrganizations(Integer projectId);
+
+    void updateUserRoleByProjectIdAndUserId(int projectId, int userId, UserProjectGetDto userProjectDto);
 }

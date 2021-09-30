@@ -31,6 +31,9 @@ public class ProjectParticipation {
     @Column(name = "is_admin", nullable = false)
     private boolean isAdmin;
 
+    @Column(name = "user_role", nullable = false)
+    private String userRole;
+
     public ProjectUserEmbeddedId getId() {
         return id;
     }
@@ -61,5 +64,13 @@ public class ProjectParticipation {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }

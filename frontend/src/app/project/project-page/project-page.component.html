@@ -1,6 +1,6 @@
 <div class="padding justify-content-center ">
   <div class="row container d-flex justify-content-center ">
-    <div class="col-xl-6 col-md-12">
+    <div class="col-xl-11 col-md-12">
       <div class="card user-card-full">
         <div class="">
           <div class="col-sm-12 bg-c-lite-green">
@@ -54,6 +54,7 @@
                   <h6 *ngFor="let user of users" class="text-muted f-w-400">
                     <a href="/profile/user/{{user.id}}"
                        class="text-decoration-none">{{user.firstName}} {{user.lastName}}</a>
+                    <a style="color: gray; font-size: 13px">  {{user.userRole}} </a>
                     <button mat-mini-fab
                             color="primary"
                             aria-label="Назначить администратором"
@@ -61,12 +62,21 @@
                             (click)="admin(user)">
                       <mat-icon>add</mat-icon>
                     </button>
+
                     <button mat-mini-fab
                             color="primary"
                             aria-label="Исключить из проекта"
                             *ngIf="project.active && isAdmin"
                             (click)="delete(user)">
                       <mat-icon>delete</mat-icon>
+                    </button>
+
+                    <button mat-mini-fab
+                            color="primary"
+                            aria-label="Назначить роль"
+                            *ngIf="project.active && isAdmin"
+                            (click)="openRoleOfUser(user)">
+                      <mat-icon>create</mat-icon>
                     </button>
                   </h6>
                 </div>

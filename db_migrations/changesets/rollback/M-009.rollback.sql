@@ -1,0 +1,1 @@
+ALTER TABLE matcher.project_participation DROP COLUMN user_role;

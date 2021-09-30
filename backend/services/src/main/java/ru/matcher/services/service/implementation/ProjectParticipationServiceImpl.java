@@ -18,6 +18,7 @@ import ru.matcher.services.service.IOrganizationService;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IUserService;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,8 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
                     .withId(userDto.getId())
                     .withFirstName(userDto.getFirstName())
                     .withLastName(userDto.getLastName())
-                    .withIsAdmin(projectParticipation.isAdmin());
+                    .withIsAdmin(projectParticipation.isAdmin())
+                    .withUserRole(projectParticipation.getUserRole());
 
             userProjectGetDtos.add(builder.build());
         }
@@ -138,5 +140,21 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
             organizationDtos.addAll(organizationService.getOrganizationsByUser(projectParticipation.getUserId()));
         }
         return organizationDtos;
+    }
+
+    @Override
+    @Transactional
+    public void updateUserRoleByProjectIdAndUserId(int projectId, int userId, UserProjectGetDto userProjectDto) {
+        int adminId = currentUser.getId();
+        if (!projectParticipationRepository.isAdmin(projectId, adminId)) {
+            throw new IllegalStateException(String.format("User(id = %d) has no admin rights", adminId));
+        }
+        ProjectParticipation projectParticipation = projectParticipationRepository
+                .findByProjectIdAndUserId(projectId, userId);
+        String oldRole = projectParticipation.getUserRole();
+                projectParticipation.setUserRole(userProjectDto.getUserRole());
+        projectParticipationRepository.save(projectParticipation);
+        logger.info("Admin(id = {}) changed user's(id = {}) role in the project(id = {}) from '{}' to '{}'", adminId,
+                userId, projectId, oldRole, projectParticipation.getUserRole());
     }
 }
