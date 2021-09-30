@@ -105,6 +105,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
   - changeSet:
       id: 8
+      author: Maxim Borisov
+      comment: Fix entity identifier conflicts after adding test data
+      changes:
+        - sqlFile:
+            path: master/M-008.sql
+            splitStatements: false
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-008.rollback.sql
+            splitStatements: false
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 9
       author: Nikolay Evsyukov
       comment: Added a column with a role
       changes:
