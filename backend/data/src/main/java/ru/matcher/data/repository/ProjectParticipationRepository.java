@@ -24,4 +24,7 @@ public interface ProjectParticipationRepository extends JpaRepository<ProjectPar
 
     @Query(value = "select * from matcher.project_participation where project_id =:projectId and user_id =:userId" , nativeQuery = true)
     ProjectParticipation findByProjectIdAndUserId(@Param("projectId") int projectId, @Param("userId") int userId);
+
+    @Query(value = "select exists(select * from matcher.project_participation where project_id =:projectId and user_id =:userId)" , nativeQuery = true)
+    boolean isAdmin(@Param("projectId") int projectId, @Param("userId") int userId);
 }

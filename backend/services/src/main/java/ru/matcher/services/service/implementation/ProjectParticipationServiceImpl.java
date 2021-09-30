@@ -18,6 +18,7 @@ import ru.matcher.services.service.IOrganizationService;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IUserService;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -142,10 +143,18 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     }
 
     @Override
+    @Transactional
     public void updateUserRoleByProjectIdAndUserId(int projectId, int userId, UserProjectGetDto userProjectDto) {
+        int adminId = currentUser.getId();
+        if (!projectParticipationRepository.isAdmin(projectId, adminId)) {
+            throw new IllegalStateException(String.format("User(id = %d) has no admin rights", adminId));
+        }
         ProjectParticipation projectParticipation = projectParticipationRepository
                 .findByProjectIdAndUserId(projectId, userId);
-        projectParticipation.setUserRole(userProjectDto.getUserRole());
+        String oldRole = projectParticipation.getUserRole();
+                projectParticipation.setUserRole(userProjectDto.getUserRole());
         projectParticipationRepository.save(projectParticipation);
+        logger.info("Admin(id = {}) changed user's(id = {}) role in the project(id = {}) from '{}' to '{}'", adminId,
+                userId, projectId, oldRole, projectParticipation.getUserRole());
     }
 }
