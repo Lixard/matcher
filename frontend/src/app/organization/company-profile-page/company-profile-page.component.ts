@@ -9,6 +9,8 @@ import {EditOrganizationComponent} from "../edit-organization/edit-organization.
 import {ListOfEmployeesPageComponent} from "../list-of-employees-page/list-of-employees-page.component";
 import {UserOrganizationService} from "../../services/user-organization.service";
 import {UserOrganizationModel} from "../../models/users/user-organization";
+import {ProjectService} from "../../services/project.service";
+import {ProjectModel} from "../../models/project/project.model";
 
 @Component({
   selector: 'app-company-profile-page',
@@ -19,6 +21,7 @@ export class CompanyProfilePageComponent implements OnInit {
 
   organization!: OrganizationModel;
   user!: UserOrganizationModel[];
+  projectsOrganization: ProjectModel[];
 
   change: boolean = false;
   pictureType!: string;
@@ -31,6 +34,7 @@ export class CompanyProfilePageComponent implements OnInit {
               private pictureService: PictureService,
               private route: ActivatedRoute,
               private authService: AuthService,
+              private projectService: ProjectService,
               public dialog: MatDialog) {
   }
 
@@ -52,7 +56,12 @@ export class CompanyProfilePageComponent implements OnInit {
         this.pictureType = picture.type;
         this.pictureData = picture.data;
       })
+      this.projectService.getProjectsByOrganization(this.organization.id).subscribe((projects) => {
+        this.projectsOrganization = projects;
+        console.log(this.projectsOrganization)
+      })
     })
+
   }
 
   edit() {

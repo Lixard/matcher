@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectDto;
+import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 import ru.matcher.services.service.IProjectParticipationService;
@@ -137,5 +138,10 @@ public class ProjectController {
                                                    @PathVariable int userId,
                                                    @RequestBody UserProjectGetDto userProjectDto) {
         projectParticipationService.updateUserRoleByProjectIdAndUserId(projectId, userId, userProjectDto);
+    }
+
+    @GetMapping("/organization/{orgId}")
+    public List<ProjectDto> getProjectsByOrganizationId(@PathVariable int orgId) {
+        return projectService.getProjectsByOrganizationId(orgId);
     }
 }
