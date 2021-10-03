@@ -73,7 +73,10 @@ public class ProjectServiceImpl implements IProjectService {
         OrganizationDto organizationDto = organizationStruct.toDto(organizationRepository.findById(userOrganization.getId().getOrganization()).orElse(null));
         projectCreateDto.setOrganizationId(organizationDto.getId());
         Project project = projectStruct.fromDto(projectCreateDto);
-        project.setPicture(pictureRepository.findById(projectCreateDto.getPictureId()).orElse(null));
+        Integer pictureId = projectCreateDto.getPictureId();
+        if (pictureId != null) {
+            project.setPicture(pictureRepository.findById(pictureId).orElse(null));
+        }
         project.setActive(true);
         projectRepository.save(project);
 
@@ -81,6 +84,7 @@ public class ProjectServiceImpl implements IProjectService {
                 .withProjectId(project.getId())
                 .withUserId(projectCreateDto.getUserId())
                 .withStartDate(LocalDate.now())
+                .withUserRole("Создатель")
                 .withIsAdmin(true);
         logger.info("User(id = {}) create project(id = {})", projectCreateDto.getUserId(), project.getId());
         projectParticipationService.create(projectParticipationBuilder.build());
