@@ -51,4 +51,6 @@ public interface IProjectService {
     ProjectDto findById(int projectId);
 
     List<ProjectDto> getProjectsByUserId(int userId);
+
+    List<ProjectDto> getProjectsByOrganizationId(int orgId);
 }

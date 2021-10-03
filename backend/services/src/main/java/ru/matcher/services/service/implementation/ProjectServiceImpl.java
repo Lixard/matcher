@@ -7,25 +7,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.data.model.Project;
 import ru.matcher.data.model.UserOrganization;
-import ru.matcher.data.repository.OrganizationRepository;
-import ru.matcher.data.repository.PictureRepository;
-import ru.matcher.data.repository.ProjectParticipationRepository;
-import ru.matcher.data.repository.ProjectRepository;
-import ru.matcher.data.repository.UserOrganizationRepository;
-import ru.matcher.services.dto.OrganizationDto;
-import ru.matcher.services.dto.ProjectDto;
-import ru.matcher.services.dto.ProjectParticipationDto;
+import ru.matcher.data.model.embedded.UserOrganizationEmbeddedId;
+import ru.matcher.data.repository.*;
+import ru.matcher.services.dto.*;
 import ru.matcher.services.mapstruct.ProjectParticipationStruct;
 import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.mapstruct.OrganizationStruct;
 import ru.matcher.services.mapstruct.ProjectStruct;
+import ru.matcher.services.mapstruct.UserStruct;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
 
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Реализация интерфейса ProjectService.
@@ -46,13 +43,15 @@ public class ProjectServiceImpl implements IProjectService {
     private final OrganizationRepository organizationRepository;
     private final PictureRepository pictureRepository;
     private final IProjectParticipationService projectParticipationService;
+    private final UserRepository userRepository;
+    private final UserStruct userStruct;
 
     @Autowired
     public ProjectServiceImpl(ProjectRepository projectRepository,
                               ProjectStruct projectStruct, OrganizationStruct organizationStruct,
                               UserOrganizationRepository userOrganizationRepository, OrganizationRepository organizationRepository,
                               PictureRepository pictureRepository, ProjectParticipationServiceImpl projectParticipationService,
-                              ProjectParticipationRepository projectParticipationRepository, ProjectParticipationStruct projectParticipationStruct) {
+                              ProjectParticipationRepository projectParticipationRepository, ProjectParticipationStruct projectParticipationStruct, UserRepository userRepository, UserStruct userStruct) {
 
         this.projectRepository = projectRepository;
         this.projectStruct = projectStruct;
@@ -63,6 +62,8 @@ public class ProjectServiceImpl implements IProjectService {
         this.projectParticipationService = projectParticipationService;
         this.projectParticipationRepository = projectParticipationRepository;
         this.projectParticipationStruct = projectParticipationStruct;
+        this.userRepository = userRepository;
+        this.userStruct = userStruct;
     }
 
     @Override
@@ -121,5 +122,13 @@ public class ProjectServiceImpl implements IProjectService {
             projectDtos.add(projectStruct.toDto(projectRepository.findById(projectParticipation.getProjectId()).orElse(null)));
         }
         return projectDtos;
+    }
+
+    @Override
+    public List<ProjectDto> getProjectsByOrganizationId(int orgId) {
+        return projectRepository.findProjectByOrganization(orgId)
+                .stream()
+                .map(projectStruct::toDto)
+                .collect(Collectors.toList());
     }
 }

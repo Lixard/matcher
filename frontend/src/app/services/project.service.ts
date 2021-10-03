@@ -64,4 +64,8 @@ export class ProjectService {
   updateUserRoleByProjectIdAndUserId(projectId: number, userId: number, userProject: UserProject): Observable<void> {
     return this.http.put<void>(`api/projects/${projectId}/${userId}`, userProject);
   }
+
+  getProjectsByOrganization(orgId: number): Observable<ProjectModel[]> {
+    return this.http.get<ProjectModel[]>(`api/projects/organization/${orgId}`)
+  }
 }
