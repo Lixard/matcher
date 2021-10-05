@@ -17,8 +17,7 @@
               </div>
               <div *ngIf="project.active
                   && !isAdmin
-                  && !isParticipant
-                  && !(userOrganization.organizationType == organization.organizationType)">
+                  && !isParticipant">
                 <button mat-raised-button color="basic" style="width: 100%" (click)="subscribe()">Вступить</button>
               </div>
             </div>

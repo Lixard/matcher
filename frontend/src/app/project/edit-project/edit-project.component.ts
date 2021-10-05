@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {OrganizationModel} from "../../models/organizations/organization.model";
 import {map, startWith} from "rxjs/operators";
 import {ProjectService} from "../../services/project.service";
+import {OrganizationService} from "../../services/organization.service";
 
 @Component({
   selector: 'app-edit-project',
@@ -26,7 +27,8 @@ export class EditProjectComponent implements OnInit {
   constructor(private fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: ProjectModel,
               private picturesService: PictureService,
-              private projectService: ProjectService) { }
+              private projectService: ProjectService,
+              private organizationService: OrganizationService) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -44,13 +46,16 @@ export class EditProjectComponent implements OnInit {
   setData() {
     this.projectForm.controls.name.setValue(this.data.name);
     this.projectForm.controls.description.setValue(this.data.description);
-    this.projectService.getAdminOrganizations(this.data.id).subscribe(org => {
-      this.organizations = [];
-      this.organizations = org;
-      this.filteredPlace = this.orgCtrl.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+    this.organizationService.getOrganization(this.data.organizationId).subscribe(organ => {
+      this.orgCtrl.setValue(organ.name);
+      this.projectService.getAdminOrganizations(this.data.id).subscribe(org => {
+        this.organizations = [];
+        this.organizations = org;
+        this.filteredPlace = this.orgCtrl.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
+      });
     });
   }
 
