@@ -130,6 +130,7 @@ export class ProjectPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: ProjectModel) => {
+      console.log("closed update")
       this.pictureService.getPicture(result.picture.id).subscribe((picture) => {
         result.picture = picture
       })

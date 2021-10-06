@@ -17,6 +17,7 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
 import { RolesInProjectComponent } from './roles-in-project/roles-in-project.component';
+import {MatSelect, MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent, RolesInProjectComponent],
@@ -32,6 +33,7 @@ import { RolesInProjectComponent } from './roles-in-project/roles-in-project.com
     MatDialogModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatSelectModule,
     MatAutocompleteModule,
     MatOptionModule
   ]

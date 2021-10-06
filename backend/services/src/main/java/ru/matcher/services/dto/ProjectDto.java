@@ -12,6 +12,8 @@ public class ProjectDto {
     private PictureDto picture;
     private String name;
     private String description;
+    private String lifecycle;
+    private String current_lifecycle;
     private boolean isActive;
     private int organizationId;
 
@@ -31,8 +33,24 @@ public class ProjectDto {
         this.picture = picture;
     }
 
+    public String getCurrent_lifecycle() {
+        return current_lifecycle;
+    }
+
+    public void setCurrent_lifecycle(String current_lifecycle) {
+        this.current_lifecycle = current_lifecycle;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public String getLifecycle() {
+        return lifecycle;
+    }
+
+    public void setLifecycle(String lifecycle) {
+        this.lifecycle = lifecycle;
     }
 
     public void setName(String name) {
