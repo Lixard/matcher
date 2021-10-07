@@ -130,9 +130,11 @@ export class ProjectPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: ProjectModel) => {
-      this.pictureService.getPicture(result.picture.id).subscribe((picture) => {
-        result.picture = picture
-      })
+      if (result.picture) {
+        this.pictureService.getPicture(result.picture.id).subscribe((picture) => {
+          result.picture = picture
+        })
+      }
       console.log(result.picture)
       this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(()=> {
         window.location.reload();
