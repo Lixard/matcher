@@ -49,9 +49,10 @@
                     <button mat-mini-fab
                             color="primary"
                             aria-label="Исключить из администраторов"
-                            *ngIf="project.active && isAdmin && userAdmin.id != userId"
-                            (click)="deleteAdmin(userAdmin)">
-                      <mat-icon>delete</mat-icon>
+                            *ngIf="project.active && isAdmin"
+                            (click)="deleteAdmin(userAdmin)"
+                            class="icon-button">
+                      <mat-icon inline="true">delete</mat-icon>
                     </button>
                   </h6>
                 </div>
@@ -65,24 +66,27 @@
                             color="primary"
                             aria-label="Назначить администратором"
                             *ngIf="project.active && isAdmin"
-                            (click)="admin(user)">
-                      <mat-icon>add</mat-icon>
+                            (click)="admin(user)"
+                            class="icon-button">
+                      <mat-icon inline="true">add</mat-icon>
                     </button>
 
                     <button mat-mini-fab
                             color="primary"
                             aria-label="Исключить из проекта"
-                            *ngIf="project.active && isAdmin"
-                            (click)="delete(user)">
-                      <mat-icon>delete</mat-icon>
+                            *ngIf="(project.active && isAdmin) || userId == user.id"
+                            (click)="delete(user)"
+                            class="icon-button">
+                      <mat-icon inline="true">delete</mat-icon>
                     </button>
 
                     <button mat-mini-fab
                             color="primary"
                             aria-label="Назначить роль"
                             *ngIf="project.active && isAdmin"
-                            (click)="openRoleOfUser(user)">
-                      <mat-icon>create</mat-icon>
+                            (click)="openRoleOfUser(user)"
+                            class="icon-button">
+                      <mat-icon inline="true">create</mat-icon>
                     </button>
                   </h6>
                 </div>

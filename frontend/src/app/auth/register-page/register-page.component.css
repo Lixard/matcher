@@ -38,6 +38,6 @@ mat-form-field {
   flex-direction: column;
 }
 
-.icon {
+.icon-button {
   transform: scale(2);
 }

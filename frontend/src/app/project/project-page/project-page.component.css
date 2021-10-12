@@ -146,3 +146,8 @@ h6 {
   width: 45%;
   margin-right: 5%;
 }
+
+.icon-button {
+  font-size: 20px;
+  transform: scale(0.70);
+}
