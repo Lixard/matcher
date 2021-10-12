@@ -37,7 +37,7 @@ public class Project {
     private String lifecycle;
 
     @Column(name = "current_lifecycle")
-    private String current_lifecycle;
+    private String currentLifecycle;
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
@@ -70,12 +70,12 @@ public class Project {
         this.name = name;
     }
 
-    public String getCurrent_lifecycle() {
-        return current_lifecycle;
+    public String getCurrentLifecycle() {
+        return currentLifecycle;
     }
 
-    public void setCurrent_lifecycle(String current_lifecycle) {
-        this.current_lifecycle = current_lifecycle;
+    public void setCurrentLifecycle(String currentLifecycle) {
+        this.currentLifecycle = currentLifecycle;
     }
 
     public String getLifecycle() {

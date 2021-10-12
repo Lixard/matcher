@@ -10,5 +10,5 @@ do
 done
 
 echo "try execute liquibase"
-bash liquibase/liquibase --url="jdbc:postgresql://localhost:5432/$POSTGRES_DB"  --username=$POSTGRES_USER \
+bash liquibase/liquibase --url="jdbc:postgresql://localhost:5433/$POSTGRES_DB"  --username=$POSTGRES_USER \
  --password=$POSTGRES_PASSWORD --changeLogFile=/liquibase/changelog/master-changelog.yml update

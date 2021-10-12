@@ -132,7 +132,7 @@ databaseChangeLog:
   - changeSet:
       id: 10
       author: Andrei Gerasimov
-      comment: project lifecycle field added
+      comment: project lifecycle current_lyfecycle fields added
       changes:
         - sqlFile:
             path: master/M-010.sql
@@ -140,28 +140,4 @@ databaseChangeLog:
       rollback:
         - sqlFile:
             path: rollback/M-010.rollback.sql
-            relativeToChangelogFile: true
-  - changeSet:
-      id: 11
-      author: Andrei Gerasimov
-      comment: current project lifecycle field added
-      changes:
-        - sqlFile:
-            path: master/M-011.sql
-            relativeToChangelogFile: true
-      rollback:
-        - sqlFile:
-            path: rollback/M-011.rollback.sql
-            relativeToChangelogFile: true
-  - changeSet:
-      id: 12
-      author: Andrei Gerasimov
-      comment: default lifecycle for existing projects
-      changes:
-        - sqlFile:
-            path: master/M-012.sql
-            relativeToChangelogFile: true
-      rollback:
-        - sqlFile:
-            path: rollback/M-012.rollback.sql
             relativeToChangelogFile: true

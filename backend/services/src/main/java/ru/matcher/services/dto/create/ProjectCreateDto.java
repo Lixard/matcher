@@ -6,7 +6,7 @@ public class ProjectCreateDto extends ProjectDto {
     private String name;
     private String description;
     private String lifecycle;
-    private String current_lifecycle;
+    private String currentLifecycle;
     private Integer pictureId;
     private int userId;
     private int organizationId;
@@ -42,13 +42,13 @@ public class ProjectCreateDto extends ProjectDto {
     }
 
     @Override
-    public String getCurrent_lifecycle() {
-        return current_lifecycle;
+    public String getCurrentLifecycle() {
+        return currentLifecycle;
     }
 
     @Override
-    public void setCurrent_lifecycle(String current_lifecycle) {
-        this.current_lifecycle = current_lifecycle;
+    public void setCurrentLifecycle(String currentLifecycle) {
+        this.currentLifecycle = currentLifecycle;
     }
 
     public Integer getPictureId() {

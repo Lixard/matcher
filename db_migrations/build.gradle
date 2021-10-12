@@ -4,7 +4,7 @@ plugins {
 
 def user = findProperty("user") ?: "postgres"
 def pwd = findProperty("pwd") ?: "123"
-def dbUrl = findProperty("url") ?: "localhost:5432"
+def dbUrl = findProperty("url") ?: "localhost:5433"
 
 if (!dbUrl.startsWith("jdbc:postgresql://")) {
     dbUrl = "jdbc:postgresql://${dbUrl}/matcher"

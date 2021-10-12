@@ -13,7 +13,7 @@ public class ProjectDto {
     private String name;
     private String description;
     private String lifecycle;
-    private String current_lifecycle;
+    private String currentLifecycle;
     private boolean isActive;
     private int organizationId;
 
@@ -33,12 +33,12 @@ public class ProjectDto {
         this.picture = picture;
     }
 
-    public String getCurrent_lifecycle() {
-        return current_lifecycle;
+    public String getCurrentLifecycle() {
+        return currentLifecycle;
     }
 
-    public void setCurrent_lifecycle(String current_lifecycle) {
-        this.current_lifecycle = current_lifecycle;
+    public void setCurrentLifecycle(String currentLifecycle) {
+        this.currentLifecycle = currentLifecycle;
     }
 
     public String getName() {
