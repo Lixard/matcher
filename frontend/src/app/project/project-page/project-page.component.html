@@ -46,6 +46,13 @@
                   <h6 class="text-muted f-w-400" *ngFor="let userAdmin of userAdmins">
                     <a href="/profile/user/{{userAdmin.id}}"
                        class="text-decoration-none">{{userAdmin.firstName}} {{userAdmin.lastName}}</a>
+                    <button mat-mini-fab
+                            color="primary"
+                            aria-label="Исключить из администраторов"
+                            *ngIf="project.active && isAdmin && userAdmin.id != userId"
+                            (click)="deleteAdmin(userAdmin)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
                   </h6>
                 </div>
                 <div class="col-sm-6">

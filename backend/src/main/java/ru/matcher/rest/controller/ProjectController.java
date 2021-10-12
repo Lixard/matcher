@@ -128,6 +128,11 @@ public class ProjectController {
         projectParticipationService.remove(projectId, userId);
     }
 
+    @DeleteMapping("/{projectId}/admin/{userId}")
+    public void removeAdmin(@PathVariable Integer projectId, @PathVariable Integer userId) {
+        projectParticipationService.removeAdmin(projectId, userId);
+    }
+
     @GetMapping("/user/{userId}")
     public List<ProjectDto> getProjectsByUserId(@PathVariable int userId) {
         return projectService.getProjectsByUserId(userId);

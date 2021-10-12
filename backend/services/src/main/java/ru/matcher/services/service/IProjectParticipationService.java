@@ -39,6 +39,15 @@ public interface IProjectParticipationService {
      */
     void remove(Integer projectId, Integer userId);
 
+
+    /**
+     * Удаление администратора из списка администраторов.
+     *
+     * @param projectId идентификатор Project
+     * @param userId идентификатор User
+     */
+    void removeAdmin(Integer projectId, Integer userId);
+
     /**
      * Возвращяет список ProjectParticipationDto из БД.
      *
