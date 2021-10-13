@@ -166,6 +166,12 @@ export class ProjectPageComponent implements OnInit {
     })
   }
 
+  deleteAdmin(user: UserProject) {
+    this.projectService.deleteAdmin(this.route.snapshot.params.projectId, user.id).subscribe(() => {
+      window.location.reload();
+    })
+  }
+
   openRoleOfUser(user: UserProject) {
     console.log(user);
     // @ts-ignore

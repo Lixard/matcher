@@ -75,6 +75,14 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     }
 
     @Override
+    @Transactional
+    public void removeAdmin(Integer projectId, Integer userId) {
+        ProjectParticipation projectParticipation = projectParticipationRepository.findByProjectIdAndUserId(projectId, userId);
+        projectParticipation.setAdmin(false);
+        projectParticipationRepository.save(projectParticipation);
+    }
+
+    @Override
     public List<ProjectParticipationDto> getProjectParticipations() {
         return projectParticipationStruct.toDto(projectParticipationRepository.findAll());
     }
