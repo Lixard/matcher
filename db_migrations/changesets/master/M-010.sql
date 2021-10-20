@@ -55,14 +55,3 @@ INSERT INTO matcher.project_participation (user_id, project_id, start_date, end_
 INSERT INTO matcher.project_participation (user_id, project_id, start_date, end_date, is_admin, user_role) VALUES (2147483639, 2147483643, '2015-08-07', '2024-08-25', false, 'Участник');
 INSERT INTO matcher.project_participation (user_id, project_id, start_date, end_date, is_admin, user_role) VALUES (2147483642, 2147483643, '2019-07-02', '2020-09-26', false, 'Участник');
 INSERT INTO matcher.project_participation (user_id, project_id, start_date, end_date, is_admin, user_role) VALUES (2147483645, 2147483643, '2021-04-04', '2025-05-27', false, 'Участник');
-
-
-
-
-
-
-
-
-
-
-
