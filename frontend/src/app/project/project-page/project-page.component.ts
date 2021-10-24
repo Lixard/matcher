@@ -15,6 +15,7 @@ import {RolesInProjectComponent} from "../roles-in-project/roles-in-project.comp
 import {RequestService} from "../../services/request.service";
 import {SendRequestComponent} from "../../request/send-request/send-request.component";
 import {RequestModel} from "../../models/request/request.model";
+import {LookRequestComponent} from "../../request/look-request/look-request.component";
 
 @Component({
   selector: 'app-project-page',
@@ -147,10 +148,6 @@ export class ProjectPageComponent implements OnInit {
   }
 
   subscribe() {
-    console.log(this.userId)
-    console.log( this.route.snapshot.params.projectId)
-    // this.request.projectId = this.route.snapshot.params.projectId;
-    // this.request.userId = this.userId;
     const dialogRef = this.dialog.open(SendRequestComponent, {
       width: '40%',
       height: '30%',
@@ -209,5 +206,17 @@ export class ProjectPageComponent implements OnInit {
     this.requestService.canSubscribe(userId, projectId).subscribe((canSub) => {
       this.isSubscribe = canSub;
     })
+  }
+
+  look() {
+    const dialogRef = this.dialog.open(LookRequestComponent, {
+      width: '70%',
+      height: '70%',
+      data: this.route.snapshot.params.projectId,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+        window.location.reload();
+    });
   }
 }

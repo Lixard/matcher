@@ -1,0 +1,30 @@
+<div class="page justify-content-center">
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let request of requests" [value]="request" class="requests">
+      <mat-label class="request">
+        <a href="/profile/user/{{request.user.id}}"
+                       class="text-decoration-none">{{request.user.firstName}} {{request.user.lastName}}</a>
+
+          <div class="function">
+            <button mat-mini-fab
+                    color="primary"
+                    aria-label="Принять"
+                    (click)="accept(request.id)"
+                    class="icon-button">
+              <mat-icon inline="true">add</mat-icon>
+            </button>
+
+            <button mat-mini-fab
+                    color="primary"
+                    aria-label="Отклонить"
+                    (click)="delete(request.id)"
+                    class="icon-button">
+              <mat-icon inline="true">delete</mat-icon>
+            </button>
+          </div>
+      </mat-label>
+      <mat-label>{{request.message}}</mat-label>
+      <mat-divider></mat-divider>
+    </mat-list-option>
+  </mat-selection-list>
+</div>

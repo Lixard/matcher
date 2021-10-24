@@ -9,11 +9,16 @@ import ru.matcher.data.model.Request;
 import ru.matcher.data.repository.RequestRepository;
 import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.RequestDto;
+import ru.matcher.services.dto.UserDto;
+import ru.matcher.services.dto.get.RequestGetDto;
+import ru.matcher.services.dto.get.UserProjectGetDto;
 import ru.matcher.services.mapstruct.RequestStruct;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IRequestService;
+import ru.matcher.services.service.IUserService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,12 +33,14 @@ public class RequestServiceImpl implements IRequestService {
     private final RequestRepository requestRepository;
     private final RequestStruct requestStruct;
     private final IProjectParticipationService projectParticipationService;
+    private final IUserService userService;
 
     @Autowired
-    public RequestServiceImpl(RequestRepository requestRepository, RequestStruct requestStruct, IProjectParticipationService projectParticipationService) {
+    public RequestServiceImpl(RequestRepository requestRepository, RequestStruct requestStruct, IProjectParticipationService projectParticipationService, IUserService userService) {
         this.requestRepository = requestRepository;
         this.requestStruct = requestStruct;
         this.projectParticipationService = projectParticipationService;
+        this.userService = userService;
     }
 
     @Override
@@ -66,8 +73,19 @@ public class RequestServiceImpl implements IRequestService {
     }
 
     @Override
-    public List<RequestDto> getRequestsByProjectId(Integer projectId) {
-        return requestStruct.toDto(requestRepository.findByProjectId(projectId));
+    public List<RequestGetDto> getRequestsByProjectId(Integer projectId) {
+        List<RequestGetDto> requestGetDtos = new ArrayList<>();
+        List<RequestDto> requestDtos = requestStruct.toDto(requestRepository.findByProjectId(projectId));
+
+        requestDtos.forEach(requestDto -> {
+            UserDto user = userService.findById(requestDto.getUserId());
+            final var builder = RequestGetDto.Builder.aRequestGetDto()
+                    .withId(requestDto.getId())
+                    .withUser(user)
+                    .withMessage(requestDto.getMessage());
+            requestGetDtos.add(builder.build());
+        });
+        return requestGetDtos;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ru.matcher.services.service;
 
 import ru.matcher.services.dto.RequestDto;
+import ru.matcher.services.dto.get.RequestGetDto;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public interface IRequestService {
      *
      * @return список RequestDto
      */
-    List<RequestDto> getRequestsByProjectId(Integer projectId);
+    List<RequestGetDto> getRequestsByProjectId(Integer projectId);
 
     /**
      * Возвращает возможность подачи заявки на присоединение к проекту.

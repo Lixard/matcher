@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.RequestDto;
+import ru.matcher.services.dto.get.RequestGetDto;
 import ru.matcher.services.service.IRequestService;
 
 import java.util.List;
@@ -37,18 +38,18 @@ public class RequestController {
     }
 
     @GetMapping("/{projectId}")
-    public List<RequestDto> getRequestsByProjectId(@PathVariable Integer projectId) {
+    public List<RequestGetDto> getRequestsByProjectId(@PathVariable Integer projectId) {
         return requestService.getRequestsByProjectId(projectId);
     }
 
-    @GetMapping("/remove/{projectId}")
-    public void remove(@PathVariable int projectId) {
-        requestService.remove(projectId);
+    @GetMapping("/remove/{requestId}")
+    public void remove(@PathVariable int requestId) {
+        requestService.remove(requestId);
     }
 
-    @GetMapping("/accept/{projectId}")
-    public void accept(@PathVariable int projectId) {
-        requestService.acceptAndRemove(projectId);
+    @GetMapping("/accept/{requestId}")
+    public void accept(@PathVariable int requestId) {
+        requestService.acceptAndRemove(requestId);
     }
 
     @GetMapping("check/{userId}/{projectId}")
