@@ -17,10 +17,11 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
 import { RolesInProjectComponent } from './roles-in-project/roles-in-project.component';
+import {SendRequestComponent} from "../request/send-request/send-request.component";
 
 @NgModule({
-  declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent, RolesInProjectComponent],
-  entryComponents: [CreateProjectComponent, EditProjectComponent, RolesInProjectComponent],
+  declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent, RolesInProjectComponent, SendRequestComponent],
+  entryComponents: [CreateProjectComponent, EditProjectComponent, RolesInProjectComponent, SendRequestComponent],
   imports: [
     CommonModule,
     ProjectRoutingModule,
