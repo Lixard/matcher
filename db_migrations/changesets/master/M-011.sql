@@ -3,6 +3,7 @@ CREATE TABLE matcher.requests
     request_id  serial   NOT NULL,
     project_id  integer,
     user_id     integer,
+    message     varchar(1024),
     CONSTRAINT requests_pk PRIMARY KEY (request_id)
 );
 
