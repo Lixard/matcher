@@ -15,7 +15,7 @@ import ru.matcher.services.service.IRequestService;
 import java.util.List;
 
 /**
- * Контроллер для проектов.
+ * Контроллер для заявок.
  *
  * @author Максим Щербаков
  */
