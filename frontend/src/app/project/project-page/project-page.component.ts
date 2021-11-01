@@ -13,6 +13,7 @@ import {AuthService} from "../../services/auth.service";
 import {UserOrganizationService} from "../../services/user-organization.service";
 import {ListOfEmployeesPageComponent} from "../../organization/list-of-employees-page/list-of-employees-page.component";
 import {RolesInProjectComponent} from "../roles-in-project/roles-in-project.component";
+import {FilesPageComponent} from "../files-page/files-page.component";
 
 @Component({
   selector: 'app-project-page',
@@ -183,6 +184,14 @@ export class ProjectPageComponent implements OnInit {
           userData: user,
           projectData: this.project,
       },
+    });
+  }
+
+  openFilesOfProject() {
+    const dialogRef = this.dialog.open(FilesPageComponent, {
+      width: '55%',
+      height: '75%',
+      data: this.organization
     });
   }
 }

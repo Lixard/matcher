@@ -138,13 +138,14 @@ h6 {
 }
 
 .buttons-admin {
+  text-align: center;
   flex-direction: column;
   width:100%
 }
 
 .button-admin {
   width: 45%;
-  margin-right: 5%;
+  margin-right: 2%;
 }
 
 .icon-button {

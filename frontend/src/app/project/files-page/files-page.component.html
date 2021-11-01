@@ -1,0 +1,219 @@
+<h3>Загрузка файлов</h3>
+<hr>
+<form [formGroup]="projectFileForm">
+  <div class="inline-elements">
+    <button mat-raised-button color="primary" type="button" (click)="fileInput.click()" class="mb-2">
+      <span>Выбрать файл</span>
+      <input #fileInput type="file" (change)="onFileInput($event)" style="display:none"/>
+    </button>
+  </div>
+  <div class="inline-elements">
+    <p *ngIf="file">{{fileName}}</p>
+  </div>
+  <div class="inline-elements" *ngIf="file">
+    <button mat-raised-button color="primary" class="btn btn-small btn-select">Загрузить</button>
+  </div>
+</form>
+<hr>
+<div class="inline-elements">
+  <h3>Файлы </h3>
+</div>
+<div class="inline-elements">
+  <h3 style="color: gray"> 256 </h3>
+</div>
+<div>
+  <ul class="list-group">
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">secondfile12345.pdf</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">myFavorivteASDAa.doc</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">secondfile12345.pdf</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">myFavorivteASDAa.doc</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">secondfile12345.pdf</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">myFavorivteASDAa.doc</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">secondfile12345.pdf</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">myFavorivteASDAa.doc</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">secondfile12345.pdf</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">myFavorivteASDAa.doc</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">secondfile12345.pdf</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">myFavorivteASDAa.doc</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">secondfile12345.pdf</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">myFavorivteASDAa.doc</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">secondfile12345.pdf</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+
+    <li class="list-group-item">
+      <a style="float: left">
+        <mat-icon color="primary" class="icon-2x">insert_drive_file</mat-icon>
+      </a>
+      <a class="text-decoration-none file-layout">myFavorivteASDAa.doc</a>
+      <a style="float: right; display: inline-block">
+        <button mat-mini-fab color="primary" class="icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -17,10 +17,12 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
 import { RolesInProjectComponent } from './roles-in-project/roles-in-project.component';
+import { FilesPageComponent } from './files-page/files-page.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
-  declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent, RolesInProjectComponent],
-  entryComponents: [CreateProjectComponent, EditProjectComponent, RolesInProjectComponent],
+  declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent, RolesInProjectComponent, FilesPageComponent],
+  entryComponents: [CreateProjectComponent, EditProjectComponent, RolesInProjectComponent, FilesPageComponent],
   imports: [
     CommonModule,
     ProjectRoutingModule,
@@ -33,7 +35,8 @@ import { RolesInProjectComponent } from './roles-in-project/roles-in-project.com
     ReactiveFormsModule,
     MatInputModule,
     MatAutocompleteModule,
-    MatOptionModule
+    MatOptionModule,
+    MatToolbarModule
   ]
 })
 export class ProjectModule {

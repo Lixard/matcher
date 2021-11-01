@@ -1,13 +1,7 @@
 package ru.matcher.data.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Таблица проектов.
@@ -39,6 +33,12 @@ public class Project {
     @ManyToOne(targetEntity = Organization.class)
     @JoinColumn(name = "org_id")
     private Organization organization;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "files",
+            joinColumns = @JoinColumn(name = "file_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id"))
+    private List<File> files;
 
     public Integer getId() {
         return id;
