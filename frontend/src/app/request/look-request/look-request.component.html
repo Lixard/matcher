@@ -2,8 +2,12 @@
   <mat-selection-list [multiple]="false">
     <mat-list-option *ngFor="let request of requests" [value]="request" class="requests">
       <mat-label class="request">
+        <div class="picture"><img [src]="setPicture(request.user.pictureId)" width="250"
+                   class="rounded mb-2 img-thumbnail">
+        </div>
+
         <a href="/profile/user/{{request.user.id}}"
-                       class="text-decoration-none">{{request.user.firstName}} {{request.user.lastName}}</a>
+                       class="text-decoration-none justify-content-start">{{request.user.firstName}} {{request.user.lastName}}</a>
 
           <div class="function">
             <button mat-mini-fab
