@@ -140,6 +140,7 @@ databaseChangeLog:
       rollback:
         - sqlFile:
             path: rollback/M-010.rollback.sql
+
             relativeToChangelogFile: true
   - changeSet:
       id: 11
@@ -153,3 +154,4 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-011.rollback.sql
             relativeToChangelogFile: true
+
