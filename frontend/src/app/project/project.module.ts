@@ -17,10 +17,27 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
 import { RolesInProjectComponent } from './roles-in-project/roles-in-project.component';
+import {SendRequestComponent} from "../request/send-request/send-request.component";
+import {LookRequestComponent} from "../request/look-request/look-request.component";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
-  declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent, RolesInProjectComponent],
-  entryComponents: [CreateProjectComponent, EditProjectComponent, RolesInProjectComponent],
+  declarations: [
+    ProjectsComponent,
+    ProjectPageComponent,
+    CreateProjectComponent,
+    EditProjectComponent,
+    RolesInProjectComponent,
+    SendRequestComponent,
+    LookRequestComponent
+  ],
+  entryComponents: [
+    CreateProjectComponent,
+    EditProjectComponent,
+    RolesInProjectComponent,
+    SendRequestComponent,
+    LookRequestComponent
+  ],
   imports: [
     CommonModule,
     ProjectRoutingModule,
@@ -33,7 +50,8 @@ import { RolesInProjectComponent } from './roles-in-project/roles-in-project.com
     ReactiveFormsModule,
     MatInputModule,
     MatAutocompleteModule,
-    MatOptionModule
+    MatOptionModule,
+    MatListModule
   ]
 })
 export class ProjectModule {

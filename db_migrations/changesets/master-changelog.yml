@@ -140,4 +140,18 @@ databaseChangeLog:
       rollback:
         - sqlFile:
             path: rollback/M-010.rollback.sql
+
             relativeToChangelogFile: true
+  - changeSet:
+      id: 11
+      author: Maxim Shcherbakov
+      comment: Added table for request system
+      changes:
+        - sqlFile:
+            path: master/M-011.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-011.rollback.sql
+            relativeToChangelogFile: true
+

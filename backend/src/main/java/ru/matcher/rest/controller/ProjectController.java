@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectDto;
-import ru.matcher.services.dto.ProjectParticipationDto;
+import ru.matcher.services.dto.RequestDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
+import ru.matcher.services.service.IRequestService;
 
 import java.util.List;
 
@@ -106,11 +107,6 @@ public class ProjectController {
     @GetMapping("/complete/participants/{projectId}")
     public void setEndDateIfCompleteProject(@PathVariable Integer projectId) {
         projectParticipationService.setEndDateIfCompleteProject(projectId);
-    }
-
-    @GetMapping("/{projectId}/subscribe")
-    public void subscribe(@PathVariable Integer projectId) {
-        projectParticipationService.subscribe(projectId);
     }
 
     @GetMapping("/{projectId}/admin/{userId}")
