@@ -2,9 +2,7 @@ package ru.matcher.services.mapstruct;
 
 import org.mapstruct.Mapper;
 import ru.matcher.data.model.File;
-import ru.matcher.data.model.Picture;
 import ru.matcher.services.dto.FileDto;
-import ru.matcher.services.dto.PictureDto;
 
 import java.util.List;
 
@@ -47,4 +45,5 @@ public interface FileStruct {
      * @return список File
      */
     List<File> fromDto(List<FileDto> fileDtos);
+
 }

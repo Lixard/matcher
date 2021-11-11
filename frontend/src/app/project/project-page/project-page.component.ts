@@ -14,6 +14,7 @@ import {UserOrganizationService} from "../../services/user-organization.service"
 import {ListOfEmployeesPageComponent} from "../../organization/list-of-employees-page/list-of-employees-page.component";
 import {RolesInProjectComponent} from "../roles-in-project/roles-in-project.component";
 import {FilesPageComponent} from "../files-page/files-page.component";
+import {CurrentUser} from "../../models/users/current-user.model";
 
 @Component({
   selector: 'app-project-page',
@@ -45,19 +46,19 @@ export class ProjectPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((user) => {
-      this.userId = user.id
+      this.userId = user.id;
       this.projectData();
-
     })
   }
 
   projectData() {
     this.projectService.getProject(this.route.snapshot.params.projectId).subscribe((projectNow) => {
-      this.project = projectNow;
-      this.isActiveProject(projectNow);
-      this.getParticipants();
-      this.getOrganization();
-      this.getUserOganization();
+        this.project = projectNow;
+        this.isActiveProject(projectNow);
+        this.getParticipants();
+        this.getOrganization();
+        this.getUserOganization();
+        console.log(projectNow);
       },
       error => {
         console.error(error)
@@ -105,7 +106,7 @@ export class ProjectPageComponent implements OnInit {
   getOrganization() {
     this.organizationService.getOrganization(this.project.organizationId).subscribe(
       organization => {
-          this.organization = organization;
+        this.organization = organization;
       },
       (error) => {
         console.error(error);
@@ -116,9 +117,9 @@ export class ProjectPageComponent implements OnInit {
   complete() {
     this.project.active = false;
     this.projectService.updateProject(this.route.snapshot.params.projectId, this.project).subscribe(() => {
-      this.projectService.setEndDateIfCompleteProject(this.route.snapshot.params.projectId).subscribe(() => {
-        window.location.reload();
-      })
+        this.projectService.setEndDateIfCompleteProject(this.route.snapshot.params.projectId).subscribe(() => {
+          window.location.reload();
+        })
       }
     )
   }
@@ -137,7 +138,7 @@ export class ProjectPageComponent implements OnInit {
         })
       }
       console.log(result.picture)
-      this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(()=> {
+      this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(() => {
         window.location.reload();
       })
     });
@@ -181,17 +182,31 @@ export class ProjectPageComponent implements OnInit {
       height: '20%',
       dataProject: this.project,
       data: {
-          userData: user,
-          projectData: this.project,
+        userData: user,
+        projectData: this.project,
       },
     });
   }
 
   openFilesOfProject() {
-    const dialogRef = this.dialog.open(FilesPageComponent, {
-      width: '55%',
-      height: '75%',
-      data: this.organization
-    });
+    if (this.isAdmin) {
+      const dialogRef = this.dialog.open(FilesPageComponent, {
+        width: '55%',
+        height: '75%',
+        data: {
+          projectData: this.project,
+          isUserAdmin: this.isAdmin,
+        },
+      });
+    } else {
+      const dialogRef = this.dialog.open(FilesPageComponent, {
+        width: '55%',
+        height: '57%',
+        data: {
+          projectData: this.project,
+          isUserAdmin: this.isAdmin,
+        },
+      });
+    }
   }
 }

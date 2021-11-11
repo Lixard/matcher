@@ -22,4 +22,4 @@ CREATE TABLE matcher.files
 ALTER TABLE matcher.project_files
     ADD CONSTRAINT project_files_fk0 FOREIGN KEY (project_id) REFERENCES matcher.projects (project_id);
 ALTER TABLE matcher.project_files
-    ADD CONSTRAINT project_files_fk1 FOREIGN KEY (file_id) REFERENCES matcher.files (file_id);
+    ADD CONSTRAINT project_files_fk1 FOREIGN KEY (file_id) REFERENCES matcher.files (file_id) ON DELETE CASCADE;

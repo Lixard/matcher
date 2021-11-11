@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Picture} from "../models/picture/picture.model";
 import {FileModel} from "../models/file/file.model";
 
 @Injectable({
@@ -12,12 +11,12 @@ export class FileService {
   constructor(private http: HttpClient) {
   }
 
-  createFile(file: File): Observable<HttpEvent<Picture>> {
+  createFile(file: File, projectId: number): Observable<HttpEvent<FileModel>> {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `api/files/create`, formData, {
+    const req = new HttpRequest('POST', `api/files/project/${projectId}/create`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
@@ -32,5 +31,13 @@ export class FileService {
 
   getFilesByProject(projectId: number): Observable<FileModel[]> {
     return this.http.get<FileModel[]>(`api/files/project/${projectId}`);
+  }
+
+  deleteFile(fileId: number): Observable<FileModel> {
+    return this.http.delete<FileModel>(`api/files/${fileId}`);
+  }
+
+  downloadFileById(fileId: number): Observable<void> {
+    return this.http.get<void>(`api/files/download/${fileId}`);
   }
 }

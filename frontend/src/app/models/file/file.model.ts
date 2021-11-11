@@ -1,8 +1,9 @@
+
 export interface FileModel {
   id: number;
   name: string;
   type: string;
   size: number;
-  created_at: any;
+  createdAt: any;
   data: string;
 }

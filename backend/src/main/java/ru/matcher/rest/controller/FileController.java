@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.matcher.services.dto.FileDto;
+import ru.matcher.services.dto.ProjectDto;
 import ru.matcher.services.service.IFileService;
+import ru.matcher.services.service.IProjectService;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +18,6 @@ import java.util.List;
  * Контроллер для файлов.
  *
  * @author Максим Комов
- *
  */
 @RestController
 @RequestMapping(
@@ -26,11 +27,14 @@ import java.util.List;
 public class FileController {
 
     private final IFileService fileService;
+    private final IProjectService projectService;
 
     @Autowired
-    public FileController(IFileService fileService) {
+    public FileController(IFileService fileService, IProjectService projectService) {
         this.fileService = fileService;
+        this.projectService = projectService;
     }
+
 
     /**
      * Добавление файла.
@@ -38,9 +42,11 @@ public class FileController {
      * @param file файл для добавления
      * @return добавленный файл
      */
-    @PostMapping("/create")
-    public FileDto createFile(@RequestParam("file") MultipartFile file) throws IOException {
-        return fileService.create(file);
+    @PostMapping("/project/{projectId}/create")
+    public FileDto createFile(@RequestParam("file") MultipartFile file, @PathVariable Integer projectId) throws IOException {
+        FileDto fileDto = fileService.create(file, projectId);
+
+        return fileDto;
     }
 
     /**
@@ -67,7 +73,7 @@ public class FileController {
      * Поиск файла по ID.
      *
      * @param id идентификатор файла
-     * @return найденная файл
+     * @return найденный файл
      */
     @GetMapping("/{id}")
     public ResponseEntity<byte[]> getFileById(@PathVariable Integer id) {
@@ -78,8 +84,43 @@ public class FileController {
                 .body(fileDto.getData());
     }
 
+    /**
+     * Поиск файла по ID.
+     *
+     * @param id идентификатор файла
+     * @return найденный файл
+     */
     @GetMapping("/file/{id}")
     public FileDto getFullFileById(@PathVariable Integer id) {
         return fileService.findById(id);
+    }
+
+
+    /**
+     * Поиск файлов по ID проекта.
+     *
+     * @param projectId идентификатор файла
+     * @return найденные файлы
+     */
+    @GetMapping("/project/{projectId}")
+    public List<FileDto> getFilesByProject(@PathVariable Integer projectId) {
+        ProjectDto projectDto = projectService.findById(projectId);
+        List<FileDto> fileDtos = fileService.getFilesByProject(projectDto.getId());
+        return fileDtos;
+    }
+
+    /**
+     * Загрузка файлов по ID файлу.
+     *
+     * @param fileId идентификатор файла
+     * @return найденные файлы
+     */
+    @GetMapping("/download/{fileId}")
+    public void downloadFileById(@PathVariable Integer fileId) {
+        try {
+            fileService.downloadFile(fileId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

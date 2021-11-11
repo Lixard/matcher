@@ -34,7 +34,7 @@ public class Project {
     @JoinColumn(name = "org_id")
     private Organization organization;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "files",
             joinColumns = @JoinColumn(name = "file_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
@@ -86,5 +86,13 @@ public class Project {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
     }
 }

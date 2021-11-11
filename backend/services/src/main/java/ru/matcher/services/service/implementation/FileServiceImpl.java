@@ -1,6 +1,9 @@
 package ru.matcher.services.service.implementation;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.matcher.data.model.File;
@@ -11,7 +14,9 @@ import ru.matcher.services.service.IFileService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Service
 public class FileServiceImpl implements IFileService {
 
     private final FileRepository fileRepository;
@@ -23,17 +28,20 @@ public class FileServiceImpl implements IFileService {
         this.fileStruct = fileStruct;
     }
 
-    @Override
-    public FileDto create(MultipartFile file) throws IOException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        //long fileSizeInMegaBytes = file.getBytes().length/(1024*1024);
-        File projectFile = new File(fileName, file.getContentType(), file.getBytes().length, file.getBytes());
 
+    @Override
+    @Transactional
+    public FileDto create(MultipartFile file, int projectId) throws IOException {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        File projectFile = new File(fileName, file.getContentType(), file.getBytes().length, file.getBytes());
         fileRepository.save(projectFile);
+        fileRepository.insertProjectFile(projectId, projectFile.getId());
         return fileStruct.toDto(projectFile);
     }
 
+
     @Override
+    @Transactional
     public void remove(int fileId) {
         fileRepository.deleteById(fileId);
     }
@@ -46,5 +54,27 @@ public class FileServiceImpl implements IFileService {
     @Override
     public FileDto findById(int fileId) {
         return fileStruct.toDto(fileRepository.findById(fileId).orElse(null));
+    }
+
+    @Override
+    public List<FileDto> getFilesByProject(Integer projectId) {
+        return fileRepository.findFilesByProject(projectId)
+                .stream()
+                .map(fileStruct::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void downloadFile(int fileId) {
+        File file = fileRepository.findFileById(fileId);
+        String downloadsPath = System.getProperty("user.home") + "/Downloads";
+        java.io.File fileToDownload = new java.io.File(downloadsPath, file.getName());
+        if (!fileToDownload.exists()) {
+            try {
+                FileUtils.writeByteArrayToFile(fileToDownload, file.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

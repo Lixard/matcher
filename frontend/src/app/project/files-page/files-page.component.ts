@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FileService} from "../../services/file.service";
-import {FormGroup} from "@angular/forms";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {FileModel} from "../../models/file/file.model";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-files-page',
@@ -9,28 +11,83 @@ import {FormGroup} from "@angular/forms";
 })
 export class FilesPageComponent implements OnInit {
 
-  projectFileForm: FormGroup;
+  isAdmin: boolean;
+  fileCreation: File;
   file: boolean = false;
   fileName!: string;
   fileId: number;
+  files: FileModel[];
 
-  constructor(private fileService: FileService) { }
-
-  ngOnInit(): void {
+  constructor(public dialogRef: MatDialogRef<FilesPageComponent>,
+              @Inject(MAT_DIALOG_DATA) public data,
+              private fileService: FileService,
+              public dialog: MatDialog) {
   }
 
+  ngOnInit(): void {
+    this.fileService.getFilesByProject(this.data.projectData.id).subscribe((result) => {
+      console.log(result);
+      result.forEach(value => {
+        value.createdAt = formatDate(value.createdAt, "dd/MM/YYYY", 'en_US');
+      });
+      this.files = result;
+    }, error => {
+      console.log(error)
+    });
+    console.log(this.data.isUserAdmin)
+    this.isAdmin = this.data.isUserAdmin;
+  }
+
+  getReadableFileSizeString(fileSizeInBytes: number) {
+    let i = -1;
+    const byteUnits = [' КБ', ' МБ', ' ГБ'];
+    do {
+      fileSizeInBytes = fileSizeInBytes / 1024;
+      i++;
+    } while (fileSizeInBytes > 1024);
+    return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
+  };
+
   public onFileInput(event: any) {
-    const file: File = event.target.files.item(0);
-    this.fileService.createFile(file).subscribe((event: any) => {
+    this.fileCreation = event.target.files.item(0);
+    if (event.body != undefined) {
+      this.fileId = event.body.id;
+    }
+    this.file = true;
+    this.fileName = this.fileCreation.name;
+  }
+
+  public createFile() {
+    this.fileService.createFile(this.fileCreation, this.data.projectData.id).subscribe((event: any) => {
         if (event.body != undefined) {
           this.fileId = event.body.id;
         }
         this.file = true;
-        this.fileName = file.name;
+        this.fileName = this.fileCreation.name;
+        this.dialogRef.close();
       },
-      () => {
+      (error) => {
+        console.log(error);
         this.fileName = "Не удалось загрузить";
       });
   }
+
+  public deleteFile(fileId: number) {
+    this.fileService.deleteFile(fileId).subscribe(() => {
+    }, (error) => {
+      console.log(error);
+    });
+    this.dialogRef.close();
+  }
+
+  public downloadFile(fileId: number, fileName: string) {
+    this.fileService.downloadFileById(fileId).subscribe(() => {
+      alert("Файл " + fileName + " успешно загружен");
+    }, (error) => {
+      alert("Не удалось загрузить файл :(");
+      console.log(error)
+    });
+  }
+
 
 }

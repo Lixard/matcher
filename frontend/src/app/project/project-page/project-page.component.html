@@ -14,16 +14,18 @@
               <div class="buttons-admin" *ngIf="project.active && isAdmin">
                 <button mat-raised-button color="basic" class="button-admin" (click)="edit()">Редактировать</button>
                 <button mat-raised-button color="basic" class="button-admin" (click)="complete()">Завершить</button>
-              </div><br>
-                <div *ngIf="project.active
-                  && !isAdmin
-                  && !isParticipant">
-                  <button mat-raised-button color="basic" style="width: 50%" (click)="subscribe()">Вступить</button>
-                </div><br>
-              <button mat-raised-button color="basic" (click)="openFilesOfProject()">Файлы проекта
-                <mat-icon>folder_open</mat-icon>
-              </button>
               </div>
+              <br>
+              <div *ngIf="project.active && !isAdmin && !isParticipant">
+                <button mat-raised-button color="basic" style="width: 50%" (click)="subscribe()">Вступить</button>
+              </div>
+              <br>
+              <div *ngIf="project.active">
+                <button mat-raised-button color="basic" (click)="openFilesOfProject()">Файлы проекта
+                  <mat-icon>folder_open</mat-icon>
+                </button>
+              </div>
+            </div>
           </div>
           <div class="col-sm-20 justify-content-center">
             <div class="card-block">

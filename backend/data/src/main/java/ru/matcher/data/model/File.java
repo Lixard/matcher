@@ -1,9 +1,10 @@
 package ru.matcher.data.model;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Таблица для хранения файлов.
@@ -27,15 +28,17 @@ public class File {
     @Column(name = "size", nullable = false)
     private long size;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.DATE)
     @Column(name = "created_at")
-    private LocalDate createdAt;
+    private Date createdAt;
 
     @Column(name = "data", nullable = false)
     @Lob
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] data;
 
-    public File() { }
+    public File() {}
 
     public File(String name, String type, long size, byte[] data) {
         this.name = name;
@@ -43,6 +46,7 @@ public class File {
         this.size = size;
         this.data = data;
     }
+
 
     public Integer getId() {
         return id;
@@ -76,11 +80,11 @@ public class File {
         this.size = size;
     }
 
-    public LocalDate getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
