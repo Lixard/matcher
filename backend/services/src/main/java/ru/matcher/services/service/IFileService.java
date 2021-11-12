@@ -46,5 +46,4 @@ public interface IFileService {
 
     List<FileDto> getFilesByProject(Integer projectId);
 
-    void downloadFile(int fileId) throws IOException;
 }

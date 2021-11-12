@@ -3,6 +3,7 @@ import {FileService} from "../../services/file.service";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {FileModel} from "../../models/file/file.model";
 import {formatDate} from "@angular/common";
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-files-page',
@@ -25,6 +26,7 @@ export class FilesPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.data.projectData.id);
     this.fileService.getFilesByProject(this.data.projectData.id).subscribe((result) => {
       console.log(result);
       result.forEach(value => {
@@ -80,11 +82,10 @@ export class FilesPageComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public downloadFile(fileId: number, fileName: string) {
-    this.fileService.downloadFileById(fileId).subscribe(() => {
-      alert("Файл " + fileName + " успешно загружен");
+  public downloadFile(projectId: number, fileId: number, fileName: string) {
+    this.fileService.downloadFileById(projectId, fileId).subscribe((blob) => {
+      saveAs(blob, fileName);
     }, (error) => {
-      alert("Не удалось загрузить файл :(");
       console.log(error)
     });
   }

@@ -21,7 +21,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(
-        path = "/files",
         produces = MediaType.APPLICATION_JSON_VALUE
 )
 public class FileController {
@@ -42,7 +41,7 @@ public class FileController {
      * @param file файл для добавления
      * @return добавленный файл
      */
-    @PostMapping("/project/{projectId}/create")
+    @PostMapping("/files/project/{projectId}/create")
     public FileDto createFile(@RequestParam("file") MultipartFile file, @PathVariable Integer projectId) throws IOException {
         FileDto fileDto = fileService.create(file, projectId);
 
@@ -54,7 +53,7 @@ public class FileController {
      *
      * @param id идентификатор файла
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/files/{id}")
     public void deleteFile(@PathVariable Integer id) {
         fileService.remove(id);
     }
@@ -72,29 +71,20 @@ public class FileController {
     /**
      * Поиск файла по ID.
      *
-     * @param id идентификатор файла
+     * @param fileId идентификатор файла
      * @return найденный файл
      */
-    @GetMapping("/{id}")
-    public ResponseEntity<byte[]> getFileById(@PathVariable Integer id) {
-        FileDto fileDto = fileService.findById(id);
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDto.getName() + "\"")
+    @GetMapping("/projects/{projectId}/files/{fileId}")
+    public ResponseEntity<byte[]> downloadFileById(@PathVariable Integer fileId) {
+        FileDto fileDto = fileService.findById(fileId);
+        ResponseEntity<byte[]> fileToDownload = ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(fileDto.getType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""
+                        + fileDto.getName().replace(" ", "_") + "\"")
+                .contentLength(fileDto.getData().length)
                 .body(fileDto.getData());
+        return fileToDownload;
     }
-
-    /**
-     * Поиск файла по ID.
-     *
-     * @param id идентификатор файла
-     * @return найденный файл
-     */
-    @GetMapping("/file/{id}")
-    public FileDto getFullFileById(@PathVariable Integer id) {
-        return fileService.findById(id);
-    }
-
 
     /**
      * Поиск файлов по ID проекта.
@@ -102,25 +92,10 @@ public class FileController {
      * @param projectId идентификатор файла
      * @return найденные файлы
      */
-    @GetMapping("/project/{projectId}")
+    @GetMapping("/projects/{projectId}/files")
     public List<FileDto> getFilesByProject(@PathVariable Integer projectId) {
         ProjectDto projectDto = projectService.findById(projectId);
-        List<FileDto> fileDtos = fileService.getFilesByProject(projectDto.getId());
-        return fileDtos;
+        return fileService.getFilesByProject(projectDto.getId());
     }
 
-    /**
-     * Загрузка файлов по ID файлу.
-     *
-     * @param fileId идентификатор файла
-     * @return найденные файлы
-     */
-    @GetMapping("/download/{fileId}")
-    public void downloadFileById(@PathVariable Integer fileId) {
-        try {
-            fileService.downloadFile(fileId);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

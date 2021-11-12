@@ -64,17 +64,4 @@ public class FileServiceImpl implements IFileService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public void downloadFile(int fileId) {
-        File file = fileRepository.findFileById(fileId);
-        String downloadsPath = System.getProperty("user.home") + "/Downloads";
-        java.io.File fileToDownload = new java.io.File(downloadsPath, file.getName());
-        if (!fileToDownload.exists()) {
-            try {
-                FileUtils.writeByteArrayToFile(fileToDownload, file.getData());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

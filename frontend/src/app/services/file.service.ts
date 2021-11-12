@@ -30,14 +30,14 @@ export class FileService {
   }
 
   getFilesByProject(projectId: number): Observable<FileModel[]> {
-    return this.http.get<FileModel[]>(`api/files/project/${projectId}`);
+    return this.http.get<FileModel[]>(`api/projects/${projectId}/files`);
   }
 
   deleteFile(fileId: number): Observable<FileModel> {
     return this.http.delete<FileModel>(`api/files/${fileId}`);
   }
 
-  downloadFileById(fileId: number): Observable<void> {
-    return this.http.get<void>(`api/files/download/${fileId}`);
+  downloadFileById(projectId: number, fileId: number): Observable<Blob> {
+    return this.http.get(`api/projects/${projectId}/files/${fileId}`, {responseType: 'blob'});
   }
 }
