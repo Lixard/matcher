@@ -11,10 +11,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditProjectComponent} from "../edit-project/edit-project.component";
 import {AuthService} from "../../services/auth.service";
 import {UserOrganizationService} from "../../services/user-organization.service";
-import {ListOfEmployeesPageComponent} from "../../organization/list-of-employees-page/list-of-employees-page.component";
 import {RolesInProjectComponent} from "../roles-in-project/roles-in-project.component";
 import {FilesPageComponent} from "../files-page/files-page.component";
-import {CurrentUser} from "../../models/users/current-user.model";
 
 @Component({
   selector: 'app-project-page',
