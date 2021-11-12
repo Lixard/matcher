@@ -1,6 +1,5 @@
 package ru.matcher.services.service.implementation;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +10,6 @@ import ru.matcher.data.repository.FileRepository;
 import ru.matcher.services.dto.FileDto;
 import ru.matcher.services.mapstruct.FileStruct;
 import ru.matcher.services.service.IFileService;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;

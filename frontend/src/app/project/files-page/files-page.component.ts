@@ -3,7 +3,7 @@ import {FileService} from "../../services/file.service";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {FileModel} from "../../models/file/file.model";
 import {formatDate} from "@angular/common";
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-files-page',
@@ -89,6 +89,5 @@ export class FilesPageComponent implements OnInit {
       console.log(error)
     });
   }
-
 
 }

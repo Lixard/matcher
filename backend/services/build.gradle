@@ -1,5 +1,4 @@
 dependencies {
-    implementation group: 'commons-io', name: 'commons-io', version: '2.5'
     implementation "org.springframework.boot:spring-boot-autoconfigure:$spring_boot_ver"
     compileOnly "org.mapstruct:mapstruct:$mapstruct_ver"
     annotationProcessor "org.mapstruct:mapstruct-processor:$mapstruct_ver"

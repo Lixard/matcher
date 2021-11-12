@@ -13,7 +13,6 @@ import {AuthService} from "../../services/auth.service";
 import {UserOrganizationService} from "../../services/user-organization.service";
 import {RolesInProjectComponent} from "../roles-in-project/roles-in-project.component";
 import {FilesPageComponent} from "../files-page/files-page.component";
-import {CurrentUser} from "../../models/users/current-user.model";
 import {RequestService} from "../../services/request.service";
 import {SendRequestComponent} from "../../request/send-request/send-request.component";
 import {RequestModel} from "../../models/request/request.model";
@@ -29,7 +28,6 @@ export class ProjectPageComponent implements OnInit {
   project: ProjectModel;
   organization: OrganizationModel;
   userId: number;
-  projectId: number;
   activeProject: string;
   users: UserProject[] = [];
   userAdmins: UserProject[] = [];
@@ -63,7 +61,7 @@ export class ProjectPageComponent implements OnInit {
         this.isActiveProject(projectNow);
         this.getParticipants();
         this.getOrganization();
-        this.getUserOganization();
+        this.getUserOrganization();
         console.log(projectNow);
       },
       error => {
@@ -161,13 +159,13 @@ export class ProjectPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: RequestModel) => {
-      this.requestService.subscribe(result).subscribe(()=> {
+      this.requestService.subscribe(result).subscribe(() => {
         window.location.reload();
       })
     });
   }
 
-  getUserOganization() {
+  getUserOrganization() {
     this.userOrgService.getUserOrganization(this.userId).subscribe((organization) => {
       this.userOrganization = organization[0]
     })
@@ -225,8 +223,9 @@ export class ProjectPageComponent implements OnInit {
         },
       });
     }
-    
-  canSubscribe (userId: number, projectId: number) {
+  }
+
+  canSubscribe(userId: number, projectId: number) {
     this.requestService.canSubscribe(userId, projectId).subscribe((canSub) => {
       this.isSubscribe = canSub;
     })
@@ -240,7 +239,7 @@ export class ProjectPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-        window.location.reload();
+      window.location.reload();
     });
   }
 }
