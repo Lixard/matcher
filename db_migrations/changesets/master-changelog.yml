@@ -142,14 +142,14 @@ databaseChangeLog:
             path: rollback/M-010.rollback.sql
             relativeToChangelogFile: true
   - changeSet:
-      id: 11
+      id: 12
       author: Maxim Komov
       comment: Renamed constraint and added two tables
       changes:
         - sqlFile:
-            path: master/M-011.sql
+            path: master/M-012.sql
             relativeToChangelogFile: true
       rollback:
         - sqlFile:
-            path: rollback/M-011.rollback.sql
+            path: rollback/M-012.rollback.sql
             relativeToChangelogFile: true
