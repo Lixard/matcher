@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
 import {ProjectsComponent} from "./projects/projects.component";
 import {ProjectRoutingModule} from "./project-routing.module";
 import {MatCardModule} from "@angular/material/card";
@@ -19,10 +18,31 @@ import {MatOptionModule} from "@angular/material/core";
 import { RolesInProjectComponent } from './roles-in-project/roles-in-project.component';
 import { FilesPageComponent } from './files-page/files-page.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {SendRequestComponent} from "../request/send-request/send-request.component";
+import {LookRequestComponent} from "../request/look-request/look-request.component";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [ProjectsComponent, ProjectPageComponent, CreateProjectComponent, EditProjectComponent, RolesInProjectComponent, FilesPageComponent],
   entryComponents: [CreateProjectComponent, EditProjectComponent, RolesInProjectComponent, FilesPageComponent],
+
+@NgModule({
+  declarations: [
+    ProjectsComponent,
+    ProjectPageComponent,
+    CreateProjectComponent,
+    EditProjectComponent,
+    RolesInProjectComponent,
+    SendRequestComponent,
+    LookRequestComponent
+  ],
+  entryComponents: [
+    CreateProjectComponent,
+    EditProjectComponent,
+    RolesInProjectComponent,
+    SendRequestComponent,
+    LookRequestComponent
+  ],
   imports: [
     CommonModule,
     ProjectRoutingModule,
@@ -37,6 +57,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatAutocompleteModule,
     MatOptionModule,
     MatToolbarModule
+    MatListModule
   ]
 })
 export class ProjectModule {

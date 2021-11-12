@@ -120,18 +120,6 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     }
 
     @Override
-    public void subscribe(Integer projectId) {
-        final var projectParticipationBuilder = ProjectParticipationDto.Builder.aProjectParticipationDto()
-                .withProjectId(projectId)
-                .withUserId(currentUser.getId())
-                .withStartDate(LocalDate.now())
-                .withIsAdmin(false)
-                .withUserRole("Участник");
-        logger.info("User(id = {}) subscribes to project(id = {})", currentUser.getId(), projectId);
-        create(projectParticipationBuilder.build());
-    }
-
-    @Override
     public void admin(Integer projectId, Integer userId) {
         ProjectUserEmbeddedId projectUserEmbeddedId = new ProjectUserEmbeddedId();
         projectUserEmbeddedId.setProject(projectId);

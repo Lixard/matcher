@@ -1,0 +1,27 @@
+.requests {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  width: 100%;
+}
+
+.request {
+  display: flex;
+  flex-direction: row;
+  margin-top: auto;
+  width: 100%;
+}
+
+.function {
+  position: absolute;
+  margin-left: 88%;
+}
+
+.icon-button {
+  font-size: 20px;
+  transform: scale(0.70);
+}
+
+.picture {
+  width: 5%;
+}

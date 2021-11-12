@@ -11,10 +11,13 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditProjectComponent} from "../edit-project/edit-project.component";
 import {AuthService} from "../../services/auth.service";
 import {UserOrganizationService} from "../../services/user-organization.service";
-import {ListOfEmployeesPageComponent} from "../../organization/list-of-employees-page/list-of-employees-page.component";
 import {RolesInProjectComponent} from "../roles-in-project/roles-in-project.component";
 import {FilesPageComponent} from "../files-page/files-page.component";
 import {CurrentUser} from "../../models/users/current-user.model";
+import {RequestService} from "../../services/request.service";
+import {SendRequestComponent} from "../../request/send-request/send-request.component";
+import {RequestModel} from "../../models/request/request.model";
+import {LookRequestComponent} from "../../request/look-request/look-request.component";
 
 @Component({
   selector: 'app-project-page',
@@ -32,6 +35,7 @@ export class ProjectPageComponent implements OnInit {
   userAdmins: UserProject[] = [];
   isAdmin: boolean = false;
   isParticipant: boolean = false;
+  isSubscribe: boolean = false;
   userOrganization: OrganizationModel;
 
   constructor(private projectService: ProjectService,
@@ -41,13 +45,15 @@ export class ProjectPageComponent implements OnInit {
               private organizationService: OrganizationService,
               public dialog: MatDialog,
               private readonly authService: AuthService,
-              private readonly userOrgService: UserOrganizationService) {
+              private readonly userOrgService: UserOrganizationService,
+              private readonly requestService: RequestService) {
   }
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((user) => {
       this.userId = user.id;
       this.projectData();
+      this.canSubscribe(this.userId, this.route.snapshot.params.projectId);
     })
   }
 
@@ -145,9 +151,20 @@ export class ProjectPageComponent implements OnInit {
   }
 
   subscribe() {
-    this.projectService.subscribe(this.route.snapshot.params.projectId).subscribe(() => {
-      window.location.reload();
-    })
+    const dialogRef = this.dialog.open(SendRequestComponent, {
+      width: '40%',
+      height: '30%',
+      data: {
+        projectId: this.route.snapshot.params.projectId,
+        userId: this.userId
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: RequestModel) => {
+      this.requestService.subscribe(result).subscribe(()=> {
+        window.location.reload();
+      })
+    });
   }
 
   getUserOganization() {
@@ -208,5 +225,22 @@ export class ProjectPageComponent implements OnInit {
         },
       });
     }
+    
+  canSubscribe (userId: number, projectId: number) {
+    this.requestService.canSubscribe(userId, projectId).subscribe((canSub) => {
+      this.isSubscribe = canSub;
+    })
+  }
+
+  look() {
+    const dialogRef = this.dialog.open(LookRequestComponent, {
+      width: '70%',
+      height: '70%',
+      data: this.route.snapshot.params.projectId,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+        window.location.reload();
+    });
   }
 }

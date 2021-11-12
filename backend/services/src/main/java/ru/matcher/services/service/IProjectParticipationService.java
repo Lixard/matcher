@@ -68,8 +68,6 @@ public interface IProjectParticipationService {
 
     void setEndDateIfCompleteProject(Integer projectId);
 
-    void subscribe(Integer projectId);
-
     void admin(Integer projectId, Integer userId);
 
     List<OrganizationDto> getAdminOrganizations(Integer projectId);

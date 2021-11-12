@@ -12,6 +12,7 @@
               <h3 class="f-w-600">Проект</h3>
               <p>{{project.name}}</p><i class="mdi mdi-square-edit-outline feather icon-edit  f-18"></i>
               <div class="buttons-admin" *ngIf="project.active && isAdmin">
+                <button mat-raised-button color="basic" class="button-admin" (click)="look()">Посмотреть заявки</button>
                 <button mat-raised-button color="basic" class="button-admin" (click)="edit()">Редактировать</button>
                 <button mat-raised-button color="basic" class="button-admin" (click)="complete()">Завершить</button>
               </div>
@@ -24,6 +25,11 @@
                 <button mat-raised-button color="basic" (click)="openFilesOfProject()">Файлы проекта
                   <mat-icon>folder_open</mat-icon>
                 </button>
+              <div *ngIf="project.active
+                  && !isAdmin
+                  && !isParticipant
+                  && isSubscribe">
+                <button mat-raised-button color="basic" style="width: 100%" (click)="subscribe()">Подать заявку</button>
               </div>
             </div>
           </div>

@@ -1,0 +1,25 @@
+<div class="page justify-content-center">
+  <form [formGroup]="requestForm">
+    <mat-card>
+      <mat-card-content>
+        <div class="content">
+          <span class="text-center">Подача заявки</span>
+
+          <mat-form-field>
+            <mat-label>Комментарий</mat-label>
+            <textarea formControlName="message" matInput></textarea>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            class="btn btn-small btn-select"
+            [mat-dialog-close]="_request(requestForm)"
+          >
+            Подать заявку
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>
