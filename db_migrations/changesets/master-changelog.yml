@@ -140,7 +140,6 @@ databaseChangeLog:
       rollback:
         - sqlFile:
             path: rollback/M-010.rollback.sql
-
             relativeToChangelogFile: true
   - changeSet:
       id: 11
@@ -154,4 +153,15 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-011.rollback.sql
             relativeToChangelogFile: true
-
+  - changeSet:
+      id: 12
+      author: Ilya Novichikhin
+      comment: Add data to table projects
+      changes:
+        - sqlFile:
+            path: master/M-012.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-012.rollback.sql
+            relativeToChangelogFile: true
