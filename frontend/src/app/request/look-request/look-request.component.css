@@ -1,17 +1,21 @@
 .requests {
-  display: flex;
-  flex-direction: column;
-  margin-top: auto;
-  width: 100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center
 }
 
 .request {
-  display: flex;
-  flex-direction: row;
-  margin-top: auto;
-  width: 100%;
+  display:flex;
+  align-items:center;
+  height: 20%
 }
 
+.request-info {
+  display:flex;
+  flex-direction:column;
+  margin-left: 20px;
+  width: 90%;
+}
 .function {
   position: absolute;
   margin-left: 88%;
@@ -22,6 +26,14 @@
   transform: scale(0.70);
 }
 
-.picture {
-  width: 5%;
+.comment {
+  word-wrap: break-word;
+  width: 90%;
+}
+mat-list-option.mat-list-item-word-wrap {
+  height: initial !important;
+}
+.mat-list-item-word-wrap .mat-line {
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
 }
