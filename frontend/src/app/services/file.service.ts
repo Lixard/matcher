@@ -16,7 +16,7 @@ export class FileService {
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `api/files/project/${projectId}/create`, formData, {
+    const req = new HttpRequest('POST', `api/projects/${projectId}/files`, formData, {
       reportProgress: true,
       responseType: 'json'
     });

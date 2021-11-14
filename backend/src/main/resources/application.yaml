@@ -3,7 +3,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/matcher
     password: 123
     username: postgres
-
   jpa:
     properties:
       hibernate:

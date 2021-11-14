@@ -3,8 +3,8 @@ package ru.matcher.services.mapstruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import ru.matcher.data.model.*;
-import ru.matcher.services.dto.FileDto;
+import ru.matcher.data.model.Organization;
+import ru.matcher.data.model.Project;
 import ru.matcher.services.dto.ProjectDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
 

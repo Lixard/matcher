@@ -4,13 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import ru.matcher.services.dto.FileDto;
 import ru.matcher.services.dto.ProjectDto;
 import ru.matcher.services.service.IFileService;
 import ru.matcher.services.service.IProjectService;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -41,7 +46,7 @@ public class FileController {
      * @param file файл для добавления
      * @return добавленный файл
      */
-    @PostMapping("/files/project/{projectId}/create")
+    @PostMapping("/projects/{projectId}/files")
     public FileDto createFile(@RequestParam("file") MultipartFile file, @PathVariable Integer projectId) throws IOException {
         FileDto fileDto = fileService.create(file, projectId);
 
@@ -72,11 +77,13 @@ public class FileController {
      * Поиск файла по ID.
      *
      * @param fileId идентификатор файла
+     * @param projectId идентификатор проекта
      * @return найденный файл
      */
     @GetMapping("/projects/{projectId}/files/{fileId}")
-    public ResponseEntity<byte[]> downloadFileById(@PathVariable Integer fileId) {
+    public ResponseEntity<byte[]> downloadFileById(@PathVariable Integer fileId, @PathVariable String projectId) {
         FileDto fileDto = fileService.findById(fileId);
+        // TODO access rights
         ResponseEntity<byte[]> fileToDownload = ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(fileDto.getType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""
