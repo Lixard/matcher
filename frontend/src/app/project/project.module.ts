@@ -14,10 +14,10 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {EditProjectComponent} from './edit-project/edit-project.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatOptionModule} from "@angular/material/core";
 import {RolesInProjectComponent} from './roles-in-project/roles-in-project.component';
 import {FilesPageComponent} from './files-page/files-page.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatLineModule, MatOptionModule} from "@angular/material/core";
 import {SendRequestComponent} from "../request/send-request/send-request.component";
 import {LookRequestComponent} from "../request/look-request/look-request.component";
 import {MatListModule} from "@angular/material/list";
@@ -42,21 +42,21 @@ import {MatListModule} from "@angular/material/list";
     FilesPageComponent
   ],
   imports: [
-    CommonModule,
-    ProjectRoutingModule,
-    MatCardModule,
-    MatButtonModule,
-    FlexLayoutModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    MatOptionModule,
-    MatToolbarModule,
-    MatListModule
-  ],
+        CommonModule,
+        ProjectRoutingModule,
+        MatCardModule,
+        MatButtonModule,
+        FlexLayoutModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        MatOptionModule,
+        MatListModule,
+        MatLineModule
+    ]
 })
 export class ProjectModule {
 }
