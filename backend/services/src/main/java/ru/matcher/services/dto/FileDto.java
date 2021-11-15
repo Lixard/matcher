@@ -1,6 +1,6 @@
 package ru.matcher.services.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class FileDto {
 
@@ -8,7 +8,7 @@ public class FileDto {
     private String name;
     private String type;
     private long size;
-    private Date createdAt;
+    private LocalDateTime createdAt;
     private byte[] data;
 
     public Integer getId() {
@@ -43,11 +43,11 @@ public class FileDto {
         this.size = size;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

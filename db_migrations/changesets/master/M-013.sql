@@ -14,7 +14,7 @@ CREATE TABLE matcher.files
     name       varchar(250) NOT NULL,
     type       varchar(100) NOT NULL,
     size       BIGINT       NOT NULL,
-    created_at DATE DEFAULT CURRENT_TIMESTAMP,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     data       bytea        NOT NULL,
     CONSTRAINT files_pk PRIMARY KEY (file_id)
 );

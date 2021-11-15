@@ -17,6 +17,7 @@ import ru.matcher.services.mapstruct.OrganizationStruct;
 import ru.matcher.services.mapstruct.ProjectStruct;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
+
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
@@ -90,7 +91,7 @@ public class ProjectServiceImpl implements IProjectService {
     @Override
     @Transactional
     public ProjectDto update(Integer projectId, ProjectDto projectDtoToUpdate) {
-        Project project = projectRepository.findProjectById(projectId);
+        Project project = projectRepository.findById(projectId).orElseThrow();
         project.setName(projectDtoToUpdate.getName());
         project.setDescription(projectDtoToUpdate.getDescription());
         Organization organization = organizationRepository.findOrganizationById(projectDtoToUpdate.getOrganizationId());
@@ -101,7 +102,6 @@ public class ProjectServiceImpl implements IProjectService {
     }
 
     @Override
-    @Transactional
     public void remove(int projectId) {
         projectRepository.deleteById(projectId);
     }

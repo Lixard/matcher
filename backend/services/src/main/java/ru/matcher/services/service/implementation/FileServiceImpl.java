@@ -29,9 +29,14 @@ public class FileServiceImpl implements IFileService {
 
     @Override
     @Transactional
-    public FileDto create(MultipartFile file, int projectId) throws IOException {
+    public FileDto create(MultipartFile file, int projectId) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        File projectFile = new File(fileName, file.getContentType(), file.getBytes().length, file.getBytes());
+        File projectFile = null;
+        try {
+            projectFile = new File(fileName, file.getContentType(), file.getBytes().length, file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         fileRepository.save(projectFile);
         fileRepository.insertProjectFile(projectId, projectFile.getId());
         return fileStruct.toDto(projectFile);

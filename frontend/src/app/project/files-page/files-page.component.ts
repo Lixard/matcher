@@ -30,7 +30,7 @@ export class FilesPageComponent implements OnInit {
     this.fileService.getFilesByProject(this.data.projectData.id).subscribe((result) => {
       console.log(result);
       result.forEach(value => {
-        value.createdAt = formatDate(value.createdAt, "dd/MM/YYYY", 'en_US');
+        value.createdAt = formatDate(value.createdAt, "d.MM.yyyy в HH:mm", 'en_US');
       });
       this.files = result;
     }, error => {
@@ -74,8 +74,8 @@ export class FilesPageComponent implements OnInit {
       });
   }
 
-  public deleteFile(fileId: number) {
-    this.fileService.deleteFile(fileId).subscribe(() => {
+  public deleteFile(projectId: number, fileId: number) {
+    this.fileService.deleteFile(projectId, fileId).subscribe(() => {
     }, (error) => {
       console.log(error);
     });

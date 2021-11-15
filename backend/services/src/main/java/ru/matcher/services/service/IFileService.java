@@ -20,7 +20,7 @@ public interface IFileService {
      * @param projectId идентификатор проекта
      * @return объект класса FileDto
      */
-    FileDto create(MultipartFile file, int projectId) throws IOException;
+    FileDto create(MultipartFile file, int projectId);
 
     /**
      * Удаление файла из БД.

@@ -23,6 +23,4 @@ public interface FileRepository extends JpaRepository<File, Integer> {
     @Query(value = "insert into matcher.project_files (project_id, file_id) values (:projectId, :fileId);", nativeQuery = true)
     void insertProjectFile(@Param("projectId") int projectId, @Param("fileId") int fileId);
 
-    @Query(value = "select * from matcher.files where file_id =:fileId", nativeQuery = true)
-    File findFileById(@Param("fileId") int fileId);
 }

@@ -18,7 +18,4 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     @Query(value = "select * from matcher.projects where org_id = :orgId", nativeQuery = true)
     List<Project> findProjectByOrganization(@Param("orgId") int orgId);
 
-    @Query(value = "select * from matcher.projects where project_id =:projectId", nativeQuery = true)
-    Project findProjectById(@Param("projectId") int projectId);
-
 }

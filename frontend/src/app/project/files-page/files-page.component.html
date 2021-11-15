@@ -36,7 +36,7 @@
       </a>
       <a class="text-decoration-none file-layout">{{file.name}}</a>
       <a style="float: right; display: inline-block">
-        <button *ngIf="isAdmin" mat-mini-fab color="primary" class="icon-button" (click)="deleteFile(file.id)">
+        <button *ngIf="isAdmin" mat-mini-fab color="primary" class="icon-button" (click)="deleteFile(data.projectData.id, file.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </a>

@@ -56,21 +56,12 @@ public class FileController {
     /**
      * Удаление файла.
      *
-     * @param id идентификатор файла
+     * @param projectId идентификатор проекта
+     * @param fileId идентификатор файла
      */
-    @DeleteMapping("/files/{id}")
-    public void deleteFile(@PathVariable Integer id) {
-        fileService.remove(id);
-    }
-
-    /**
-     * Список всех файлов.
-     *
-     * @return список всех файлов
-     */
-    @GetMapping
-    public List<FileDto> getFiles() {
-        return fileService.getFiles();
+    @DeleteMapping("/projects/{projectId}/files/{fileId}")
+    public void deleteFile(@PathVariable Integer projectId, @PathVariable Integer fileId) {
+        fileService.remove(fileId);
     }
 
     /**
