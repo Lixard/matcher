@@ -11,7 +11,6 @@ import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.RequestDto;
 import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.dto.get.RequestGetDto;
-import ru.matcher.services.dto.get.UserProjectGetDto;
 import ru.matcher.services.mapstruct.RequestStruct;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IRequestService;

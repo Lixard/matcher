@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.matcher.data.model.Picture;
 
 /**
- * Репозиторий для файлов.
+ * Репозиторий для картинок.
  *
  * @author Николай Евсюков
  */

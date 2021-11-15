@@ -12,6 +12,7 @@ import {EditProjectComponent} from "../edit-project/edit-project.component";
 import {AuthService} from "../../services/auth.service";
 import {UserOrganizationService} from "../../services/user-organization.service";
 import {RolesInProjectComponent} from "../roles-in-project/roles-in-project.component";
+import {FilesPageComponent} from "../files-page/files-page.component";
 import {RequestService} from "../../services/request.service";
 import {SendRequestComponent} from "../../request/send-request/send-request.component";
 import {RequestModel} from "../../models/request/request.model";
@@ -27,7 +28,6 @@ export class ProjectPageComponent implements OnInit {
   project: ProjectModel;
   organization: OrganizationModel;
   userId: number;
-  projectId: number;
   activeProject: string;
   users: UserProject[] = [];
   userAdmins: UserProject[] = [];
@@ -49,7 +49,7 @@ export class ProjectPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((user) => {
-      this.userId = user.id
+      this.userId = user.id;
       this.projectData();
       this.canSubscribe(this.userId, this.route.snapshot.params.projectId);
     })
@@ -57,11 +57,12 @@ export class ProjectPageComponent implements OnInit {
 
   projectData() {
     this.projectService.getProject(this.route.snapshot.params.projectId).subscribe((projectNow) => {
-      this.project = projectNow;
-      this.isActiveProject(projectNow);
-      this.getParticipants();
-      this.getOrganization();
-      this.getUserOganization();
+        this.project = projectNow;
+        this.isActiveProject(projectNow);
+        this.getParticipants();
+        this.getOrganization();
+        this.getUserOrganization();
+        console.log(projectNow);
       },
       error => {
         console.error(error)
@@ -109,7 +110,7 @@ export class ProjectPageComponent implements OnInit {
   getOrganization() {
     this.organizationService.getOrganization(this.project.organizationId).subscribe(
       organization => {
-          this.organization = organization;
+        this.organization = organization;
       },
       (error) => {
         console.error(error);
@@ -120,9 +121,9 @@ export class ProjectPageComponent implements OnInit {
   complete() {
     this.project.active = false;
     this.projectService.updateProject(this.route.snapshot.params.projectId, this.project).subscribe(() => {
-      this.projectService.setEndDateIfCompleteProject(this.route.snapshot.params.projectId).subscribe(() => {
-        window.location.reload();
-      })
+        this.projectService.setEndDateIfCompleteProject(this.route.snapshot.params.projectId).subscribe(() => {
+          window.location.reload();
+        })
       }
     )
   }
@@ -141,7 +142,7 @@ export class ProjectPageComponent implements OnInit {
         })
       }
       console.log(result.picture)
-      this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(()=> {
+      this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(() => {
         window.location.reload();
       })
     });
@@ -158,13 +159,13 @@ export class ProjectPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: RequestModel) => {
-      this.requestService.subscribe(result).subscribe(()=> {
+      this.requestService.subscribe(result).subscribe(() => {
         window.location.reload();
       })
     });
   }
 
-  getUserOganization() {
+  getUserOrganization() {
     this.userOrgService.getUserOrganization(this.userId).subscribe((organization) => {
       this.userOrganization = organization[0]
     })
@@ -196,13 +197,35 @@ export class ProjectPageComponent implements OnInit {
       height: '20%',
       dataProject: this.project,
       data: {
-          userData: user,
-          projectData: this.project,
+        userData: user,
+        projectData: this.project,
       },
     });
   }
 
-  canSubscribe (userId: number, projectId: number) {
+  openFilesOfProject() {
+    if (this.isAdmin) {
+      const dialogRef = this.dialog.open(FilesPageComponent, {
+        width: '55%',
+        height: '75%',
+        data: {
+          projectData: this.project,
+          isUserAdmin: this.isAdmin,
+        },
+      });
+    } else {
+      const dialogRef = this.dialog.open(FilesPageComponent, {
+        width: '55%',
+        height: '57%',
+        data: {
+          projectData: this.project,
+          isUserAdmin: this.isAdmin,
+        },
+      });
+    }
+  }
+
+  canSubscribe(userId: number, projectId: number) {
     this.requestService.canSubscribe(userId, projectId).subscribe((canSub) => {
       this.isSubscribe = canSub;
     })
@@ -216,7 +239,7 @@ export class ProjectPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-        window.location.reload();
+      window.location.reload();
     });
   }
 }
