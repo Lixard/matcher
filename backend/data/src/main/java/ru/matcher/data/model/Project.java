@@ -44,7 +44,7 @@ public class Project {
     private Organization organization;
 
     @ManyToMany
-    @JoinTable(name = "files",
+    @JoinTable(name = "project_files",
             joinColumns = @JoinColumn(name = "file_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
     private List<File> files;

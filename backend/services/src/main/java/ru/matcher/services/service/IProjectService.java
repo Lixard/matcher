@@ -23,10 +23,12 @@ public interface IProjectService {
     /**
      * Обновление Project в БД.
      *
+     *
+     * @param id идентификатор проекта
      * @param projectDto объект класса ProjectDto
      * @return объект класса ProjectDto
      */
-    ProjectDto update(ProjectDto projectDto);
+    ProjectDto update(Integer id, ProjectDto projectDto);
 
     /**
      * Удаление Project из БД.

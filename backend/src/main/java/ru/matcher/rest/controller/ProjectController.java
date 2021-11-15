@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectDto;
-import ru.matcher.services.dto.RequestDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
-import ru.matcher.services.service.IRequestService;
-
 import java.util.List;
 
 /**
@@ -63,8 +60,7 @@ public class ProjectController {
     @PutMapping("/{id}")
     public ProjectDto updateProject(@PathVariable Integer id,
                                     @RequestBody ProjectDto projectDto) {
-        projectDto.setId(id);
-        return projectService.update(projectDto);
+        return projectService.update(id, projectDto);
     }
 
     /**
