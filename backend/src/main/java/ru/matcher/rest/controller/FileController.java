@@ -47,9 +47,8 @@ public class FileController {
      * @return добавленный файл
      */
     @PostMapping("/projects/{projectId}/files")
-    public FileDto createFile(@RequestParam("file") MultipartFile file, @PathVariable Integer projectId) throws IOException {
+    public FileDto createFile(@RequestParam("file") MultipartFile file, @PathVariable Integer projectId) {
         FileDto fileDto = fileService.create(file, projectId);
-
         return fileDto;
     }
 
