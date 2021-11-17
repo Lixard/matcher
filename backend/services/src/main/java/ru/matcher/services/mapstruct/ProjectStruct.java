@@ -4,12 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import ru.matcher.data.model.Organization;
-import ru.matcher.data.model.Picture;
 import ru.matcher.data.model.Project;
-import ru.matcher.data.model.User;
 import ru.matcher.services.dto.ProjectDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
-import ru.matcher.services.dto.create.UserCreateDto;
 
 import java.util.List;
 
@@ -36,6 +33,7 @@ public interface ProjectStruct {
      * @param projectDto объект класса ProjectDto
      * @return объект класса Project
      */
+    @Mapping(target = "files", ignore = true)
     @Mapping(target = "organization", source = "organizationId", qualifiedByName = "setOrganizationId")
     Project fromDto(ProjectDto projectDto);
 
@@ -45,6 +43,7 @@ public interface ProjectStruct {
      * @param dto dto для конвертации
      * @return сущность проекта
      */
+    @Mapping(target = "files", ignore = true)
     @Mapping(target = "organization", source = "organizationId", qualifiedByName = "setOrganizationId")
     Project fromDto(ProjectCreateDto dto);
 
@@ -73,4 +72,5 @@ public interface ProjectStruct {
         organization.setId(organizationId);
         return organization;
     }
+
 }

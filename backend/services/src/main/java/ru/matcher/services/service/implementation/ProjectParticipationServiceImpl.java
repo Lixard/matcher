@@ -75,6 +75,14 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     }
 
     @Override
+    @Transactional
+    public void removeAdmin(Integer projectId, Integer userId) {
+        ProjectParticipation projectParticipation = projectParticipationRepository.findByProjectIdAndUserId(projectId, userId);
+        projectParticipation.setAdmin(false);
+        projectParticipationRepository.save(projectParticipation);
+    }
+
+    @Override
     public List<ProjectParticipationDto> getProjectParticipations() {
         return projectParticipationStruct.toDto(projectParticipationRepository.findAll());
     }
@@ -109,17 +117,6 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
             projectParticipation.setEndDate(LocalDate.now());
             projectParticipationRepository.save(projectParticipationStruct.fromDto(projectParticipation));
         }
-    }
-
-    @Override
-    public void subscribe(Integer projectId) {
-        final var projectParticipationBuilder = ProjectParticipationDto.Builder.aProjectParticipationDto()
-                .withProjectId(projectId)
-                .withUserId(currentUser.getId())
-                .withStartDate(LocalDate.now())
-                .withIsAdmin(false);
-        logger.info("User(id = {}) subscribes to project(id = {})", currentUser.getId(), projectId);
-        create(projectParticipationBuilder.build());
     }
 
     @Override

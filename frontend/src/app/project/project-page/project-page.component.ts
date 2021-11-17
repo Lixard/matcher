@@ -13,6 +13,11 @@ import {AuthService} from "../../services/auth.service";
 import {UserOrganizationService} from "../../services/user-organization.service";
 import {ListOfEmployeesPageComponent} from "../../organization/list-of-employees-page/list-of-employees-page.component";
 import {RolesInProjectComponent} from "../roles-in-project/roles-in-project.component";
+import {FilesPageComponent} from "../files-page/files-page.component";
+import {RequestService} from "../../services/request.service";
+import {SendRequestComponent} from "../../request/send-request/send-request.component";
+import {RequestModel} from "../../models/request/request.model";
+import {LookRequestComponent} from "../../request/look-request/look-request.component";
 
 @Component({
   selector: 'app-project-page',
@@ -30,6 +35,7 @@ export class ProjectPageComponent implements OnInit {
   userAdmins: UserProject[] = [];
   isAdmin: boolean = false;
   isParticipant: boolean = false;
+  isSubscribe: boolean = false;
   userOrganization: OrganizationModel;
 
   constructor(private projectService: ProjectService,
@@ -39,24 +45,26 @@ export class ProjectPageComponent implements OnInit {
               private organizationService: OrganizationService,
               public dialog: MatDialog,
               private readonly authService: AuthService,
-              private readonly userOrgService: UserOrganizationService) {
+              private readonly userOrgService: UserOrganizationService,
+              private readonly requestService: RequestService) {
   }
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((user) => {
       this.userId = user.id
       this.projectData();
-
+      this.canSubscribe(this.userId, this.route.snapshot.params.projectId);
     })
   }
 
   projectData() {
     this.projectService.getProject(this.route.snapshot.params.projectId).subscribe((projectNow) => {
-      this.project = projectNow;
-      this.isActiveProject(projectNow);
-      this.getParticipants();
-      this.getOrganization();
-      this.getUserOganization();
+        this.project = projectNow;
+        this.isActiveProject(projectNow);
+        this.getParticipants();
+        this.getOrganization();
+        this.getUserOrganization();
+        console.log(projectNow);
       },
       error => {
         console.error(error)
@@ -104,7 +112,7 @@ export class ProjectPageComponent implements OnInit {
   getOrganization() {
     this.organizationService.getOrganization(this.project.organizationId).subscribe(
       organization => {
-          this.organization = organization;
+        this.organization = organization;
       },
       (error) => {
         console.error(error);
@@ -135,19 +143,30 @@ export class ProjectPageComponent implements OnInit {
         result.picture = picture
       })
       console.log(result.picture)
-      this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(()=> {
+      this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(() => {
         window.location.reload();
       })
     });
   }
 
   subscribe() {
-    this.projectService.subscribe(this.route.snapshot.params.projectId).subscribe(() => {
-      window.location.reload();
-    })
+    const dialogRef = this.dialog.open(SendRequestComponent, {
+      width: '40%',
+      height: '30%',
+      data: {
+        projectId: this.route.snapshot.params.projectId,
+        userId: this.userId
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: RequestModel) => {
+      this.requestService.subscribe(result).subscribe(() => {
+        window.location.reload();
+      })
+    });
   }
 
-  getUserOganization() {
+  getUserOrganization() {
     this.userOrgService.getUserOrganization(this.userId).subscribe((organization) => {
       this.userOrganization = organization[0]
     })
@@ -165,6 +184,12 @@ export class ProjectPageComponent implements OnInit {
     })
   }
 
+  deleteAdmin(user: UserProject) {
+    this.projectService.deleteAdmin(this.route.snapshot.params.projectId, user.id).subscribe(() => {
+      window.location.reload();
+    })
+  }
+
   openRoleOfUser(user: UserProject) {
     console.log(user);
     // @ts-ignore
@@ -173,9 +198,49 @@ export class ProjectPageComponent implements OnInit {
       height: '20%',
       dataProject: this.project,
       data: {
-          userData: user,
-          projectData: this.project,
+        userData: user,
+        projectData: this.project,
       },
+    });
+  }
+
+  openFilesOfProject() {
+    if (this.isAdmin) {
+      const dialogRef = this.dialog.open(FilesPageComponent, {
+        width: '55%',
+        height: '75%',
+        data: {
+          projectData: this.project,
+          isUserAdmin: this.isAdmin,
+        },
+      });
+    } else {
+      const dialogRef = this.dialog.open(FilesPageComponent, {
+        width: '55%',
+        height: '57%',
+        data: {
+          projectData: this.project,
+          isUserAdmin: this.isAdmin,
+        },
+      });
+    }
+  }
+
+  canSubscribe(userId: number, projectId: number) {
+    this.requestService.canSubscribe(userId, projectId).subscribe((canSub) => {
+      this.isSubscribe = canSub;
+    })
+  }
+
+  look() {
+    const dialogRef = this.dialog.open(LookRequestComponent, {
+      width: '70%',
+      height: '70%',
+      data: this.route.snapshot.params.projectId,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      window.location.reload();
     });
   }
 }

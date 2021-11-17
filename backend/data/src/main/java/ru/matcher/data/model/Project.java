@@ -6,8 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * Таблица проектов.
@@ -45,6 +48,12 @@ public class Project {
     @ManyToOne(targetEntity = Organization.class)
     @JoinColumn(name = "org_id")
     private Organization organization;
+
+    @ManyToMany
+    @JoinTable(name = "project_files",
+            joinColumns = @JoinColumn(name = "file_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id"))
+    private List<File> files;
 
     public Integer getId() {
         return id;
@@ -108,5 +117,13 @@ public class Project {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
     }
 }

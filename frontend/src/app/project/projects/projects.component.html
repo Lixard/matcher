@@ -6,10 +6,10 @@
           <mat-card-title class="text-center">{{project.name}}</mat-card-title>
         </mat-card-header>
         <img [src]="setPicture(project)" height="200px" mat-card-image width="200px">
-        <mat-card-content>
-          <p>
-            {{project.description}}
-          </p>
+        <mat-card-content style="height: 47px">
+          <div class="description">
+            <a>{{project.description}}</a>
+          </div>
         </mat-card-content>
         <mat-card-actions>
           <button color="primary" mat-flat-button (click)="navigateToProject(project.id)">Подробнее</button>
@@ -17,9 +17,9 @@
       </mat-card>
     </div>
   </div>
-    <div class="create-button">
-      <button mat-fab color="primary" aria-label="Создать проект" (click)="createProject()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
+  <div class="create-button">
+    <button mat-fab color="primary" aria-label="Создать проект" (click)="createProject()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>

@@ -5,8 +5,18 @@
 .content > mat-card {
   width: 200px;
 }
+
 .create-button {
   position: absolute;
   bottom: 2%;
   right: 2%;
+}
+
+.description {
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

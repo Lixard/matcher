@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.matcher.data.model.Organization;
 import ru.matcher.data.model.Project;
 import ru.matcher.data.model.UserOrganization;
-import ru.matcher.data.model.embedded.UserOrganizationEmbeddedId;
 import ru.matcher.data.repository.*;
 import ru.matcher.services.dto.*;
 import ru.matcher.services.mapstruct.ProjectParticipationStruct;
@@ -15,7 +15,6 @@ import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.mapstruct.OrganizationStruct;
 import ru.matcher.services.mapstruct.ProjectStruct;
-import ru.matcher.services.mapstruct.UserStruct;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
 
@@ -43,15 +42,14 @@ public class ProjectServiceImpl implements IProjectService {
     private final OrganizationRepository organizationRepository;
     private final PictureRepository pictureRepository;
     private final IProjectParticipationService projectParticipationService;
-    private final UserRepository userRepository;
-    private final UserStruct userStruct;
 
     @Autowired
     public ProjectServiceImpl(ProjectRepository projectRepository,
                               ProjectStruct projectStruct, OrganizationStruct organizationStruct,
                               UserOrganizationRepository userOrganizationRepository, OrganizationRepository organizationRepository,
                               PictureRepository pictureRepository, ProjectParticipationServiceImpl projectParticipationService,
-                              ProjectParticipationRepository projectParticipationRepository, ProjectParticipationStruct projectParticipationStruct, UserRepository userRepository, UserStruct userStruct) {
+                              ProjectParticipationRepository projectParticipationRepository,
+                              ProjectParticipationStruct projectParticipationStruct) {
 
         this.projectRepository = projectRepository;
         this.projectStruct = projectStruct;
@@ -62,8 +60,6 @@ public class ProjectServiceImpl implements IProjectService {
         this.projectParticipationService = projectParticipationService;
         this.projectParticipationRepository = projectParticipationRepository;
         this.projectParticipationStruct = projectParticipationStruct;
-        this.userRepository = userRepository;
-        this.userStruct = userStruct;
     }
 
     @Override
@@ -95,14 +91,18 @@ public class ProjectServiceImpl implements IProjectService {
 
     @Override
     @Transactional
-    public ProjectDto update(ProjectDto projectDto) {
-        Project project = projectStruct.fromDto(projectDto);
+    public ProjectDto update(Integer projectId, ProjectDto projectDtoToUpdate) {
+        Project project = projectRepository.findById(projectId).orElseThrow();
+        project.setName(projectDtoToUpdate.getName());
+        project.setDescription(projectDtoToUpdate.getDescription());
+        Organization organization = organizationRepository.findOrganizationById(projectDtoToUpdate.getOrganizationId());
+        project.setOrganization(organization);
+        project.setPicture(projectStruct.fromDto(projectDtoToUpdate).getPicture());
         projectRepository.save(project);
         return projectStruct.toDto(project);
     }
 
     @Override
-    @Transactional
     public void remove(int projectId) {
         projectRepository.deleteById(projectId);
     }

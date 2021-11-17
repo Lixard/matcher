@@ -41,16 +41,16 @@ export class ProjectService {
     return this.http.get<void>(`api/projects/complete/participants/${projectId}`)
   }
 
-  subscribe(projectId: number): Observable<void> {
-    return this.http.get<void>(`api/projects/${projectId}/subscribe`)
-  }
-
   admin(projectId: number, userId: number): Observable<void> {
     return this.http.get<void>(`api/projects/${projectId}/admin/${userId}`)
   }
 
   delete(projectId: number, userId: number): Observable<void> {
     return this.http.delete<void>(`api/projects/${projectId}/${userId}`)
+  }
+
+  deleteAdmin(projectId: number, userId: number): Observable<void> {
+    return this.http.delete<void>(`api/projects/${projectId}/admin/${userId}`)
   }
 
   getAdminOrganizations(projectId: number): Observable<OrganizationModel[]> {

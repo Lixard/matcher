@@ -94,7 +94,9 @@ export class EditProjectComponent implements OnInit {
     }
     project.id = this.data.id;
     if (this.pictureId) {
-      project.picture.id = this.pictureId;
+      this.picturesService.getPicture(this.pictureId).subscribe(picture => {
+        project.picture = picture;
+      })
     } else {
       project.picture = this.data.picture;
     }

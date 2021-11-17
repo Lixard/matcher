@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.matcher.services.dto.OrganizationDto;
 import ru.matcher.services.dto.ProjectDto;
-import ru.matcher.services.dto.ProjectParticipationDto;
 import ru.matcher.services.dto.create.ProjectCreateDto;
 import ru.matcher.services.dto.get.UserProjectGetDto;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IProjectService;
-
 import java.util.List;
 
 /**
@@ -62,8 +60,7 @@ public class ProjectController {
     @PutMapping("/{id}")
     public ProjectDto updateProject(@PathVariable Integer id,
                                     @RequestBody ProjectDto projectDto) {
-        projectDto.setId(id);
-        return projectService.update(projectDto);
+        return projectService.update(id, projectDto);
     }
 
     /**
@@ -108,11 +105,6 @@ public class ProjectController {
         projectParticipationService.setEndDateIfCompleteProject(projectId);
     }
 
-    @GetMapping("/{projectId}/subscribe")
-    public void subscribe(@PathVariable Integer projectId) {
-        projectParticipationService.subscribe(projectId);
-    }
-
     @GetMapping("/{projectId}/admin/{userId}")
     public void admin(@PathVariable Integer projectId, @PathVariable Integer userId) {
         projectParticipationService.admin(projectId, userId);
@@ -126,6 +118,11 @@ public class ProjectController {
     @DeleteMapping("/{projectId}/{userId}")
     public void remove(@PathVariable Integer projectId, @PathVariable Integer userId) {
         projectParticipationService.remove(projectId, userId);
+    }
+
+    @DeleteMapping("/{projectId}/admin/{userId}")
+    public void removeAdmin(@PathVariable Integer projectId, @PathVariable Integer userId) {
+        projectParticipationService.removeAdmin(projectId, userId);
     }
 
     @GetMapping("/user/{userId}")

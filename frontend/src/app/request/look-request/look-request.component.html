@@ -1,0 +1,41 @@
+<mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let request of requests" [value]="request" class="mat-list-item-word-wrap" [disableRipple]="true">
+      <div class="requests">
+        <div class="request">
+          <img [src]="setPicture(request.user.pictureId)"
+                               class="rounded mb-2 img-thumbnail" width="64px">
+
+
+          <div class="request-info">
+            <div>
+              <a href="/profile/user/{{request.user.id}}"
+                                       class="text-decoration-none justify-content-start mr-2">{{request.user.firstName}} {{request.user.lastName}}</a>
+            </div>
+            <div >
+              <p mat-line class="comment">{{request.message}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="function">
+          <button mat-mini-fab
+                  color="primary"
+                  aria-label="Принять"
+                  (click)="accept(request.id)"
+                  class="icon-button">
+            <mat-icon inline="true">add</mat-icon>
+          </button>
+
+          <button mat-mini-fab
+                  color="primary"
+                  aria-label="Отклонить"
+                  (click)="delete(request.id)"
+                  class="icon-button">
+            <mat-icon inline="true">delete</mat-icon>
+          </button>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+
