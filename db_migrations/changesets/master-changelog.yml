@@ -130,14 +130,14 @@ databaseChangeLog:
             path: rollback/M-009.rollback.sql
             relativeToChangelogFile: true
   - changeSet:
-      id: 10
+      id: 14
       author: Andrei Gerasimov
       comment: project lifecycle current_lyfecycle fields added
       changes:
         - sqlFile:
-            path: master/M-010.sql
+            path: master/M-014.sql
             relativeToChangelogFile: true
       rollback:
         - sqlFile:
-            path: rollback/M-010.rollback.sql
+            path: rollback/M-014.rollback.sql
             relativeToChangelogFile: true
