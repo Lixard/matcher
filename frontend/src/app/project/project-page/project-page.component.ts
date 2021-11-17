@@ -62,7 +62,6 @@ export class ProjectPageComponent implements OnInit {
         this.getParticipants();
         this.getOrganization();
         this.getUserOrganization();
-        console.log(projectNow);
       },
       error => {
         console.error(error)

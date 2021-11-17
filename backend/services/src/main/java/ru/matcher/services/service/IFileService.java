@@ -16,11 +16,11 @@ public interface IFileService {
     /**
      * Добавление файла в БД.
      *
-     * @param file файл для добавления
+     * @param files файлы для добавления
      * @param projectId идентификатор проекта
      * @return объект класса FileDto
      */
-    FileDto create(MultipartFile file, int projectId);
+    FileDto create(MultipartFile[] files, int projectId);
 
     /**
      * Удаление файла из БД.

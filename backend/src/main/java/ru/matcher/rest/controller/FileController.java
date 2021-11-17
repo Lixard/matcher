@@ -43,12 +43,12 @@ public class FileController {
     /**
      * Добавление файла.
      *
-     * @param file файл для добавления
+     * @param files файлы для добавления
      * @return добавленный файл
      */
     @PostMapping("/projects/{projectId}/files")
-    public FileDto createFile(@RequestParam("file") MultipartFile file, @PathVariable Integer projectId) {
-        FileDto fileDto = fileService.create(file, projectId);
+    public FileDto createFile(@RequestParam("file") MultipartFile[] files, @PathVariable Integer projectId) {
+        FileDto fileDto = fileService.create(files, projectId);
         return fileDto;
     }
 

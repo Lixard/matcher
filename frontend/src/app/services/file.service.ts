@@ -11,10 +11,12 @@ export class FileService {
   constructor(private http: HttpClient) {
   }
 
-  createFile(file: File, projectId: number): Observable<HttpEvent<FileModel>> {
+  createFile(files: File[], projectId: number): Observable<HttpEvent<FileModel>> {
     const formData: FormData = new FormData();
-
-    formData.append('file', file);
+    for (let i = 0; i < files.length; i++) {
+      const fileToUpload = files[i];
+      formData.append('file', fileToUpload);
+    }
 
     const req = new HttpRequest('POST', `api/projects/${projectId}/files`, formData, {
       reportProgress: true,

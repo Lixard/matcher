@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FileService} from "../../services/file.service";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {FileModel} from "../../models/file/file.model";
 import {formatDate} from "@angular/common";
 import {saveAs} from 'file-saver';
@@ -13,14 +13,15 @@ import {saveAs} from 'file-saver';
 export class FilesPageComponent implements OnInit {
 
   isAdmin: boolean;
-  fileCreation: File;
+  filesCreation: File[];
   file: boolean = false;
-  fileName!: string;
+  fileName: string;
   fileId: number;
   files: FileModel[];
+  errorMessage: string;
+  isError: boolean;
 
-  constructor(public dialogRef: MatDialogRef<FilesPageComponent>,
-              @Inject(MAT_DIALOG_DATA) public data,
+  constructor(@Inject(MAT_DIALOG_DATA) public data,
               private fileService: FileService,
               public dialog: MatDialog) {
   }
@@ -28,7 +29,6 @@ export class FilesPageComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.data.projectData.id);
     this.fileService.getFilesByProject(this.data.projectData.id).subscribe((result) => {
-      console.log(result);
       result.forEach(value => {
         value.createdAt = formatDate(value.createdAt, "d.MM.yyyy в HH:mm", 'en_US');
       });
@@ -36,7 +36,6 @@ export class FilesPageComponent implements OnInit {
     }, error => {
       console.log(error)
     });
-    console.log(this.data.isUserAdmin)
     this.isAdmin = this.data.isUserAdmin;
   }
 
@@ -51,35 +50,37 @@ export class FilesPageComponent implements OnInit {
   };
 
   public onFileInput(event: any) {
-    this.fileCreation = event.target.files.item(0);
+    this.filesCreation = event.target.files;
     if (event.body != undefined) {
       this.fileId = event.body.id;
     }
     this.file = true;
-    this.fileName = this.fileCreation.name;
+    this.fileName = "";
+    for (let i = 0; i < event.target.files.length; i++) {
+      this.fileName += event.target.files.item(i).name + "\n";
+    }
   }
 
   public createFile() {
-    this.fileService.createFile(this.fileCreation, this.data.projectData.id).subscribe((event: any) => {
-        if (event.body != undefined) {
-          this.fileId = event.body.id;
-        }
-        this.file = true;
-        this.fileName = this.fileCreation.name;
-        this.dialogRef.close();
+    this.fileService.createFile(this.filesCreation, this.data.projectData.id).subscribe(() => {
+      this.file = false;
+        this.isError = false;
+        this.ngOnInit();
       },
       (error) => {
+
         console.log(error);
-        this.fileName = "Не удалось загрузить";
+        this.isError = true;
+        this.errorMessage = "Не удалось загрузить файл!";
       });
   }
 
   public deleteFile(projectId: number, fileId: number) {
     this.fileService.deleteFile(projectId, fileId).subscribe(() => {
+      this.ngOnInit();
     }, (error) => {
       console.log(error);
     });
-    this.dialogRef.close();
   }
 
   public downloadFile(projectId: number, fileId: number, fileName: string) {

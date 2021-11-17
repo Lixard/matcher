@@ -10,6 +10,7 @@ import ru.matcher.data.repository.FileRepository;
 import ru.matcher.services.dto.FileDto;
 import ru.matcher.services.mapstruct.FileStruct;
 import ru.matcher.services.service.IFileService;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,19 +30,20 @@ public class FileServiceImpl implements IFileService {
 
     @Override
     @Transactional
-    public FileDto create(MultipartFile file, int projectId) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    public FileDto create(MultipartFile[] files, int projectId) {
         File projectFile = null;
-        try {
-            projectFile = new File(fileName, file.getContentType(), file.getBytes().length, file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (MultipartFile file : files) {
+            try {
+                String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+                projectFile = new File(fileName, file.getContentType(), file.getBytes().length, file.getBytes());
+                fileRepository.save(projectFile);
+                fileRepository.insertProjectFile(projectId, projectFile.getId());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        fileRepository.save(projectFile);
-        fileRepository.insertProjectFile(projectId, projectFile.getId());
         return fileStruct.toDto(projectFile);
     }
-
 
     @Override
     @Transactional
