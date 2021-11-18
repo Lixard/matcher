@@ -13,10 +13,9 @@ export class FileService {
 
   createFile(files: File[], projectId: number): Observable<HttpEvent<FileModel>> {
     const formData: FormData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      const fileToUpload = files[i];
+    Array.from(files).forEach(fileToUpload => {
       formData.append('file', fileToUpload);
-    }
+    });
 
     const req = new HttpRequest('POST', `api/projects/${projectId}/files`, formData, {
       reportProgress: true,

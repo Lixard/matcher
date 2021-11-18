@@ -27,7 +27,6 @@ export class FilesPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data.projectData.id);
     this.fileService.getFilesByProject(this.data.projectData.id).subscribe((result) => {
       result.forEach(value => {
         value.createdAt = formatDate(value.createdAt, "d.MM.yyyy в HH:mm", 'en_US');
@@ -56,9 +55,9 @@ export class FilesPageComponent implements OnInit {
     }
     this.file = true;
     this.fileName = "";
-    for (let i = 0; i < event.target.files.length; i++) {
-      this.fileName += event.target.files.item(i).name + "\n";
-    }
+    Array.from(event.target.files).forEach((_files, id) => {
+      this.fileName += event.target.files[id].name + '\n';
+    });
   }
 
   public createFile() {
