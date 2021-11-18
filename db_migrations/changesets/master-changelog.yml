@@ -176,3 +176,16 @@ databaseChangeLog:
       rollback:
         - sqlFile:
             path: rollback/M-013.rollback.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 14
+      author: Maxim Borisov
+      comment: Fill empty org_id to some projects
+      changes:
+        - sqlFile:
+            path: master/M-014.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-014.rollback.sql
+            relativeToChangelogFile: true
