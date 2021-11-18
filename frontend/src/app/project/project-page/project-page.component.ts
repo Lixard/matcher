@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../services/project.service';
-import { ProjectModel } from '../../models/project/project.model';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { UserProject } from '../../models/users/user-project.model';
-import { PictureService } from '../../services/picture.service';
-import { OrganizationService } from '../../services/organization.service';
-import { OrganizationModel } from '../../models/organizations/organization.model';
-import { MatDialog } from '@angular/material/dialog';
-import { EditProjectComponent } from '../edit-project/edit-project.component';
-import { AuthService } from '../../services/auth.service';
-import { UserOrganizationService } from '../../services/user-organization.service';
-import { RolesInProjectComponent } from '../roles-in-project/roles-in-project.component';
-import { FilesPageComponent } from '../files-page/files-page.component';
-import { RequestService } from '../../services/request.service';
-import { SendRequestComponent } from '../../request/send-request/send-request.component';
-import { RequestModel } from '../../models/request/request.model';
-import { LookRequestComponent } from '../../request/look-request/look-request.component';
+import {Component, OnInit} from '@angular/core';
+import {ProjectService} from '../../services/project.service';
+import {ProjectModel} from '../../models/project/project.model';
+import {ActivatedRoute} from '@angular/router';
+import {UserService} from '../../services/user.service';
+import {UserProject} from '../../models/users/user-project.model';
+import {PictureService} from '../../services/picture.service';
+import {OrganizationService} from '../../services/organization.service';
+import {OrganizationModel} from '../../models/organizations/organization.model';
+import {MatDialog} from '@angular/material/dialog';
+import {EditProjectComponent} from '../edit-project/edit-project.component';
+import {AuthService} from '../../services/auth.service';
+import {UserOrganizationService} from '../../services/user-organization.service';
+import {RolesInProjectComponent} from '../roles-in-project/roles-in-project.component';
+import {FilesPageComponent} from '../files-page/files-page.component';
+import {RequestService} from '../../services/request.service';
+import {SendRequestComponent} from '../../request/send-request/send-request.component';
+import {RequestModel} from '../../models/request/request.model';
+import {LookRequestComponent} from '../../request/look-request/look-request.component';
 
 @Component({
   selector: 'app-project-page',
@@ -45,7 +45,8 @@ export class ProjectPageComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly userOrgService: UserOrganizationService,
     private readonly requestService: RequestService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((user) => {
@@ -213,7 +214,7 @@ export class ProjectPageComponent implements OnInit {
   openFilesOfProject() {
     const dialogRef = this.dialog.open(FilesPageComponent, {
       width: '100%',
-      height: '100%',
+      height: '80%',
       data: {
         projectData: this.project,
         isUserAdmin: this.isAdmin,

@@ -1,5 +1,5 @@
-<div *ngIf="isAdmin" xmlns="http://www.w3.org/1999/html">
-  <h3>Загрузка файлов</h3>
+<div *ngIf="isAdmin">
+  <h3 style="padding: 10px">Загрузка файлов</h3>
   <hr>
 <!--<small class="form-text text-muted">Размер не должен превышать 20МБ</small>-->
   <div class="inline-elements">
@@ -14,7 +14,7 @@
     <p *ngIf="file" style="white-space: pre-wrap;">{{fileName}}</p>
   </div>
   <div class="inline-elements">
-    <button *ngIf="file" mat-raised-button color="primary" class="btn btn-small btn-select" (click)="createFile()">Загрузить</button>
+    <button *ngIf="file && fileName != ''" mat-raised-button color="primary" class="btn btn-small btn-select" (click)="createFile()">Загрузить</button>
   </div>
   <div *ngIf="isError" class="alert alert-danger" role="alert">{{errorMessage}}</div>
   <hr>

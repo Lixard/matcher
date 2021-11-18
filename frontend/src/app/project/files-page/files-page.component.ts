@@ -63,7 +63,7 @@ export class FilesPageComponent implements OnInit {
 
   public createFile() {
     this.fileService.createFile(this.filesCreation, this.data.projectData.id).subscribe(() => {
-      this.file = false;
+        this.file = false;
         this.isError = false;
         this.ngOnInit();
       },
@@ -71,7 +71,7 @@ export class FilesPageComponent implements OnInit {
 
         console.log(error);
         this.isError = true;
-        this.errorMessage = "Не удалось загрузить файл!";
+        this.errorMessage = "Не удалось загрузить файл(ы)! Максимальный размер - 20МБ.";
       });
   }
 
