@@ -55,7 +55,7 @@ public class FileServiceImpl implements IFileService {
         try {
             return file.getBytes();
         } catch (IOException e) {
-            throw new IllegalStateException("Failed to get bytes length from file");
+            throw new IllegalStateException("Failed to get bytes from file");
         }
     }
 
