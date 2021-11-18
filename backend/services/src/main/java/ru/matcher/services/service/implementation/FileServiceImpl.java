@@ -10,8 +10,10 @@ import ru.matcher.data.repository.FileRepository;
 import ru.matcher.services.dto.FileDto;
 import ru.matcher.services.mapstruct.FileStruct;
 import ru.matcher.services.service.IFileService;
+
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,29 +31,38 @@ public class FileServiceImpl implements IFileService {
 
     @Override
     @Transactional
-    public FileDto create(MultipartFile file, int projectId) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        File projectFile = null;
-        try {
-            projectFile = new File(fileName, file.getContentType(), file.getBytes().length, file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        fileRepository.save(projectFile);
-        fileRepository.insertProjectFile(projectId, projectFile.getId());
-        return fileStruct.toDto(projectFile);
+    public List<FileDto> create(List<MultipartFile> files, int projectId) {
+        return files.stream()
+                .map(f -> File.builder()
+                        .name(StringUtils.cleanPath(Objects.requireNonNull(f.getOriginalFilename())))
+                        .type(f.getContentType())
+                        .size(tryToGetBytes(f).length)
+                        .data(tryToGetBytes(f))
+                        .build()
+                )
+                .map(fileRepository::save)
+                .map(f -> insertProjectFile(projectId, f))
+                .map(fileStruct::toDto)
+                .collect(Collectors.toList());
     }
 
+    private File insertProjectFile(int projectId, File file) {
+        fileRepository.insertProjectFile(projectId, file.getId());
+        return file;
+    }
+
+    private byte[] tryToGetBytes(final MultipartFile file) {
+        try {
+            return file.getBytes();
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to get bytes from file");
+        }
+    }
 
     @Override
     @Transactional
     public void remove(int fileId) {
         fileRepository.deleteById(fileId);
-    }
-
-    @Override
-    public List<FileDto> getFiles() {
-        return fileStruct.toDto(fileRepository.findAll());
     }
 
     @Override

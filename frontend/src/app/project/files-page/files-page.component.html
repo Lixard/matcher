@@ -1,23 +1,24 @@
-<div *ngIf="isAdmin" xmlns="http://www.w3.org/1999/html">
-  <h3>Загрузка файлов</h3>
+<div *ngIf="isAdmin">
+  <h3 style="padding: 10px">Загрузка файлов</h3>
   <hr>
+<!--<small class="form-text text-muted">Размер не должен превышать 20МБ</small>-->
   <div class="inline-elements">
     <form method="POST" enctype="multipart/form-data">
       <button mat-raised-button color="primary" type="button" (click)="fileInput.click()" class="mb-2">
-        <span>Выбрать файл</span>
-        <input style="display:none" #fileInput type="file" (change)="onFileInput($event)"/>
+        <span>Выбрать файлы..</span>
+        <input style="display:none" #fileInput type="file" multiple="multiple" (change)="onFileInput($event)"/>
       </button>
     </form>
   </div>
   <div class="inline-elements">
-    <p *ngIf="file">{{fileName}}</p>
+    <p *ngIf="file" style="white-space: pre-wrap;">{{fileName}}</p>
   </div>
-  <div class="inline-elements" *ngIf="file">
-    <button mat-raised-button color="primary" class="btn btn-small btn-select" (click)="createFile()" >Загрузить</button>
+  <div class="inline-elements">
+    <button *ngIf="file && fileName != ''" mat-raised-button color="primary" class="btn btn-small btn-select" (click)="createFile()">Загрузить</button>
   </div>
+  <div *ngIf="isError" class="alert alert-danger" role="alert">{{errorMessage}}</div>
   <hr>
 </div>
-
 <div class="inline-elements">
   <h3>Файлы </h3>
 </div>
@@ -36,12 +37,14 @@
       </a>
       <a class="text-decoration-none file-layout">{{file.name}}</a>
       <a style="float: right; display: inline-block">
-        <button *ngIf="isAdmin" mat-mini-fab color="primary" class="icon-button" (click)="deleteFile(data.projectData.id, file.id)">
+        <button title="Удалить файл" *ngIf="isAdmin" mat-mini-fab color="primary" class="icon-button"
+                (click)="deleteFile(data.projectData.id, file.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </a>
       <a style="float: right; display: inline-block; margin-right: 10px">
-        <button mat-mini-fab color="primary" class="icon-button" (click)="downloadFile(data.projectData.id, file.id, file.name)">
+        <button mat-mini-fab title="Скачать файл" color="primary" class="icon-button"
+                (click)="downloadFile(data.projectData.id, file.id, file.name)">
           <mat-icon>save_alt</mat-icon>
         </button>
       </a>
