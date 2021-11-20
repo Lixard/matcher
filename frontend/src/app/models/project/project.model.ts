@@ -5,6 +5,8 @@ export interface ProjectModel {
   picture: Picture;
   name: string;
   description: string;
+  lifecycle: string;
+  current_lifecycle: string;
   active: boolean;
   organizationId: number;
 }

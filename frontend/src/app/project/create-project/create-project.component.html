@@ -22,6 +22,14 @@
             >Описание не должно быть меньше 8 символов
             </mat-error>
           </mat-form-field>
+          <mat-form-field>
+            <mat-label>Этапы жизненного цикла</mat-label>
+            <textarea
+              formControlName="lifecycle"
+              placeholder="Анализ, Проектирование, Разработка, Тестирование, Завершен"
+              matInput
+            ></textarea>
+          </mat-form-field>
 
           <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" class="mb-3">
             <span>Загрузить фотографию</span>

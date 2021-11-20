@@ -21,12 +21,14 @@ import {LookRequestComponent} from '../../request/look-request/look-request.comp
 @Component({
   selector: 'app-project-page',
   templateUrl: './project-page.component.html',
-  styleUrls: ['./project-page.component.css'],
+  styleUrls: ['./project-page.component.css']
 })
 export class ProjectPageComponent implements OnInit {
+
   project: ProjectModel;
   organization: OrganizationModel;
   userId: number;
+  projectId: number;
   activeProject: string;
   users: UserProject[] = [];
   userAdmins: UserProject[] = [];
@@ -50,10 +52,10 @@ export class ProjectPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((user) => {
-      this.userId = user.id;
+      this.userId = user.id
       this.projectData();
       this.canSubscribe(this.userId, this.route.snapshot.params.projectId);
-    });
+    })
   }
 
   projectData() {
@@ -112,17 +114,23 @@ export class ProjectPageComponent implements OnInit {
 
   getOrganization() {
     this.organizationService.getOrganization(this.project.organizationId).subscribe(
-      (organization) => {
+      organization => {
         this.organization = organization;
       },
       (error) => {
         console.error(error);
-      },
-    );
+      }
+    )
   }
 
   complete() {
     this.project.active = false;
+    this.projectService.updateProject(this.route.snapshot.params.projectId, this.project).subscribe(() => {
+      this.projectService.setEndDateIfCompleteProject(this.route.snapshot.params.projectId).subscribe(() => {
+        window.location.reload();
+      })
+      }
+    )
     this.projectService
       .updateProject(this.route.snapshot.params.projectId, this.project)
       .subscribe(() => {
@@ -142,6 +150,14 @@ export class ProjectPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: ProjectModel) => {
+      console.log("closed update")
+      this.pictureService.getPicture(result.picture.id).subscribe((picture) => {
+        result.picture = picture
+      })
+      console.log(result.picture)
+      this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(() => {
+        window.location.reload();
+      })
       if (result.picture) {
         this.pictureService.getPicture(result.picture.id).subscribe((picture) => {
           result.picture = picture;
@@ -188,13 +204,13 @@ export class ProjectPageComponent implements OnInit {
   delete(user: UserProject) {
     this.projectService.delete(this.route.snapshot.params.projectId, user.id).subscribe(() => {
       window.location.reload();
-    });
+    })
   }
 
   deleteAdmin(user: UserProject) {
     this.projectService.deleteAdmin(this.route.snapshot.params.projectId, user.id).subscribe(() => {
       window.location.reload();
-    });
+    })
   }
 
   openRoleOfUser(user: UserProject) {

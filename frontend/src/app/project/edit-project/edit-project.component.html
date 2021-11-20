@@ -3,7 +3,7 @@
     <mat-card>
       <mat-card-content>
         <div class="content">
-          <span class="text-center">Добавление проекта</span>
+          <span class="text-center">Редактирование проекта</span>
 
           <mat-form-field>
             <mat-label>Название проекта</mat-label>
@@ -35,6 +35,15 @@
                 {{place.name}}
               </mat-option>
             </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Текущий этап ЖЦ</mat-label>
+            <mat-select formControlName="lifecycle">
+              <mat-option *ngFor="let lifecycleItem of lifecycle" [value]="lifecycleItem">
+                {{lifecycleItem}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
           <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" class="mb-3">

@@ -3,6 +3,7 @@ export interface ProjectCreateModel {
   pictureId: number;
   name: string;
   description: string;
+  lifecycle: string;
   active: boolean;
   userId: number;
 }

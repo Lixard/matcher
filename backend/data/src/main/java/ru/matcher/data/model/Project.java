@@ -36,6 +36,12 @@ public class Project {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "lifecycle")
+    private String lifecycle;
+
+    @Column(name = "current_lifecycle")
+    private String currentLifecycle;
+
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
@@ -71,6 +77,22 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCurrentLifecycle() {
+        return currentLifecycle;
+    }
+
+    public void setCurrentLifecycle(String currentLifecycle) {
+        this.currentLifecycle = currentLifecycle;
+    }
+
+    public String getLifecycle() {
+        return lifecycle;
+    }
+
+    public void setLifecycle(String lifecycle) {
+        this.lifecycle = lifecycle;
     }
 
     public String getDescription() {

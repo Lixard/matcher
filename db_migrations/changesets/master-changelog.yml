@@ -189,3 +189,15 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-014.rollback.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 15
+      author: Andrei Gerasimov
+      comment: project lifecycle current_lyfecycle fields added
+      changes:
+        - sqlFile:
+            path: master/M-015.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-015.rollback.sql
+            relativeToChangelogFile: true

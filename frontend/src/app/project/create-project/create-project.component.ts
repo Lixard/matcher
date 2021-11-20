@@ -19,7 +19,8 @@ export class CreateProjectComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private picturesService: PictureService,
-              private readonly authService: AuthService) { }
+              private readonly authService: AuthService) {
+  }
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((user) => {
@@ -31,14 +32,15 @@ export class CreateProjectComponent implements OnInit {
   private buildForm(): void {
     this.projectForm = this.fb.group({
       name: this.fb.control('', [Validators.required]),
-      description: this.fb.control('', [Validators.required, Validators.minLength(8)])
+      description: this.fb.control('', [Validators.required, Validators.minLength(8)]),
+      lifecycle: this.fb.control('', [Validators.required])
     });
   }
 
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
-    return isValid ? null : { 'whitespace': true };
+    return isValid ? null : {'whitespace': true};
   }
 
   public onFileInput(event: any) {
@@ -57,9 +59,10 @@ export class CreateProjectComponent implements OnInit {
 
   _project(projectForm: FormGroup): ProjectCreateModel {
     const project = projectForm.value as unknown as ProjectCreateModel;
-    if(this.pictureId) {
+    if (this.pictureId) {
       project.pictureId = this.pictureId;
     }
+    project.lifecycle = project.lifecycle.replace(/\s/g, "");
     project.userId = this.userId;
     return project
   }

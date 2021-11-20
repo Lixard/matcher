@@ -5,6 +5,8 @@ import ru.matcher.services.dto.ProjectDto;
 public class ProjectCreateDto extends ProjectDto {
     private String name;
     private String description;
+    private String lifecycle;
+    private String currentLifecycle;
     private Integer pictureId;
     private int userId;
     private int organizationId;
@@ -27,6 +29,26 @@ public class ProjectCreateDto extends ProjectDto {
     @Override
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String getLifecycle() {
+        return lifecycle;
+    }
+
+    @Override
+    public void setLifecycle(String lifecycle) {
+        this.lifecycle = lifecycle;
+    }
+
+    @Override
+    public String getCurrentLifecycle() {
+        return currentLifecycle;
+    }
+
+    @Override
+    public void setCurrentLifecycle(String currentLifecycle) {
+        this.currentLifecycle = currentLifecycle;
     }
 
     public Integer getPictureId() {

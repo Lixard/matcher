@@ -8,6 +8,7 @@ import {OrganizationModel} from "../../models/organizations/organization.model";
 import {map, startWith} from "rxjs/operators";
 import {ProjectService} from "../../services/project.service";
 import {OrganizationService} from "../../services/organization.service";
+import {MatSelect} from "@angular/material/select";
 
 @Component({
   selector: 'app-edit-project',
@@ -23,6 +24,7 @@ export class EditProjectComponent implements OnInit {
   fileName!: string;
   pictureId: number;
   userId!: number;
+  lifecycle: string[];
 
   constructor(private fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: ProjectModel,
@@ -39,11 +41,13 @@ export class EditProjectComponent implements OnInit {
     this.projectForm = this.fb.group({
       name: this.fb.control('', [Validators.required]),
       description: this.fb.control('', [Validators.required, Validators.minLength(8)]),
-      place: this.fb.control('')
+      place: this.fb.control(''),
+      lifecycle: this.fb.control('')
     });
   }
 
   setData() {
+    this.lifecycle = this.data.lifecycle.split(',')
     this.projectForm.controls.name.setValue(this.data.name);
     this.projectForm.controls.description.setValue(this.data.description);
     this.organizationService.getOrganization(this.data.organizationId).subscribe(organ => {
