@@ -8,8 +8,8 @@ spring:
       hibernate:
         jdbc:
           time_zone: UTC
-servlet:
-  multipart:
-    enabled: true
-    max-request-size: 20MB
-    max-file-size: 20MB
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 20MB
+      max-file-size: 20MB

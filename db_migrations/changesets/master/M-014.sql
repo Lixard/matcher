@@ -1,2 +1,9 @@
-ALTER TABLE matcher.projects ADD COLUMN lifecycle varchar(700) default 'Анализ,Проектирование,Разработка,Баг-фикс,Завершение';
-ALTER TABLE matcher.projects ADD COLUMN current_lifecycle varchar(200) default 'Анализ';
+UPDATE matcher.projects
+SET org_id = 1
+WHERE project_id = 1;
+UPDATE matcher.projects
+SET org_id = 2
+WHERE project_id = 2;
+UPDATE matcher.projects
+SET org_id = 3
+WHERE project_id = 3;

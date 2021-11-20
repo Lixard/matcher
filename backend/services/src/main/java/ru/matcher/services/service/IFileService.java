@@ -3,7 +3,6 @@ package ru.matcher.services.service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.matcher.services.dto.FileDto;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -16,11 +15,11 @@ public interface IFileService {
     /**
      * Добавление файла в БД.
      *
-     * @param file файл для добавления
+     * @param files     файлы для добавления
      * @param projectId идентификатор проекта
      * @return объект класса FileDto
      */
-    FileDto create(MultipartFile file, int projectId);
+    List<FileDto> create(List<MultipartFile> files, int projectId);
 
     /**
      * Удаление файла из БД.
@@ -28,13 +27,6 @@ public interface IFileService {
      * @param fileId идентификатор картинки
      */
     void remove(int fileId);
-
-    /**
-     * Возвращает список FileDto из БД.
-     *
-     * @return список FileDto
-     */
-    List<FileDto> getFiles();
 
     /**
      * Поиск файла по id.

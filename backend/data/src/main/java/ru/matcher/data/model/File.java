@@ -2,6 +2,7 @@ package ru.matcher.data.model;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,13 +43,27 @@ public class File {
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] data;
 
-    public File() {}
+    public File() {
+    }
 
     public File(String name, String type, long size, byte[] data) {
         this.name = name;
         this.type = type;
         this.size = size;
         this.data = data;
+    }
+
+    private File(Builder builder) {
+        id = builder.id;
+        name = builder.name;
+        type = builder.type;
+        size = builder.size;
+        createdAt = builder.createdAt;
+        data = builder.data;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
 
@@ -98,5 +113,52 @@ public class File {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public static class Builder {
+
+        private Integer id;
+        private String name;
+        private String type;
+        private long size;
+        private LocalDateTime createdAt;
+        private byte[] data;
+
+        private Builder() {
+        }
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder size(long size) {
+            this.size = size;
+            return this;
+        }
+
+        public Builder createdAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        public Builder data(byte[] data) {
+            this.data = data;
+            return this;
+        }
+
+        public File build() {
+            return new File(this);
+        }
     }
 }

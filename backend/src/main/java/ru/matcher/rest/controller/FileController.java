@@ -16,7 +16,7 @@ import ru.matcher.services.dto.FileDto;
 import ru.matcher.services.dto.ProjectDto;
 import ru.matcher.services.service.IFileService;
 import ru.matcher.services.service.IProjectService;
-import java.io.IOException;
+
 import java.util.List;
 
 /**
@@ -43,20 +43,19 @@ public class FileController {
     /**
      * Добавление файла.
      *
-     * @param file файл для добавления
+     * @param files файлы для добавления
      * @return добавленный файл
      */
     @PostMapping("/projects/{projectId}/files")
-    public FileDto createFile(@RequestParam("file") MultipartFile file, @PathVariable Integer projectId) {
-        FileDto fileDto = fileService.create(file, projectId);
-        return fileDto;
+    public List<FileDto> createFile(@RequestParam("file") List<MultipartFile> files, @PathVariable Integer projectId) {
+        return fileService.create(files, projectId);
     }
 
     /**
      * Удаление файла.
      *
      * @param projectId идентификатор проекта
-     * @param fileId идентификатор файла
+     * @param fileId    идентификатор файла
      */
     @DeleteMapping("/projects/{projectId}/files/{fileId}")
     public void deleteFile(@PathVariable Integer projectId, @PathVariable Integer fileId) {
@@ -66,21 +65,20 @@ public class FileController {
     /**
      * Поиск файла по ID.
      *
-     * @param fileId идентификатор файла
+     * @param fileId    идентификатор файла
      * @param projectId идентификатор проекта
      * @return найденный файл
      */
     @GetMapping("/projects/{projectId}/files/{fileId}")
     public ResponseEntity<byte[]> downloadFileById(@PathVariable Integer fileId, @PathVariable String projectId) {
-        FileDto fileDto = fileService.findById(fileId);
         // TODO access rights
-        ResponseEntity<byte[]> fileToDownload = ResponseEntity.ok()
+        FileDto fileDto = fileService.findById(fileId);
+        return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(fileDto.getType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""
                         + fileDto.getName().replace(" ", "_") + "\"")
                 .contentLength(fileDto.getData().length)
                 .body(fileDto.getData());
-        return fileToDownload;
     }
 
     /**
