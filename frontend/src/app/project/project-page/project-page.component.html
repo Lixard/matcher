@@ -58,7 +58,7 @@
                     <button mat-mini-fab
                             color="primary"
                             aria-label="Исключить из администраторов"
-                            *ngIf="project.active && isAdmin"
+                            *ngIf="project.active && isAdmin && !isLast"
                             (click)="deleteAdmin(userAdmin)"
                             class="icon-button">
                       <mat-icon inline="true">delete</mat-icon>
