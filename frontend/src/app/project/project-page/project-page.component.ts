@@ -33,6 +33,7 @@ export class ProjectPageComponent implements OnInit {
   users: UserProject[] = [];
   userAdmins: UserProject[] = [];
   isAdmin: boolean = false;
+  isLast: boolean = true;
   isParticipant: boolean = false;
   isSubscribe: boolean = false;
   userOrganization: OrganizationModel;
@@ -105,6 +106,7 @@ export class ProjectPageComponent implements OnInit {
             }
           }
         }
+        this.checkLast();
       },
       (error) => {
         console.error(error);
@@ -254,5 +256,9 @@ export class ProjectPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       window.location.reload();
     });
+  }
+
+  checkLast() {
+    this.isLast = this.userAdmins.length == 1;
   }
 }
