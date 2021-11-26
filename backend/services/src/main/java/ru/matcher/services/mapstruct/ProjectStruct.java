@@ -76,6 +76,9 @@ public interface ProjectStruct {
 
     @Named("setLifecycle")
     default String setLifecycle(String lifecycle) {
+        if (lifecycle == null || lifecycle.isBlank()) {
+            return "Начат,Закончен";
+        }
         return "Начат," + lifecycle + ",Закончен";
     }
 

@@ -29,6 +29,7 @@
               placeholder="Анализ, Проектирование, Разработка, Тестирование, Завершен"
               matInput
             ></textarea>
+            <mat-error *ngIf="projectForm.get('lifecycle')!.hasError('pattern')">Пример: этап1,этап2,этап3</mat-error>
           </mat-form-field>
 
           <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" class="mb-3">
