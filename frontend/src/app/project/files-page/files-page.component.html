@@ -1,7 +1,6 @@
 <div *ngIf="isAdmin">
   <h3 style="padding: 10px">Загрузка файлов</h3>
   <hr>
-<!--<small class="form-text text-muted">Размер не должен превышать 20МБ</small>-->
   <div class="inline-elements">
     <form method="POST" enctype="multipart/form-data">
       <button mat-raised-button color="primary" type="button" (click)="fileInput.click()" class="mb-2">

@@ -26,7 +26,7 @@ public interface IFileService {
      *
      * @param fileId идентификатор картинки
      */
-    void remove(int fileId);
+    void remove(Integer fileId);
 
     /**
      * Поиск файла по id.

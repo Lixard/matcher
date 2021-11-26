@@ -98,6 +98,8 @@ public class ProjectServiceImpl implements IProjectService {
         Organization organization = organizationRepository.findOrganizationById(projectDtoToUpdate.getOrganizationId());
         project.setOrganization(organization);
         project.setPicture(projectStruct.fromDto(projectDtoToUpdate).getPicture());
+        project.setCurrentLifecycle(projectDtoToUpdate.getCurrentLifecycle());
+        project.setActive(projectDtoToUpdate.isActive());
         projectRepository.save(project);
         return projectStruct.toDto(project);
     }

@@ -38,8 +38,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Текущий этап ЖЦ</mat-label>
-            <mat-select formControlName="lifecycle">
+            <mat-select formControlName="currentLifecycle">
               <mat-option *ngFor="let lifecycleItem of lifecycle" [value]="lifecycleItem">
                 {{lifecycleItem}}
               </mat-option>
@@ -48,7 +47,7 @@
 
           <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" class="mb-3">
             <span>Загрузить фотографию</span>
-            <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" />
+            <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;"/>
           </button>
           <span *ngIf="file" class="ml-2">{{fileName}}</span>
 

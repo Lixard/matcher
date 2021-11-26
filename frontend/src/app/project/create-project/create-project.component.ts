@@ -33,7 +33,7 @@ export class CreateProjectComponent implements OnInit {
     this.projectForm = this.fb.group({
       name: this.fb.control('', [Validators.required]),
       description: this.fb.control('', [Validators.required, Validators.minLength(8)]),
-      lifecycle: this.fb.control('', [Validators.required])
+      lifecycle: this.fb.control('', [Validators.required, Validators.pattern('^[A-Za-zА-Яа-я0-9]{1,},[A-Za-zА-Яа-я0-9]{1,},[A-Za-zА-Яа-я0-9]{1,}.*')])
     });
   }
 

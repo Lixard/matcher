@@ -45,6 +45,7 @@ public interface ProjectStruct {
      */
     @Mapping(target = "files", ignore = true)
     @Mapping(target = "organization", source = "organizationId", qualifiedByName = "setOrganizationId")
+    @Mapping(target = "lifecycle", source = "lifecycle", qualifiedByName = "setLifecycle")
     Project fromDto(ProjectCreateDto dto);
 
     /**
@@ -71,6 +72,11 @@ public interface ProjectStruct {
         final var organization = new Organization();
         organization.setId(organizationId);
         return organization;
+    }
+
+    @Named("setLifecycle")
+    default String setLifecycle(String lifecycle) {
+        return "Начат," + lifecycle + ",Закончен";
     }
 
 }

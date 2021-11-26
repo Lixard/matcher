@@ -7,9 +7,9 @@
 }
 
 .create-button {
-  position: absolute;
+  position: fixed;
   bottom: 2%;
-  right: 2%;
+  right: 1%;
 }
 
 .description {

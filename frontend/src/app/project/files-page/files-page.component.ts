@@ -20,6 +20,7 @@ export class FilesPageComponent implements OnInit {
   files: FileModel[];
   errorMessage: string;
   isError: boolean;
+  target: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data,
               private fileService: FileService,
@@ -35,6 +36,7 @@ export class FilesPageComponent implements OnInit {
     }, error => {
       console.log(error)
     });
+    if (this.target) this.target.value = '';
     this.isAdmin = this.data.isUserAdmin;
   }
 
@@ -49,6 +51,7 @@ export class FilesPageComponent implements OnInit {
   };
 
   public onFileInput(event: any) {
+    this.target = event.target || event.srcElement;
     this.filesCreation = event.target.files;
     if (event.body != undefined) {
       this.fileId = event.body.id;
@@ -67,7 +70,6 @@ export class FilesPageComponent implements OnInit {
         this.ngOnInit();
       },
       (error) => {
-
         console.log(error);
         this.isError = true;
         this.errorMessage = "Не удалось загрузить файл(ы)! Максимальный размер - 20МБ.";
