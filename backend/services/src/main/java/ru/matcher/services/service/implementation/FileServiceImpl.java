@@ -61,7 +61,7 @@ public class FileServiceImpl implements IFileService {
 
     @Override
     @Transactional
-    public void remove(int fileId) {
+    public void remove(Integer fileId) {
         fileRepository.deleteById(fileId);
     }
 

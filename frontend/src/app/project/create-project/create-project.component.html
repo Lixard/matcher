@@ -29,11 +29,13 @@
               placeholder="Анализ, Проектирование, Разработка, Тестирование, Завершен"
               matInput
             ></textarea>
+            <mat-error *ngIf="projectForm.get('lifecycle')!.hasError('pattern')">Указываются в одну строку, без пробелов</mat-error>
+            <mat-error *ngIf="projectForm.get('lifecycle')!.hasError('pattern')">Пример: этап1,этап2,этап3</mat-error>
           </mat-form-field>
-
+          <br>
           <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" class="mb-3">
             <span>Загрузить фотографию</span>
-            <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" />
+            <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;"/>
           </button>
           <span *ngIf="file" class="ml-2">{{fileName}}</span>
 

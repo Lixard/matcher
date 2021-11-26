@@ -28,8 +28,6 @@ export class ProjectPageComponent implements OnInit {
   project: ProjectModel;
   organization: OrganizationModel;
   userId: number;
-  projectId: number;
-  activeProject: string;
   users: UserProject[] = [];
   userAdmins: UserProject[] = [];
   isAdmin: boolean = false;
@@ -63,7 +61,6 @@ export class ProjectPageComponent implements OnInit {
     this.projectService.getProject(this.route.snapshot.params.projectId).subscribe(
       (projectNow) => {
         this.project = projectNow;
-        this.isActiveProject(projectNow);
         this.getParticipants();
         this.getOrganization();
         this.getUserOrganization();
@@ -79,14 +76,6 @@ export class ProjectPageComponent implements OnInit {
       return this.pictureService.getDefaultPictureUrl();
     } else {
       return 'data:' + this.project.picture.type + ';base64,' + this.project.picture.data;
-    }
-  }
-
-  isActiveProject(project: ProjectModel) {
-    if (project.active) {
-      this.activeProject = 'Проект актуален';
-    } else {
-      this.activeProject = 'Проект закрыт';
     }
   }
 
@@ -127,6 +116,8 @@ export class ProjectPageComponent implements OnInit {
 
   complete() {
     this.project.active = false;
+    let lifecycles = this.project.lifecycle.split(",");
+    this.project.currentLifecycle = lifecycles[lifecycles.length - 1];
     this.projectService.updateProject(this.route.snapshot.params.projectId, this.project).subscribe(() => {
       this.projectService.setEndDateIfCompleteProject(this.route.snapshot.params.projectId).subscribe(() => {
         window.location.reload();
@@ -153,9 +144,7 @@ export class ProjectPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: ProjectModel) => {
       console.log("closed update")
-      this.pictureService.getPicture(result.picture.id).subscribe((picture) => {
-        result.picture = picture
-      })
+      console.log(result);
       console.log(result.picture)
       this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(() => {
         window.location.reload();

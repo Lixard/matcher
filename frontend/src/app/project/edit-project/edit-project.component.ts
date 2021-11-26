@@ -42,7 +42,8 @@ export class EditProjectComponent implements OnInit {
       name: this.fb.control('', [Validators.required]),
       description: this.fb.control('', [Validators.required, Validators.minLength(8)]),
       place: this.fb.control(''),
-      lifecycle: this.fb.control('')
+      lifecycle: this.fb.control(this.data.lifecycle),
+      currentLifecycle: this.fb.control('')
     });
   }
 
@@ -50,6 +51,7 @@ export class EditProjectComponent implements OnInit {
     this.lifecycle = this.data.lifecycle.split(',')
     this.projectForm.controls.name.setValue(this.data.name);
     this.projectForm.controls.description.setValue(this.data.description);
+    this.projectForm.controls.currentLifecycle.setValue(this.data.currentLifecycle);
     this.organizationService.getOrganization(this.data.organizationId).subscribe(organ => {
       this.orgCtrl.setValue(organ.name);
       this.projectService.getAdminOrganizations(this.data.id).subscribe(org => {

@@ -6,7 +6,7 @@ export interface ProjectModel {
   name: string;
   description: string;
   lifecycle: string;
-  current_lifecycle: string;
+  currentLifecycle: string;
   active: boolean;
   organizationId: number;
 }

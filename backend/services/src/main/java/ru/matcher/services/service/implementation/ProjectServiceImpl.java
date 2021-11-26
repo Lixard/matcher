@@ -73,7 +73,7 @@ public class ProjectServiceImpl implements IProjectService {
         if (pictureId != null) {
             project.setPicture(pictureRepository.findById(pictureId).orElse(null));
         }
-        project.setCurrentLifecycle(projectCreateDto.getLifecycle().substring(0,projectCreateDto.getLifecycle().indexOf(",")));
+        project.setCurrentLifecycle(project.getLifecycle().substring(0, project.getLifecycle().indexOf(",")));
         project.setActive(true);
         projectRepository.save(project);
 
@@ -98,6 +98,8 @@ public class ProjectServiceImpl implements IProjectService {
         Organization organization = organizationRepository.findOrganizationById(projectDtoToUpdate.getOrganizationId());
         project.setOrganization(organization);
         project.setPicture(projectStruct.fromDto(projectDtoToUpdate).getPicture());
+        project.setCurrentLifecycle(projectDtoToUpdate.getCurrentLifecycle());
+        project.setActive(projectDtoToUpdate.isActive());
         projectRepository.save(project);
         return projectStruct.toDto(project);
     }
