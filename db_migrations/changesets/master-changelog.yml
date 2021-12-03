@@ -201,3 +201,15 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-015.rollback.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 16
+      author: Ilya Novichikhin
+      comment: delete old test data from tables
+      changes:
+        - sqlFile:
+            path: master/M-016.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-016.rollback.sql
+            relativeToChangelogFile: true
