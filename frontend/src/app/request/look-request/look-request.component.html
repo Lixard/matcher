@@ -1,4 +1,5 @@
 <mat-selection-list [multiple]="false">
+  <mat-label *ngIf="requests.length == 0">В данный момент нет заявок</mat-label>
     <mat-list-option *ngFor="let request of requests" [value]="request" class="mat-list-item-word-wrap" [disableRipple]="true">
       <div class="requests">
         <div class="request">
