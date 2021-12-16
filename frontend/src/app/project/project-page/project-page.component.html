@@ -4,9 +4,7 @@
       <div class="col-sm-12 bg-c-lite-green">
         <!--граидент длина-->
         <div class="card-block text-center text-white col-sm-20">
-          <img class="round" [src]="setPicture()" width="350"
-               height="320"
-               alt="Project-Profile-Image">
+          <img class="img-thumbnail shadow-lg" [src]="setPicture()" style="object-fit: cover;height: 256px;"alt="Project-Profile-Image">
           <h3 class="f-w-600">Проект</h3>
           <p>{{project.name}}</p><i class="mdi mdi-square-edit-outline feather icon-edit  f-18"></i>
           <div class="buttons-admin" *ngIf="project.active && isAdmin">
@@ -29,7 +27,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-20 justify-content-center">
+      <div class="col-sm-20 text-justify">
         <div class="card-block">
           <h2 class="m-b-20 p-b-5 b-b-default f-w-600">Описание</h2>
           <h6 class="m-b-20 p-b-5 b-b-default f-w-600">{{project.description}}</h6>

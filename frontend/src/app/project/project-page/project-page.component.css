@@ -36,7 +36,7 @@ body {
 }
 
 .bg-c-lite-green {
-  background: linear-gradient(to top, indigo, darkslateblue)
+  background: linear-gradient(to top, indigo, #3F51B5)
 }
 
 .user-profile {
@@ -49,10 +49,6 @@ body {
 
 .m-b-25 {
   margin-bottom: 25px
-}
-
-.img-radius {
-  border-radius: 1px
 }
 
 h6 {
