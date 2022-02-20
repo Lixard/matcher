@@ -74,7 +74,7 @@ export class CompanyProfilePageComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: OrganizationModel) => {
       result.id = this.organization.id;
       this.organizationService.updateOrganization(result).subscribe(() => {
-        window.location.reload();
+        this.ngOnInit();
       })
     });
   }
