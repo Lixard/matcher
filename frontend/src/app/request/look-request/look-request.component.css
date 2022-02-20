@@ -37,3 +37,7 @@ mat-list-option.mat-list-item-word-wrap {
   word-wrap: break-word !important;
   white-space: pre-wrap !important;
 }
+
+.no-request-message {
+  font-size: 22px;
+}
