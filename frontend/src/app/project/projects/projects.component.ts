@@ -47,7 +47,7 @@ export class ProjectsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.projectService.createProject(result).subscribe(() => {
-          window.location.reload();
+        this.ngOnInit();
       })
     });
   }

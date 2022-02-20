@@ -120,7 +120,7 @@ export class ProjectPageComponent implements OnInit {
     this.project.currentLifecycle = lifecycles[lifecycles.length - 1];
     this.projectService.updateProject(this.route.snapshot.params.projectId, this.project).subscribe(() => {
       this.projectService.setEndDateIfCompleteProject(this.route.snapshot.params.projectId).subscribe(() => {
-        window.location.reload();
+        this.ngOnInit();
       })
       }
     )
@@ -130,7 +130,7 @@ export class ProjectPageComponent implements OnInit {
         this.projectService
           .setEndDateIfCompleteProject(this.route.snapshot.params.projectId)
           .subscribe(() => {
-            window.location.reload();
+            this.ngOnInit();
           });
       });
   }
@@ -147,7 +147,7 @@ export class ProjectPageComponent implements OnInit {
       console.log(result);
       console.log(result.picture)
       this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(() => {
-        window.location.reload();
+        this.ngOnInit();
       })
       if (result.picture) {
         this.pictureService.getPicture(result.picture.id).subscribe((picture) => {
@@ -158,7 +158,7 @@ export class ProjectPageComponent implements OnInit {
       this.projectService
         .updateProject(this.route.snapshot.params.projectId, result)
         .subscribe(() => {
-          window.location.reload();
+          this.ngOnInit();
         });
     });
   }
@@ -175,7 +175,7 @@ export class ProjectPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: RequestModel) => {
       this.requestService.subscribe(result).subscribe(() => {
-        window.location.reload();
+        this.ngOnInit();
       });
     });
   }
@@ -188,19 +188,19 @@ export class ProjectPageComponent implements OnInit {
 
   admin(user: UserProject) {
     this.projectService.admin(this.route.snapshot.params.projectId, user.id).subscribe(() => {
-      window.location.reload();
+      this.ngOnInit();
     });
   }
 
   delete(user: UserProject) {
     this.projectService.delete(this.route.snapshot.params.projectId, user.id).subscribe(() => {
-      window.location.reload();
+      this.ngOnInit();
     })
   }
 
   deleteAdmin(user: UserProject) {
     this.projectService.deleteAdmin(this.route.snapshot.params.projectId, user.id).subscribe(() => {
-      window.location.reload();
+      this.ngOnInit();
     })
   }
 
@@ -243,7 +243,7 @@ export class ProjectPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      window.location.reload();
+      this.ngOnInit();
     });
   }
 
