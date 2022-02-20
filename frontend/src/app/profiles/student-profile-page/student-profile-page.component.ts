@@ -50,10 +50,6 @@ export class StudentProfilePageComponent implements OnInit {
         this.userOrgService.getUserOrganization(this.user.id).subscribe((organizationNow) => {
           this.organizations = organizationNow;
         })
-        this.userService.getPicture(this.user.pictureId).subscribe((picture) => {
-          this.pictureType = picture.type;
-          this.pictureData = picture.data;
-        })
         this.projectService.getProjectsByUserId(this.user.id).subscribe((projects) => {
           this.projects = projects;
         })
@@ -83,6 +79,10 @@ export class StudentProfilePageComponent implements OnInit {
     if (this.user.pictureId === null) {
       return this.pictureService.getDefaultPictureUrl();
     } else {
+      this.userService.getPicture(this.user.pictureId).subscribe((picture) => {
+        this.pictureType = picture.type;
+        this.pictureData = picture.data;
+      })
       return 'data:' + this.pictureType + ';base64,' + this.pictureData;
     }
   }

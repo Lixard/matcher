@@ -52,10 +52,6 @@ export class CompanyProfilePageComponent implements OnInit {
       } else if (organization.organizationType == 'UNIVERSITY') {
         this.organization.organizationType = 'Университет'
       }
-      this.pictureService.getPicture(organization.pictureId).subscribe((picture) => {
-        this.pictureType = picture.type;
-        this.pictureData = picture.data;
-      })
       this.projectService.getProjectsByOrganization(this.organization.id).subscribe((projects) => {
         this.projectsOrganization = projects;
         console.log(this.projectsOrganization)
@@ -83,6 +79,10 @@ export class CompanyProfilePageComponent implements OnInit {
     if (this.organization.pictureId === null) {
       return this.pictureService.getDefaultPictureUrl();
     } else {
+      this.pictureService.getPicture(this.organization.pictureId).subscribe((picture) => {
+        this.pictureType = picture.type;
+        this.pictureData = picture.data;
+      })
       return 'data:' + this.pictureType + ';base64,' + this.pictureData;
     }
   }
