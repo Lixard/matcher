@@ -47,17 +47,17 @@
 
           <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" class="mb-3">
             <span>Загрузить фотографию</span>
-            <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;"/>
+            <input #fileInput (change)="onFileInput($event)" accept="image/*" style="display:none;" type="file"/>
           </button>
-          <mat-spinner *ngIf="isLoad"></mat-spinner>
-          <span *ngIf="file" class="ml-2">{{fileName}}</span>
+          <mat-spinner *ngIf="loader"></mat-spinner>
+          <span *ngIf="fileName" class="ml-2">{{fileName}}</span>
 
           <button
             mat-raised-button
             color="primary"
             [disabled]="!projectForm.valid"
             class="btn btn-small btn-select"
-            [mat-dialog-close]="_project(projectForm)"
+            (click)="_saveProject(projectForm)"
           >
             Сохранить
           </button>

@@ -1,14 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {PictureService} from "../../services/picture.service";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {ProjectModel} from "../../models/project/project.model";
-import {Observable} from "rxjs";
-import {OrganizationModel} from "../../models/organizations/organization.model";
-import {map, startWith} from "rxjs/operators";
-import {ProjectService} from "../../services/project.service";
-import {OrganizationService} from "../../services/organization.service";
-import {MatSelect} from "@angular/material/select";
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PictureService } from '../../services/picture.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ProjectModel } from '../../models/project/project.model';
+import { Observable } from 'rxjs';
+import { OrganizationModel } from '../../models/organizations/organization.model';
+import { map, startWith } from 'rxjs/operators';
+import { ProjectService } from '../../services/project.service';
+import { OrganizationService } from '../../services/organization.service';
 
 @Component({
   selector: 'app-edit-project',
@@ -20,17 +19,21 @@ export class EditProjectComponent implements OnInit {
   orgCtrl = new FormControl();
   filteredPlace!: Observable<OrganizationModel[]>;
   organizations!: OrganizationModel[];
-  file: boolean = false;
+  file = false;
   fileName!: string;
   pictureId: number;
   userId!: number;
   lifecycle: string[];
+  newPicture: File;
+  loader = false;
 
   constructor(private fb: FormBuilder,
+              private dialogRef: MatDialogRef<EditProjectComponent>,
               @Inject(MAT_DIALOG_DATA) public data: ProjectModel,
               private picturesService: PictureService,
               private projectService: ProjectService,
-              private organizationService: OrganizationService) { }
+              private organizationService: OrganizationService) {
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -72,40 +75,35 @@ export class EditProjectComponent implements OnInit {
   }
 
   public onFileInput(event: any) {
-    const file: File = event.target.files.item(0);
-    this.picturesService.createPicture(file).subscribe((event: any) => {
-        if (event.body != undefined) {
-          this.pictureId = event.body.id;
-        }
-        this.file = true;
-        this.fileName = file.name;
-      },
-      () => {
-        this.fileName = "Не удалось загрузить";
-      });
+    this.fileName = undefined;
+    this.newPicture = event.target.files.item(0);
+    this.fileName = this.newPicture.name;
   }
 
-  _project(projectForm: FormGroup): ProjectModel {
+  _saveProject(projectForm: FormGroup): void {
     const project = projectForm.value as unknown as ProjectModel;
     project.active = this.data.active;
     project.organizationId = this.data.organizationId;
-    for (let organization of this.organizations) {
-      if (organization.name == this.orgCtrl.value) {
+    for (const organization of this.organizations) {
+      if (organization.name === this.orgCtrl.value) {
         project.organizationId = organization.id;
       }
     }
     project.id = this.data.id;
-    if (this.pictureId) {
-      const picId = this.pictureId;
-      this.pictureId = undefined;
-      this.picturesService.getPicture(picId).subscribe(picture => {
+
+    if (this.newPicture) {
+      this.loader = true;
+      const newPic = this.newPicture;
+      this.newPicture = undefined;
+      this.picturesService.createPicture(newPic).subscribe(picture => {
+        this.loader = false;
         project.picture = picture;
-        this.data.picture = picture;
+        this.dialogRef.close(project);
       });
     } else {
       project.picture = this.data.picture;
+      this.dialogRef.close(project);
     }
-    return project;
   }
 
   private _filter(value: string) {
