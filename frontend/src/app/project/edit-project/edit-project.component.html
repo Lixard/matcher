@@ -49,6 +49,7 @@
             <span>Загрузить фотографию</span>
             <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;"/>
           </button>
+          <mat-spinner *ngIf="isLoad"></mat-spinner>
           <span *ngIf="file" class="ml-2">{{fileName}}</span>
 
           <button

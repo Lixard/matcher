@@ -96,9 +96,12 @@ export class EditProjectComponent implements OnInit {
     }
     project.id = this.data.id;
     if (this.pictureId) {
-      this.picturesService.getPicture(this.pictureId).subscribe(picture => {
+      const picId = this.pictureId;
+      this.pictureId = undefined;
+      this.picturesService.getPicture(picId).subscribe(picture => {
         project.picture = picture;
-      })
+        this.data.picture = picture;
+      });
     } else {
       project.picture = this.data.picture;
     }
