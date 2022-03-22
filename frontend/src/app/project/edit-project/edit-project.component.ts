@@ -19,7 +19,6 @@ export class EditProjectComponent implements OnInit {
   orgCtrl = new FormControl();
   filteredPlace!: Observable<OrganizationModel[]>;
   organizations!: OrganizationModel[];
-  file = false;
   fileName!: string;
   pictureId: number;
   userId!: number;
