@@ -49,8 +49,13 @@
             <span>Загрузить фотографию</span>
             <input #fileInput (change)="onFileInput($event)" accept="image/*" style="display:none;" type="file"/>
           </button>
-          <mat-spinner *ngIf="loader"></mat-spinner>
           <span *ngIf="fileName" class="ml-2">{{fileName}}</span>
+
+          <div class="disable-background" *ngIf="loader">
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 20%">
+              <mat-spinner></mat-spinner>
+            </div>
+          </div>
 
           <button
             mat-raised-button
