@@ -16,26 +16,28 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [StudentProfilePageComponent, EditStudentProfilePageComponent],
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    ProfilesRoutingModule,
-    MatToolbarModule,
-    FormsModule,
-    MatIconModule,
-    MatStepperModule,
-    MatSelectModule,
-    MatCardModule,
-    MatAutocompleteModule,
-    MatDatepickerModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatDialogModule
-  ],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        ProfilesRoutingModule,
+        MatToolbarModule,
+        FormsModule,
+        MatIconModule,
+        MatStepperModule,
+        MatSelectModule,
+        MatCardModule,
+        MatAutocompleteModule,
+        MatDatepickerModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatInputModule,
+        MatDialogModule,
+        MatProgressSpinnerModule
+    ],
 })
 export class ProfilesModule {
 }

@@ -20,9 +20,10 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatDialogModule} from "@angular/material/dialog";
 import {OrganizationModule} from "./organization/organization.module";
 import {ProjectModule} from "./project/project.module";
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomePageComponent],
   imports: [
     RouterModule,
     BrowserModule,
