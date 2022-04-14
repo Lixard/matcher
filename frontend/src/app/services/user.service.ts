@@ -26,4 +26,16 @@ export class UserService {
   updateUserOrganization(userId: number, place: string): Observable<void> {
     return this.http.post<void>(`api/users/organization`, {userId, place});
   }
+
+  addCompetenciesToUser(userId: number, competencies: string[]): Observable<void> {
+    return this.http.post<void>(`api/users/${userId}/competencies`, competencies);
+  }
+
+  deleteCompetenceFromUser(userId: number, competenceId: number): Observable<void> {
+    return this.http.delete<void>(`api/users/${userId}/competencies/${competenceId}`);
+  }
+
+  getAllUserCompetencies(userId: number): Observable<string[]> {
+    return this.http.get<string[]>(`api/users/${userId}/competencies`);
+  }
 }

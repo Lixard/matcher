@@ -97,6 +97,15 @@
                             class="icon-button">
                       <mat-icon inline="true">create</mat-icon>
                     </button>
+
+                    <button mat-mini-fab
+                            color="primary"
+                            aria-label="Добавить компетенцию"
+                            *ngIf="project.active && isAdmin"
+                            (click)="addCompetence(user)"
+                            class="icon-button">
+                      <mat-icon inline="true">bookmark</mat-icon>
+                    </button>
                   </h6>
                 </div>
               </div>

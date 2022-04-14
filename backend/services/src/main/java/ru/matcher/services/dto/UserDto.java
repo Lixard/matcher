@@ -1,6 +1,5 @@
 package ru.matcher.services.dto;
 
-import ru.matcher.commons.OrganizationType;
 import ru.matcher.commons.UserType;
 
 /**

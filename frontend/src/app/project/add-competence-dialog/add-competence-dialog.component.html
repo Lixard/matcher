@@ -1,0 +1,26 @@
+<div class="page justify-content-center">
+  <form [formGroup]="competenceForm" class="text-center">
+    <mat-card>
+      <mat-card-content>
+        <div class="content">
+          <mat-form-field>
+            <input formControlName="competence"
+                   placeholder="Введите компетенции"
+                   value="{{data.userData.competencies}}"
+                   matInput/>
+            <mat-error *ngIf="competenceForm.get('competence')!.hasError('required')">Введите компетенции</mat-error>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!competenceForm.valid"
+            class="btn btn-small btn-select"
+            (click)="addCompetencies()"
+          >
+            Добавить компетенции
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.matcher.services.dto.CompetenceDto;
 import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.dto.UserOrganizationDto;
 import ru.matcher.services.dto.create.UserCreateDto;
@@ -108,4 +109,18 @@ public class UserController {
         return userOrganizationService.update(userOrganizationUpdate);
     }
 
+    @PostMapping("/{userId}/competencies")
+    public void addCompetenciesToUser(@PathVariable int userId, @RequestBody List<String> competencies) {
+        userService.addCompetenciesToUser(userId, competencies);
+    }
+
+    @DeleteMapping("/{userId}/competencies/{competenceId}")
+    public void deleteCompetenceFromUser(@PathVariable int userId, @PathVariable int competenceId) {
+        userService.deleteCompetenceFromUser(userId, competenceId);
+    }
+
+    @GetMapping("/{userId}/competencies")
+    public List<String> getAllUserCompetencies(@PathVariable int userId) {
+        return userService.getAllUserCompetencies(userId);
+    }
 }

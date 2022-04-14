@@ -213,3 +213,15 @@ databaseChangeLog:
         - sqlFile:
             path: rollback/M-016.rollback.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 17
+      author: Nikolay Evsyukov
+      comment: Added competencies table
+      changes:
+        - sqlFile:
+            path: master/M-017.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: rollback/M-017.rollback.sql
+            relativeToChangelogFile: true

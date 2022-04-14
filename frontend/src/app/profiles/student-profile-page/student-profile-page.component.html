@@ -26,14 +26,27 @@
           </h2>
         </li>
       </div>
-      <div class="py-4 px-4">
-        <h1 class="text-dark font-weight-bold">Проекты:</h1>
-        <ol class="list-group list-group-numbered">
-          <li class="list-group-item"
-              *ngFor="let project of projects">
-            <a href="profile/project/{{project.id}}" class="text-decoration-none">{{project.name}}</a>
-          </li>
-        </ol>
+      <div class="py-4 px-4 container">
+        <div class="row">
+          <div class="col">
+            <h1 class="text-dark font-weight-bold">Проекты:</h1>
+            <ol class="list-group list-group-numbered">
+              <li class="list-group-item"
+                  *ngFor="let project of projects">
+                <a href="profile/project/{{project.id}}" class="text-decoration-none">{{project.name}}</a>
+              </li>
+            </ol>
+          </div>
+          <div class="col">
+            <h1 class="text-dark font-weight-bold">Компетенции:</h1>
+            <ol class="list-group list-group-numbered">
+              <li class="list-group-item"
+                  *ngFor="let competency of competencies">
+                <a>{{competency}}</a>
+              </li>
+            </ol>
+          </div>
+        </div>
       </div>
     </div>
   </div>

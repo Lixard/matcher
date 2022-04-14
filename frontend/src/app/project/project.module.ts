@@ -15,7 +15,7 @@ import {MatInputModule} from "@angular/material/input";
 import {EditProjectComponent} from './edit-project/edit-project.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
-import { RolesInProjectComponent } from './roles-in-project/roles-in-project.component';
+import {RolesInProjectComponent} from './roles-in-project/roles-in-project.component';
 import {MatSelect, MatSelectModule} from "@angular/material/select";
 // import {RolesInProjectComponent} from './roles-in-project/roles-in-project.component';
 import {FilesPageComponent} from './files-page/files-page.component';
@@ -24,6 +24,7 @@ import {MatLineModule} from "@angular/material/core";
 import {SendRequestComponent} from "../request/send-request/send-request.component";
 import {LookRequestComponent} from "../request/look-request/look-request.component";
 import {MatListModule} from "@angular/material/list";
+import {AddCompetenceDialogComponent} from './add-competence-dialog/add-competence-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {MatListModule} from "@angular/material/list";
     RolesInProjectComponent,
     FilesPageComponent,
     SendRequestComponent,
-    LookRequestComponent
+    LookRequestComponent,
+    AddCompetenceDialogComponent
   ],
   entryComponents: [
     CreateProjectComponent,
@@ -42,7 +44,8 @@ import {MatListModule} from "@angular/material/list";
     RolesInProjectComponent,
     SendRequestComponent,
     LookRequestComponent,
-    FilesPageComponent
+    FilesPageComponent,
+    AddCompetenceDialogComponent
   ],
   imports: [
     CommonModule,
