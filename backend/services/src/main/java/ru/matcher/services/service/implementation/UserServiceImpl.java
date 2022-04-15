@@ -6,24 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.matcher.commons.UserType;
+import ru.matcher.data.model.Competence;
 import ru.matcher.data.model.User;
+import ru.matcher.data.repository.CompetenceRepository;
 import ru.matcher.data.repository.UserRepository;
 import ru.matcher.security.service.IPasswordEncoderService;
+import ru.matcher.services.dto.CompetenceDto;
 import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.dto.UserOrganizationDto;
 import ru.matcher.services.dto.create.UserCreateDto;
+import ru.matcher.services.mapstruct.CompetenceStruct;
 import ru.matcher.services.mapstruct.PictureStruct;
 import ru.matcher.services.mapstruct.UserStruct;
-import ru.matcher.services.service.IOrganizationService;
-import ru.matcher.services.service.IPictureService;
-import ru.matcher.services.service.IUserOrganizationService;
-import ru.matcher.services.service.IUserService;
+import ru.matcher.services.service.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Реализация интерфейса UserService.
@@ -42,6 +45,8 @@ public class UserServiceImpl implements IUserService {
     private final IOrganizationService organizationService;
     private final IPictureService pictureService;
     private final PictureStruct pictureStruct;
+    private final CompetenceRepository competenceRepository;
+    private final CompetenceStruct competenceStruct;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
@@ -50,7 +55,9 @@ public class UserServiceImpl implements IUserService {
                            IUserOrganizationService userOrganizationService,
                            IOrganizationService organizationService,
                            IPictureService pictureService,
-                           PictureStruct pictureStruct) {
+                           PictureStruct pictureStruct,
+                           CompetenceRepository competenceRepository,
+                           CompetenceStruct competenceStruct) {
         this.userRepository = userRepository;
         this.userStruct = userStruct;
         this.passwordEncoderService = passwordEncoderService;
@@ -58,6 +65,8 @@ public class UserServiceImpl implements IUserService {
         this.organizationService = organizationService;
         this.pictureService = pictureService;
         this.pictureStruct = pictureStruct;
+        this.competenceRepository = competenceRepository;
+        this.competenceStruct = competenceStruct;
     }
 
     @Override
@@ -93,9 +102,9 @@ public class UserServiceImpl implements IUserService {
                 .withStartDate(LocalDate.parse(dto.getStartDate(), formatter))
                 .withIsAdmin(dto.isAdmin());
 
-            if (dto.getEndDate() != null && !dto.getEndDate().isBlank()) {
-                userOrganizationBuilder.withEndDate(LocalDate.parse(dto.getEndDate(), formatter));
-            }
+        if (dto.getEndDate() != null && !dto.getEndDate().isBlank()) {
+            userOrganizationBuilder.withEndDate(LocalDate.parse(dto.getEndDate(), formatter));
+        }
 
         userOrganizationService.create(userOrganizationBuilder.build());
 
@@ -107,7 +116,7 @@ public class UserServiceImpl implements IUserService {
     public UserDto update(UserDto userDto) {
         User user = userStruct.fromDto(userDto);
         User userdb = userRepository.getOne(userDto.getId());
-        final var  userBuilder = User.Builder.anUser()
+        final var userBuilder = User.Builder.anUser()
                 .withId(userdb.getId())
                 .withFirstName(userDto.getFirstName())
                 .withSecondName(userDto.getSecondName())
@@ -138,5 +147,51 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDto findById(int userId) {
         return userStruct.toDto(userRepository.findById(userId).orElse(null));
+    }
+
+    @Override
+    public void addCompetenceToUser(int userId, String competenceName) {
+        User user = userRepository.findById(userId).orElseThrow();
+        Optional<Competence> competenceOptional = competenceRepository.findByNameIgnoreCase(competenceName);
+
+        if (competenceOptional.isPresent()) {
+            user.getCompetencies().add(competenceOptional.get());
+        } else {
+            Competence competence = new Competence();
+            competence.setName(competenceName);
+            competenceRepository.save(competence);
+
+            user.getCompetencies().add(competence);
+        }
+        userRepository.save(user);
+
+        logger.info("Competence: {} added to user: {}", competenceName, userId);
+    }
+
+    @Override
+    public void addCompetenciesToUser(int userId, List<String> competencies) {
+        for (String competence : competencies) {
+            addCompetenceToUser(userId, competence);
+        }
+    }
+
+    @Override
+    public void deleteCompetenceFromUser(int userId, int competenceId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        Competence competence = competenceRepository.findById(competenceId).orElseThrow();
+
+        user.getCompetencies().remove(competence);
+
+        userRepository.save(user);
+
+        logger.info("Competence: {} deleted from user: {}", competence.getName(), userId);
+    }
+
+    @Override
+    public List<String> getAllUserCompetencies(int userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+
+        return competenceRepository.findAllByUsersIs(user).stream().map(Competence::getName)
+                .collect(Collectors.toList());
     }
 }

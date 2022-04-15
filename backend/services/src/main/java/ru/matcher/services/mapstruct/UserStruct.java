@@ -38,6 +38,7 @@ public interface UserStruct {
      */
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "login", ignore = true)
+    @Mapping(target = "competencies", ignore = true)
     @Mapping(target = "picture", source = "pictureId", qualifiedByName = "setPictureId")
     @Mapping(target = "userType", source = "userType")
     User fromDto(UserDto userDto);
@@ -49,6 +50,7 @@ public interface UserStruct {
      * @param dto dto для конвертации
      * @return сущность пользователя
      */
+    @Mapping(target = "competencies", ignore = true)
     @Mapping(target = "picture", source = "pictureId", qualifiedByName = "setPictureId")
     User fromDto(UserCreateDto dto);
 

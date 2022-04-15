@@ -4,4 +4,5 @@ export interface UserProject {
   lastName: string;
   isAdmin: boolean;
   userRole: string;
+  competencies: string[];
 }

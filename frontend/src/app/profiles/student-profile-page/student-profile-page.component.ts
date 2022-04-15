@@ -25,6 +25,7 @@ export class StudentProfilePageComponent implements OnInit {
   pictureData: string;
   pictureType: string;
   projects: ProjectModel[];
+  competencies: string[];
 
   constructor(private authService: AuthService,
               private userService: UserService,
@@ -52,6 +53,9 @@ export class StudentProfilePageComponent implements OnInit {
         })
         this.projectService.getProjectsByUserId(this.user.id).subscribe((projects) => {
           this.projects = projects;
+        })
+        this.userService.getAllUserCompetencies(this.user.id).subscribe((competencies) => {
+          this.competencies = competencies
         })
       })
     }, error => {

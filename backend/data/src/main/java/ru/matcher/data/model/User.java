@@ -2,14 +2,9 @@ package ru.matcher.data.model;
 
 import ru.matcher.commons.UserType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Таблица пользователя.
@@ -54,6 +49,17 @@ public class User {
 
     @Column(name = "phone")
     private String phone;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            schema = "matcher",
+            name = "user_competencies",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "competence_id"))
+    private Set<Competence> competencies = new HashSet<>();
+
+    public User() {
+    }
 
     public String getLogin() {
         return login;
@@ -135,6 +141,15 @@ public class User {
         this.userType = userType;
     }
 
+    public Set<Competence> getCompetencies() {
+        return competencies;
+    }
+
+    public void setCompetencies(Set<Competence> competencies) {
+        this.competencies = competencies;
+    }
+
+
     public static final class Builder {
         private Integer id;
         private Picture picture;
@@ -146,6 +161,7 @@ public class User {
         private String secondName;
         private String email;
         private String phone;
+        private Set<Competence> competencies = new HashSet<>();
 
         private Builder() {
         }
@@ -204,6 +220,11 @@ public class User {
             return this;
         }
 
+        public Builder withCompetencies(Set<Competence> competencies) {
+            this.competencies = competencies;
+            return this;
+        }
+
         public User build() {
             User user = new User();
             user.setId(id);
@@ -216,6 +237,7 @@ public class User {
             user.setSecondName(secondName);
             user.setEmail(email);
             user.setPhone(phone);
+            user.setCompetencies(competencies);
             return user;
         }
     }

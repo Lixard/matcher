@@ -17,6 +17,7 @@ import {RequestService} from '../../services/request.service';
 import {SendRequestComponent} from '../../request/send-request/send-request.component';
 import {RequestModel} from '../../models/request/request.model';
 import {LookRequestComponent} from '../../request/look-request/look-request.component';
+import {AddCompetenceDialogComponent} from "../add-competence-dialog/add-competence-dialog.component";
 
 @Component({
   selector: 'app-project-page',
@@ -251,5 +252,18 @@ export class ProjectPageComponent implements OnInit {
 
   checkLast() {
     this.isLast = this.userAdmins.length == 1;
+  }
+
+  addCompetence(user: UserProject) {
+    // @ts-ignore
+    const dialogRef = this.dialog.open(AddCompetenceDialogComponent, {
+      width: '20%',
+      height: '10%',
+      dataProject: this.project,
+      data: {
+        userData: user,
+        projectData: this.project,
+      },
+    });
   }
 }

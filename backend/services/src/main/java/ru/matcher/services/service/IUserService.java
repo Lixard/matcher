@@ -1,5 +1,6 @@
 package ru.matcher.services.service;
 
+import ru.matcher.services.dto.CompetenceDto;
 import ru.matcher.services.dto.UserDto;
 import ru.matcher.services.dto.create.UserCreateDto;
 
@@ -49,4 +50,12 @@ public interface IUserService {
      * @return найденный объект класса UserDto
      */
     UserDto findById(int userId);
+
+    void addCompetenceToUser(int userId, String competenceName);
+
+    void addCompetenciesToUser(int userId, List<String> competencies);
+
+    void deleteCompetenceFromUser(int userId, int competenceId);
+
+    List<String> getAllUserCompetencies(int userId);
 }
