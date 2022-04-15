@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Picture} from "../models/picture/picture.model";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Picture } from '../models/picture/picture.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +11,10 @@ export class PictureService {
   constructor(private http: HttpClient) {
   }
 
-  createPicture(file: File): Observable<HttpEvent<Picture>> {
+  createPicture(file: File): Observable<Picture> {
     const formData: FormData = new FormData();
-
     formData.append('file', file);
-
-    const req = new HttpRequest('POST', `api/pictures/create`, formData, {
-      reportProgress: true,
-      responseType: 'json'
-    });
-
-    return this.http.request(req);
-
+    return this.http.post<Picture>(`api/pictures/create`, formData);
   }
 
   getPicture(pictureId: number): Observable<Picture> {

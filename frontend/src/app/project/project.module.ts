@@ -1,3 +1,4 @@
+
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ProjectsComponent} from "./projects/projects.component";
@@ -14,7 +15,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {EditProjectComponent} from './edit-project/edit-project.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatOptionModule} from "@angular/material/core";
+import {MatLineModule,MatOptionModule} from "@angular/material/core";
 import {RolesInProjectComponent} from './roles-in-project/roles-in-project.component';
 import {MatSelect, MatSelectModule} from "@angular/material/select";
 // import {RolesInProjectComponent} from './roles-in-project/roles-in-project.component';
@@ -25,6 +26,7 @@ import {SendRequestComponent} from "../request/send-request/send-request.compone
 import {LookRequestComponent} from "../request/look-request/look-request.component";
 import {MatListModule} from "@angular/material/list";
 import {AddCompetenceDialogComponent} from './add-competence-dialog/add-competence-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,8 @@ import {AddCompetenceDialogComponent} from './add-competence-dialog/add-competen
     MatAutocompleteModule,
     MatOptionModule,
     MatListModule,
-    MatLineModule
+    MatLineModule,
+    MatProgressSpinnerModule
   ]
 })
 export class ProjectModule {
