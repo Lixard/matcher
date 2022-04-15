@@ -1,8 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {OrganizationModel} from "../../models/organizations/organization.model";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {PictureService} from "../../services/picture.service";
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { OrganizationModel } from '../../models/organizations/organization.model';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PictureService } from '../../services/picture.service';
 
 @Component({
   selector: 'app-edit-organization',

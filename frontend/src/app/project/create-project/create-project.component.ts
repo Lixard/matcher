@@ -1,8 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
-import {PictureService} from "../../services/picture.service";
-import {ProjectCreateModel} from "../../models/project/project-create.model";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { PictureService } from '../../services/picture.service';
+import { ProjectCreateModel } from '../../models/project/project-create.model';
+import { MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
@@ -12,20 +13,22 @@ import {ProjectCreateModel} from "../../models/project/project-create.model";
 })
 export class CreateProjectComponent implements OnInit {
   projectForm: FormGroup;
-  file: boolean = false;
   fileName!: string;
   pictureId: number;
   userId!: number;
+  newPicture: File;
+  loader = false;
 
   constructor(private fb: FormBuilder,
               private picturesService: PictureService,
-              private readonly authService: AuthService) {
+              private readonly authService: AuthService,
+              private dialogRef: MatDialogRef<CreateProjectComponent>) {
   }
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((user) => {
-      this.userId = user.id
-    })
+      this.userId = user.id;
+    });
     this.buildForm();
   }
 
@@ -44,26 +47,30 @@ export class CreateProjectComponent implements OnInit {
   }
 
   public onFileInput(event: any) {
-    const file: File = event.target.files.item(0);
-    this.picturesService.createPicture(file).subscribe((event: any) => {
-        if (event.body != undefined) {
-          this.pictureId = event.body.id;
-        }
-        this.file = true;
-        this.fileName = file.name;
-      },
-      () => {
-        this.fileName = "Не удалось загрузить";
-      });
+    this.fileName = undefined;
+    this.newPicture = event.target.files.item(0);
+    this.fileName = this.newPicture.name;
   }
 
-  _project(projectForm: FormGroup): ProjectCreateModel {
+  saveProject(projectForm: FormGroup): void {
     const project = projectForm.value as unknown as ProjectCreateModel;
-    if (this.pictureId) {
-      project.pictureId = this.pictureId;
+    if (this.newPicture) {
+      this.loader = true;
+      const newPic = this.newPicture;
+      this.newPicture = undefined;
+      this.picturesService.createPicture(newPic).subscribe(picture => {
+        this.loader = false;
+        project.pictureId = picture.id;
+        this.closeDialog(project);
+      });
+    } else {
+      this.closeDialog(project);
     }
-    project.lifecycle = project.lifecycle.replace(/\s/g, "");
+  }
+
+  closeDialog(project): void {
+    project.lifecycle = project.lifecycle.replace(/\s/g, '');
     project.userId = this.userId;
-    return project
+    this.dialogRef.close(project);
   }
 }
