@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {ProjectService} from '../../services/project.service';
 import {ProjectModel} from '../../models/project/project.model';
 import {ActivatedRoute} from '@angular/router';
@@ -47,12 +47,13 @@ export class ProjectPageComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly userOrgService: UserOrganizationService,
     private readonly requestService: RequestService,
+    private ngZone: NgZone,
   ) {
   }
 
   ngOnInit(): void {
     this.authService.loadProfile().subscribe((user) => {
-      this.userId = user.id
+      this.userId = user.id;
       this.projectData();
       this.canSubscribe(this.userId, this.route.snapshot.params.projectId);
     })
@@ -83,6 +84,10 @@ export class ProjectPageComponent implements OnInit {
   getParticipants() {
     this.projectService.getParticipantsByProjectId(this.project.id).subscribe(
       (usersNow) => {
+        this.ngZone.run( () => {
+          this.users = [];
+          this.userAdmins = [];
+        });
         for (let user of usersNow) {
           if (user.isAdmin) {
             this.userAdmins.push(user);
@@ -144,9 +149,6 @@ export class ProjectPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: ProjectModel) => {
-      console.log("closed update")
-      console.log(result);
-      console.log(result.picture)
       this.projectService.updateProject(this.route.snapshot.params.projectId, result).subscribe(() => {
         this.ngOnInit();
       })
