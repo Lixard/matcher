@@ -1,4 +1,3 @@
-
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ProjectsComponent} from "./projects/projects.component";
@@ -18,10 +17,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatLineModule,MatOptionModule} from "@angular/material/core";
 import {RolesInProjectComponent} from './roles-in-project/roles-in-project.component';
 import {MatSelect, MatSelectModule} from "@angular/material/select";
-// import {RolesInProjectComponent} from './roles-in-project/roles-in-project.component';
 import {FilesPageComponent} from './files-page/files-page.component';
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatLineModule} from "@angular/material/core";
 import {SendRequestComponent} from "../request/send-request/send-request.component";
 import {LookRequestComponent} from "../request/look-request/look-request.component";
 import {MatListModule} from "@angular/material/list";
