@@ -35,9 +35,15 @@
           <br>
           <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" class="mb-3">
             <span>Загрузить фотографию</span>
-            <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;"/>
+            <input #fileInput type="file" (change)="onFileInput($event)" accept="image/*" style="display:none;"/>
           </button>
           <span *ngIf="newPicture" class="ml-2">{{fileName}}</span>
+
+          <div class="disable-background" *ngIf="loader">
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 20%">
+              <mat-spinner></mat-spinner>
+            </div>
+          </div>
 
           <button
             mat-raised-button
@@ -48,6 +54,11 @@
           >
             Создать
           </button>
+          <br>
+          <div *ngIf="imgError" class="alert alert-danger" role="alert">
+            <p> Этот формат файлов не поддерживается. Вы можете загрузить любое изображение в формате JPG, GIF или PNG.</p>
+            <i class="bi bi-exclamation-triangle-fill"></i>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>

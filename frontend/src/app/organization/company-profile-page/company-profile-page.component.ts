@@ -63,7 +63,7 @@ export class CompanyProfilePageComponent implements OnInit {
   edit() {
     const dialogRef = this.dialog.open(EditOrganizationComponent, {
       width: '65%',
-      height: '65%',
+      height: '70%',
       data: this.organization
     });
 

@@ -63,7 +63,7 @@
 
           <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" class="mb-3">
             <span>Загрузить фотографию</span>
-            <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" />
+            <input #fileInput type="file" accept="image/*" (change)="onFileInput($event)" style="display:none;" />
           </button>
           <span *ngIf="file" class="ml-2">{{fileName}}</span>
         </form>
@@ -75,8 +75,13 @@
             class="btn btn-small btn-select"
             [mat-dialog-close]="_organization(organizationForm.value)"
           >
-            Далее
+            Сохранить
           </button>
+          <br>
+          <div *ngIf="imgError" class="alert alert-danger" role="alert">
+            <p> Этот формат файлов не поддерживается. Вы можете загрузить любое изображение в формате JPG, GIF или PNG.</p>
+            <i class="bi bi-exclamation-triangle-fill"></i>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>

@@ -18,6 +18,7 @@ export class CreateProjectComponent implements OnInit {
   userId!: number;
   newPicture: File;
   loader = false;
+  imgError: boolean = false;
 
   constructor(private fb: FormBuilder,
               private picturesService: PictureService,
@@ -49,7 +50,15 @@ export class CreateProjectComponent implements OnInit {
   public onFileInput(event: any) {
     this.fileName = undefined;
     this.newPicture = event.target.files.item(0);
-    this.fileName = this.newPicture.name;
+    let mimeType = this.newPicture.type;
+    if (!mimeType.startsWith("image/")) {
+      this.imgError = true;
+      this.newPicture = undefined;
+    }
+    else {
+      this.fileName = this.newPicture.name;
+      this.imgError = false;
+    }
   }
 
   saveProject(projectForm: FormGroup): void {

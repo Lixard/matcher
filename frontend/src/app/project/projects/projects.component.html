@@ -3,7 +3,7 @@
     <div *ngFor="let project of projects" fxFlex="20%">
       <mat-card class="mat-elevation-z4">
         <mat-card-header>
-          <mat-card-title class="text-center">{{project.name}}</mat-card-title>
+          <mat-card-title class="text-center text-break projectName">{{project.name}}</mat-card-title>
         </mat-card-header>
           <img style="object-fit: cover;height: 256px;" [src]="setPicture(project)" mat-card-image>
         <mat-card-content style="height: 47px">

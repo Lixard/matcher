@@ -16,6 +16,7 @@ export class EditOrganizationComponent implements OnInit {
   file: boolean = false;
   fileName!: string;
   pictureId: number;
+  imgError: boolean;
 
   constructor(private fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: OrganizationModel,
@@ -61,16 +62,24 @@ export class EditOrganizationComponent implements OnInit {
 
   public onFileInput(event: any) {
     const file: File = event.target.files.item(0);
-    this.picturesService.createPicture(file).subscribe((event: any) => {
-        if (event.body != undefined) {
-          this.pictureId = event.body.id;
-        }
-        this.file = true;
-        this.fileName = file.name;
-      },
-      () => {
-        this.fileName = "Не удалось загрузить";
-      });
+    let mimeType = file.type;
+    if (!mimeType.startsWith("image/")) {
+      this.imgError = true;
+      //this.newPicture = undefined;
+    }
+    else {
+      this.imgError = false;
+      this.picturesService.createPicture(file).subscribe((event: any) => {
+          if (event.body != undefined) {
+            this.pictureId = event.body.id;
+          }
+          this.file = true;
+          this.fileName = file.name;
+        },
+        () => {
+          this.fileName = "Не удалось загрузить";
+        });
+    }
   }
 
 }
