@@ -54,7 +54,6 @@ export class CompanyProfilePageComponent implements OnInit {
       }
       this.projectService.getProjectsByOrganization(this.organization.id).subscribe((projects) => {
         this.projectsOrganization = projects;
-        console.log(this.projectsOrganization)
       })
     })
 
@@ -67,7 +66,7 @@ export class CompanyProfilePageComponent implements OnInit {
       data: this.organization
     });
 
-    dialogRef.afterClosed().subscribe((result: OrganizationModel) => {
+    dialogRef.afterClosed().subscribe((result) => {
       result.id = this.organization.id;
       this.organizationService.updateOrganization(result).subscribe(() => {
         this.ngOnInit();
@@ -79,10 +78,6 @@ export class CompanyProfilePageComponent implements OnInit {
     if (this.organization.pictureId === null) {
       return this.pictureService.getDefaultPictureUrl();
     } else {
-      this.pictureService.getPicture(this.organization.pictureId).subscribe((picture) => {
-        this.pictureType = picture.type;
-        this.pictureData = picture.data;
-      })
       return 'data:' + this.pictureType + ';base64,' + this.pictureData;
     }
   }

@@ -65,15 +65,21 @@
             <span>Загрузить фотографию</span>
             <input #fileInput type="file" accept="image/*" (change)="onFileInput($event)" style="display:none;" />
           </button>
-          <span *ngIf="file" class="ml-2">{{fileName}}</span>
+          <span *ngIf="fileName" class="ml-2">{{fileName}}</span>
         </form>
+
+          <div class="disable-background" *ngIf="loader">
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 20%">
+              <mat-spinner></mat-spinner>
+            </div>
+          </div>
 
           <button
             mat-raised-button
             color="primary"
             [disabled]="!organizationForm.valid"
             class="btn btn-small btn-select"
-            [mat-dialog-close]="_organization(organizationForm.value)"
+            (click)="_updateOrganization(organizationForm)"
           >
             Сохранить
           </button>

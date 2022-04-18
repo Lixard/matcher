@@ -21,7 +21,6 @@ export class ListOfEmployeesPageComponent implements OnInit {
   ngOnInit(): void {
     this.userOrganizationService.getUsersByOrganization(this.data.id).subscribe(usersByOrganization => {
       this.users = usersByOrganization;
-      console.log(usersByOrganization)
     }, error => {
       console.log(error)
     })

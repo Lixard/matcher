@@ -4,9 +4,8 @@ import {AuthService} from "../../services/auth.service";
 import {OrganizationService} from "../../services/organization.service";
 import {OrganizationModel} from "../../models/organizations/organization.model";
 import {Observable} from "rxjs";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {User} from "../../models/users/user.model";
-import {UserService} from "../../services/user.service";
 import {map, startWith} from "rxjs/operators";
 import {PictureService} from "../../services/picture.service";
 import {UserUpdate} from "../../models/users/user-update.model";
@@ -19,7 +18,7 @@ import {UserUpdate} from "../../models/users/user-update.model";
 })
 export class EditStudentProfilePageComponent implements OnInit {
 
-  form!: FormGroup;
+  userForm: FormGroup;
   employments: string[] = ['STUDENT', 'EMPLOYEE'];
   emailPattern = '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$';
   namePattern = '^[a-zA-ZA-Яa-я]{1,}';
@@ -27,16 +26,18 @@ export class EditStudentProfilePageComponent implements OnInit {
   filteredPlace!: Observable<OrganizationModel[]>;
   placeCtrl = new FormControl();
   student!: boolean;
-  file: boolean = false;
   fileName!: string;
   pictureId: number;
   imgError: boolean;
+  newPicture: File;
+  loader = false;
 
   constructor(private fb: FormBuilder, private auth: AuthService,
+              private dialogRef: MatDialogRef<EditStudentProfilePageComponent>,
               @Inject(MAT_DIALOG_DATA) public data: User,
               private organizationService: OrganizationService,
-              private picturesService: PictureService,
-              private userService: UserService) { }
+              private picturesService: PictureService) {
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -45,10 +46,10 @@ export class EditStudentProfilePageComponent implements OnInit {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
-      firstName: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.namePattern),Validators.maxLength(50)]),
-      lastName: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.namePattern),Validators.maxLength(50)]),
-      secondName: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.namePattern),Validators.maxLength(50)]),
+    this.userForm = this.fb.group({
+      firstName: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.namePattern), Validators.maxLength(50)]),
+      lastName: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.namePattern), Validators.maxLength(50)]),
+      secondName: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.namePattern), Validators.maxLength(50)]),
       email: this.fb.control('', [Validators.required, this.noWhitespaceValidator, Validators.pattern(this.emailPattern), Validators.maxLength(50)]),
       userType: this.fb.control(''),
       place: this.fb.control(''),
@@ -57,43 +58,35 @@ export class EditStudentProfilePageComponent implements OnInit {
   }
 
   private setData() {
-    this.form.controls.firstName.setValue(this.data.firstName);
-    this.form.controls.lastName.setValue(this.data.lastName);
-    this.form.controls.secondName.setValue(this.data.secondName);
-    this.form.controls.email.setValue(this.data.email);
-    this.form.controls.userType.setValue(this.data.userType);
+    this.userForm.controls.firstName.setValue(this.data.firstName);
+    this.userForm.controls.lastName.setValue(this.data.lastName);
+    this.userForm.controls.secondName.setValue(this.data.secondName);
+    this.userForm.controls.email.setValue(this.data.email);
+    this.userForm.controls.userType.setValue(this.data.userType);
   }
 
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
-    return isValid ? null : { 'whitespace': true };
+    return isValid ? null : {'whitespace': true};
   }
 
   public onFileInput(event: any) {
-    const file: File = event.target.files.item(0);
-    let mimeType = file.type;
+    this.fileName = undefined;
+    this.newPicture = event.target.files.item(0);
+    let mimeType = this.newPicture.type;
     if (!mimeType.startsWith("image/")) {
       this.imgError = true;
-      //this.newPicture = undefined;
+      this.newPicture = undefined;
     }
     else {
+      this.fileName = this.newPicture.name;
       this.imgError = false;
-      this.picturesService.createPicture(file).subscribe((event: any) => {
-          if (event.body != undefined) {
-            this.pictureId = event.body.id;
-          }
-          this.file = true;
-          this.fileName = file.name;
-        },
-        () => {
-          this.fileName = "Не удалось загрузить";
-        });
     }
   }
 
   selectEmployment() {
-    if (this.form.controls.userType.value == 'STUDENT'){
+    if (this.userForm.controls.userType.value == 'STUDENT') {
       this.organizationService.getOrganizations(1).subscribe(universities => {
         this.places = [];
         this.places = universities;
@@ -116,16 +109,27 @@ export class EditStudentProfilePageComponent implements OnInit {
 
 
   private _filter(value: string) {
-      const filterValue = value.toLowerCase();
-      return this.places.filter(place => place.name.toLowerCase().includes(filterValue));
-    }
+    const filterValue = value.toLowerCase();
+    return this.places.filter(place => place.name.toLowerCase().includes(filterValue));
+  }
 
-  updateUser(form: UserUpdate) {
-    form.place = this.placeCtrl.value;
-    form.id = this.data.id;
-    if(this.pictureId) {
-      form.pictureId = this.pictureId;
+  updateUser(form: FormGroup): void {
+    const user = form.value as unknown as UserUpdate;
+    user.place = this.placeCtrl.value;
+    user.id = this.data.id;
+    debugger;
+    if (this.newPicture) {
+      this.loader = true;
+      const newPic = this.newPicture;
+      this.newPicture = undefined;
+      this.picturesService.createPicture(newPic).subscribe(picture => {
+        this.loader = false;
+        user.pictureId = picture.id;
+        this.dialogRef.close(user);
+      });
+    } else {
+      user.pictureId = this.data.pictureId;
+      this.dialogRef.close(user);
     }
-    return form;
   }
 }

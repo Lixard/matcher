@@ -12,20 +12,22 @@ import {MatIconModule} from "@angular/material/icon";
 import {OrganizationRoutingModule} from "./organization-routing.module";
 import { EditOrganizationComponent } from './edit-organization/edit-organization.component';
 import { ListOfEmployeesPageComponent } from './list-of-employees-page/list-of-employees-page.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [AddOrganizationComponent, CompanyProfilePageComponent, EditOrganizationComponent, ListOfEmployeesPageComponent],
   entryComponents: [EditOrganizationComponent, ListOfEmployeesPageComponent],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    OrganizationRoutingModule,
-    MatButtonModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatCardModule,
-    MatIconModule
-  ]
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        OrganizationRoutingModule,
+        MatButtonModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatCardModule,
+        MatIconModule,
+        MatProgressSpinnerModule
+    ]
 })
 export class OrganizationModule { }

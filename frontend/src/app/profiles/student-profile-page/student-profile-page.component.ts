@@ -26,6 +26,7 @@ export class StudentProfilePageComponent implements OnInit {
   pictureType: string;
   projects: ProjectModel[];
   competencies: string[];
+  picture: string;
 
   constructor(private authService: AuthService,
               private userService: UserService,
@@ -55,7 +56,7 @@ export class StudentProfilePageComponent implements OnInit {
           this.projects = projects;
         })
         this.userService.getAllUserCompetencies(this.user.id).subscribe((competencies) => {
-          this.competencies = competencies
+          this.competencies = competencies;
         })
       })
     }, error => {
@@ -75,7 +76,13 @@ export class StudentProfilePageComponent implements OnInit {
         this.userService.updateUserOrganization(result.id, result.place).subscribe(() => {
           this.ngOnInit();
         })
-      })
+      });
+      if (result.picture) {
+        this.pictureService.getPicture(result.picture.id).subscribe((picture) => {
+          result.picture = picture;
+          this.ngOnInit();
+        });
+      }
     });
   }
 

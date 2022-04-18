@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrganizationModel } from '../../models/organizations/organization.model';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { PictureService } from '../../services/picture.service';
+import {UserUpdate} from "../../models/users/user-update.model";
 
 @Component({
   selector: 'app-edit-organization',
@@ -13,12 +14,14 @@ export class EditOrganizationComponent implements OnInit {
   organizationForm: FormGroup;
   emailPattern = '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$';
   types: string[] = ['UNIVERSITY', 'COMPANY'];
-  file: boolean = false;
   fileName!: string;
   pictureId: number;
   imgError: boolean;
+  newPicture: File;
+  loader = false;
 
   constructor(private fb: FormBuilder,
+              private dialogRef: MatDialogRef<EditOrganizationComponent>,
               @Inject(MAT_DIALOG_DATA) public data: OrganizationModel,
               private picturesService: PictureService) { }
 
@@ -53,32 +56,34 @@ export class EditOrganizationComponent implements OnInit {
     return isValid ? null : { 'whitespace': true };
   }
 
-  _organization(organizationForm: OrganizationModel): OrganizationModel {
-    if(this.pictureId) {
-      organizationForm.pictureId = this.pictureId;
+  _updateOrganization(organizationForm: FormGroup): void {
+    const organization = organizationForm.value as unknown as OrganizationModel;
+    if (this.newPicture) {
+      this.loader = true;
+      const newPic = this.newPicture;
+      this.newPicture = undefined;
+      this.picturesService.createPicture(newPic).subscribe(picture => {
+        this.loader = false;
+        organization.pictureId = picture.id;
+        this.dialogRef.close(organization);
+      });
+    } else {
+      organization.pictureId = this.data.pictureId;
+      this.dialogRef.close(organization);
     }
-    return organizationForm;
   }
 
   public onFileInput(event: any) {
-    const file: File = event.target.files.item(0);
-    let mimeType = file.type;
+    this.fileName = undefined;
+    this.newPicture = event.target.files.item(0);
+    let mimeType = this.newPicture.type;
     if (!mimeType.startsWith("image/")) {
       this.imgError = true;
-      //this.newPicture = undefined;
+      this.newPicture = undefined;
     }
     else {
+      this.fileName = this.newPicture.name;
       this.imgError = false;
-      this.picturesService.createPicture(file).subscribe((event: any) => {
-          if (event.body != undefined) {
-            this.pictureId = event.body.id;
-          }
-          this.file = true;
-          this.fileName = file.name;
-        },
-        () => {
-          this.fileName = "Не удалось загрузить";
-        });
     }
   }
 
