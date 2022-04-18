@@ -22,6 +22,10 @@ export class PictureService {
   }
 
   getDefaultPictureUrl(): string {
-    return "https://sun9-6.userapi.com/impg/6Im8y-x7TNREGEyCmuOfonopIQoJXiGX8G6a5Q/xUFVT81Sz-8.jpg?size=256x256&quality=96&sign=2ad339c6d3b66f34103777c7a342ff59&type=album";
+    return 'https://sun9-6.userapi.com/impg/6Im8y-x7TNREGEyCmuOfonopIQoJXiGX8G6a5Q/xUFVT81Sz-8.jpg?size=256x256&quality=96&sign=2ad339c6d3b66f34103777c7a342ff59&type=album';
+  }
+
+  buildPictureSrcUrl(picture: Picture): string {
+    return 'data:' + picture.type + ';base64,' + picture.data;
   }
 }

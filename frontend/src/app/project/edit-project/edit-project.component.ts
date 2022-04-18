@@ -25,6 +25,7 @@ export class EditProjectComponent implements OnInit {
   lifecycle: string[];
   newPicture: File;
   loader = false;
+  imgError = false;
 
   constructor(private fb: FormBuilder,
               private dialogRef: MatDialogRef<EditProjectComponent>,
@@ -76,7 +77,15 @@ export class EditProjectComponent implements OnInit {
   public onFileInput(event: any) {
     this.fileName = undefined;
     this.newPicture = event.target.files.item(0);
-    this.fileName = this.newPicture.name;
+    let mimeType = this.newPicture.type;
+    if (!mimeType.startsWith("image/")) {
+      this.imgError = true;
+      this.newPicture = undefined;
+    }
+    else {
+      this.fileName = this.newPicture.name;
+      this.imgError = false;
+    }
   }
 
   _saveProject(projectForm: FormGroup): void {

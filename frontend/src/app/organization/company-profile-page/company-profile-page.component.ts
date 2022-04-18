@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {OrganizationModel} from "../../models/organizations/organization.model";
-import {OrganizationService} from "../../services/organization.service";
-import {ActivatedRoute} from "@angular/router";
-import {AuthService} from "../../services/auth.service";
-import {PictureService} from "../../services/picture.service";
-import {MatDialog} from "@angular/material/dialog";
-import {EditOrganizationComponent} from "../edit-organization/edit-organization.component";
-import {ListOfEmployeesPageComponent} from "../list-of-employees-page/list-of-employees-page.component";
-import {UserOrganizationService} from "../../services/user-organization.service";
-import {UserOrganizationModel} from "../../models/users/user-organization";
-import {ProjectService} from "../../services/project.service";
-import {ProjectModel} from "../../models/project/project.model";
+import { Component, OnInit } from '@angular/core';
+import { OrganizationModel } from '../../models/organizations/organization.model';
+import { OrganizationService } from '../../services/organization.service';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { PictureService } from '../../services/picture.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditOrganizationComponent } from '../edit-organization/edit-organization.component';
+import { ListOfEmployeesPageComponent } from '../list-of-employees-page/list-of-employees-page.component';
+import { UserOrganizationService } from '../../services/user-organization.service';
+import { UserOrganizationModel } from '../../models/users/user-organization';
+import { ProjectService } from '../../services/project.service';
+import { ProjectModel } from '../../models/project/project.model';
+import { Picture } from '../../models/picture/picture.model';
 
 @Component({
   selector: 'app-company-profile-page',
@@ -24,10 +25,11 @@ export class CompanyProfilePageComponent implements OnInit {
   projectsOrganization: ProjectModel[];
 
   change: boolean = false;
-  pictureType!: string;
-  pictureData!: string;
   firstName!: string;
   lastName!: string;
+
+  isPicProcessed = false;
+  pictureCache: Picture;
 
   constructor(private userOrganizationService: UserOrganizationService,
               private organizationService: OrganizationService,
@@ -42,21 +44,29 @@ export class CompanyProfilePageComponent implements OnInit {
     this.authService.loadProfile().subscribe((u) => {
       this.organizationService.isAdmin(u.id, this.route.snapshot.params.orgId).subscribe((isAdmin) => {
         this.change = isAdmin;
-      })
+      });
     });
 
     this.organizationService.getOrganization(this.route.snapshot.params.orgId).subscribe((organization) => {
       this.organization = organization;
-      if (organization.organizationType == 'COMPANY') {
-        this.organization.organizationType = 'Компания'
-      } else if (organization.organizationType == 'UNIVERSITY') {
-        this.organization.organizationType = 'Университет'
+      if (organization.organizationType === 'COMPANY') {
+        this.organization.organizationType = 'Компания';
+      } else if (organization.organizationType === 'UNIVERSITY') {
+        this.organization.organizationType = 'Университет';
       }
       this.projectService.getProjectsByOrganization(this.organization.id).subscribe((projects) => {
         this.projectsOrganization = projects;
-        console.log(this.projectsOrganization)
-      })
-    })
+      });
+
+      if (this.organization.pictureId) {
+        this.pictureService.getPicture(this.organization.pictureId).subscribe(picture => {
+          this.pictureCache = picture;
+          this.isPicProcessed = true;
+        });
+      } else {
+        this.isPicProcessed = true;
+      }
+    });
 
   }
 
@@ -67,24 +77,22 @@ export class CompanyProfilePageComponent implements OnInit {
       data: this.organization
     });
 
-    dialogRef.afterClosed().subscribe((result: OrganizationModel) => {
+    dialogRef.afterClosed().subscribe((result) => {
       result.id = this.organization.id;
       this.organizationService.updateOrganization(result).subscribe(() => {
         this.ngOnInit();
-      })
+      });
     });
   }
 
   setPicture(): string {
-    if (this.organization.pictureId === null) {
-      return this.pictureService.getDefaultPictureUrl();
-    } else {
-      this.pictureService.getPicture(this.organization.pictureId).subscribe((picture) => {
-        this.pictureType = picture.type;
-        this.pictureData = picture.data;
-      })
-      return 'data:' + this.pictureType + ';base64,' + this.pictureData;
+    if (this.pictureCache) {
+      return this.pictureService.buildPictureSrcUrl(this.pictureCache);
     }
+    if (!this.isPicProcessed) {
+      return '';
+    }
+    return this.pictureService.getDefaultPictureUrl();
   }
 
   openListOfEmployees() {

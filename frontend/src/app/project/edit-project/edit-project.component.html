@@ -66,6 +66,12 @@
           >
             Сохранить
           </button>
+          <br>
+          <br>
+          <div *ngIf="imgError" class="alert alert-danger" role="alert">
+            <p> Этот формат файлов не поддерживается. Вы можете загрузить любое изображение в формате JPG, GIF или PNG.</p>
+            <i class="bi bi-exclamation-triangle-fill"></i>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>

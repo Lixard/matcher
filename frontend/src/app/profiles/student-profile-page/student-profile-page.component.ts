@@ -1,15 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
-import {UserService} from '../../services/user.service';
-import {User} from "../../models/users/user.model";
-import {ActivatedRoute} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
-import {EditStudentProfilePageComponent} from '../edit-student-profile-page/edit-student-profile-page.component';
-import {OrganizationModel} from "../../models/organizations/organization.model";
-import {UserOrganizationService} from '../../services/user-organization.service';
-import {PictureService} from "../../services/picture.service";
-import {ProjectModel} from "../../models/project/project.model";
-import {ProjectService} from "../../services/project.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/users/user.model';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { EditStudentProfilePageComponent } from '../edit-student-profile-page/edit-student-profile-page.component';
+import { OrganizationModel } from '../../models/organizations/organization.model';
+import { UserOrganizationService } from '../../services/user-organization.service';
+import { PictureService } from '../../services/picture.service';
+import { ProjectModel } from '../../models/project/project.model';
+import { ProjectService } from '../../services/project.service';
+import { Picture } from '../../models/picture/picture.model';
 
 @Component({
   selector: 'app-student-profile-page',
@@ -22,10 +23,10 @@ export class StudentProfilePageComponent implements OnInit {
   user!: User;
   change: boolean = false;
   organizations: OrganizationModel[];
-  pictureData: string;
-  pictureType: string;
   projects: ProjectModel[];
   competencies: string[];
+  pictureCache: Picture;
+  isPictureProcessed = false;
 
   constructor(private authService: AuthService,
               private userService: UserService,
@@ -43,23 +44,32 @@ export class StudentProfilePageComponent implements OnInit {
       }
       this.userService.getUserData(this.route.snapshot.params.userId).subscribe((userNow) => {
         this.user = userNow;
-        if (this.user.userType == "STUDENT") {
-          this.user.userType = "Студент";
-        } else if (this.user.userType == "EMPLOYEE") {
-          this.user.userType = "Работник"
+        if (this.user.userType === 'STUDENT') {
+          this.user.userType = 'Студент';
+        } else if (this.user.userType === 'EMPLOYEE') {
+          this.user.userType = 'Работник';
         }
         this.userOrgService.getUserOrganization(this.user.id).subscribe((organizationNow) => {
           this.organizations = organizationNow;
-        })
+        });
         this.projectService.getProjectsByUserId(this.user.id).subscribe((projects) => {
           this.projects = projects;
-        })
+        });
         this.userService.getAllUserCompetencies(this.user.id).subscribe((competencies) => {
-          this.competencies = competencies
-        })
-      })
+          this.competencies = competencies;
+        });
+
+        if (this.user.pictureId) {
+          this.pictureService.getPicture(this.user.pictureId).subscribe(picture => {
+            this.pictureCache = picture;
+            this.isPictureProcessed = true;
+          });
+        } else {
+          this.isPictureProcessed = true;
+        }
+      });
     }, error => {
-      console.log(error)
+      console.log(error);
     });
   }
 
@@ -74,20 +84,18 @@ export class StudentProfilePageComponent implements OnInit {
       this.userService.updateUser(result).subscribe(() => {
         this.userService.updateUserOrganization(result.id, result.place).subscribe(() => {
           this.ngOnInit();
-        })
-      })
+        });
+      });
     });
   }
 
   setPicture(): string {
-    if (this.user.pictureId === null) {
-      return this.pictureService.getDefaultPictureUrl();
-    } else {
-      this.userService.getPicture(this.user.pictureId).subscribe((picture) => {
-        this.pictureType = picture.type;
-        this.pictureData = picture.data;
-      })
-      return 'data:' + this.pictureType + ';base64,' + this.pictureData;
+    if (this.pictureCache) {
+      return this.pictureService.buildPictureSrcUrl(this.pictureCache);
     }
+    if (!this.isPictureProcessed) {
+      return '';
+    }
+    return this.pictureService.getDefaultPictureUrl();
   }
 }

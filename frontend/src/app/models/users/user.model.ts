@@ -1,6 +1,6 @@
 export interface User {
   id: number;
-  pictureId?: number;
+  pictureId: number;
   firstName: string;
   lastName: string;
   secondName?: string;
