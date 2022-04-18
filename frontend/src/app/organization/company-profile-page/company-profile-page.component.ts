@@ -25,8 +25,6 @@ export class CompanyProfilePageComponent implements OnInit {
   projectsOrganization: ProjectModel[];
 
   change: boolean = false;
-  pictureType!: string;
-  pictureData!: string;
   firstName!: string;
   lastName!: string;
 
