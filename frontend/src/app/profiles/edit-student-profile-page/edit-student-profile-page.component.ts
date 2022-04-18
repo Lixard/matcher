@@ -1,14 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
-import {OrganizationService} from "../../services/organization.service";
-import {OrganizationModel} from "../../models/organizations/organization.model";
-import {Observable} from "rxjs";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {User} from "../../models/users/user.model";
-import {map, startWith} from "rxjs/operators";
-import {PictureService} from "../../services/picture.service";
-import {UserUpdate} from "../../models/users/user-update.model";
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { OrganizationService } from '../../services/organization.service';
+import { OrganizationModel } from '../../models/organizations/organization.model';
+import { Observable } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { User } from '../../models/users/user.model';
+import { map, startWith } from 'rxjs/operators';
+import { PictureService } from '../../services/picture.service';
+import { UserUpdate } from '../../models/users/user-update.model';
 
 
 @Component({
@@ -117,7 +117,6 @@ export class EditStudentProfilePageComponent implements OnInit {
     const user = form.value as unknown as UserUpdate;
     user.place = this.placeCtrl.value;
     user.id = this.data.id;
-    debugger;
     if (this.newPicture) {
       this.loader = true;
       const newPic = this.newPicture;
