@@ -11,7 +11,7 @@ import {OrganizationModel} from "../../models/organizations/organization.model";
 export class AddOrganizationComponent implements OnInit {
   organizationForm: FormGroup;
   emailPattern = '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$';
-  types: string[] = ['UNIVERSITY', 'COMPANY'];
+  types: string[] = ['Университет', 'Компания'];
 
   constructor(private fb: FormBuilder) { }
 

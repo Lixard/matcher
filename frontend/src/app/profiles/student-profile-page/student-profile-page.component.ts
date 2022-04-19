@@ -44,13 +44,10 @@ export class StudentProfilePageComponent implements OnInit {
       }
       this.userService.getUserData(this.route.snapshot.params.userId).subscribe((userNow) => {
         this.user = userNow;
-        if (this.user.userType === 'STUDENT') {
-          this.user.userType = 'Студент';
-        } else if (this.user.userType === 'EMPLOYEE') {
-          this.user.userType = 'Работник';
-        }
+        this.user.userType = this.convertUserType(this.user.userType)
         this.userOrgService.getUserOrganization(this.user.id).subscribe((organizationNow) => {
           this.organizations = organizationNow;
+          this.user.place = organizationNow[0].name;
         });
         this.projectService.getProjectsByUserId(this.user.id).subscribe((projects) => {
           this.projects = projects;
@@ -81,6 +78,7 @@ export class StudentProfilePageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      result.userType = this.convertUserType(result.userType)
       this.userService.updateUser(result).subscribe(() => {
         this.userService.updateUserOrganization(result.id, result.place).subscribe(() => {
           this.ngOnInit();
@@ -97,5 +95,19 @@ export class StudentProfilePageComponent implements OnInit {
       return '';
     }
     return this.pictureService.getDefaultPictureUrl();
+  }
+
+  convertUserType(orgType: string): string {
+    if (orgType === 'STUDENT') {
+      return 'Студент';
+    } else if (orgType === 'EMPLOYEE') {
+      return 'Работник';
+    } else if (orgType === 'Студент') {
+      return 'STUDENT';
+    } else if (orgType === 'Работник') {
+      return 'EMPLOYEE';
+    } else {
+      return ''
+    }
   }
 }
