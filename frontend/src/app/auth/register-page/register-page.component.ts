@@ -135,6 +135,7 @@ export class RegisterPageComponent implements OnInit {
       if (result) {
         this.isAdmin = true;
         this.organization = result.value;
+        this.organization.organizationType = this.convertOrganizationType(this.organization.organizationType)
         this.organizationService.createOrganization(this.organization).subscribe(() => {
           this.form.controls.place.setValue(this.organization.name);
           this.placeCtrl.setValue(this.organization.name);
@@ -147,5 +148,19 @@ export class RegisterPageComponent implements OnInit {
       () => {
         this.addOrganization = false;
       });
+  }
+
+  convertOrganizationType(orgType: string): string {
+    if (orgType === 'COMPANY') {
+      return 'Компания';
+    } else if (orgType === 'UNIVERSITY') {
+      return 'Университет';
+    } else if (orgType === 'Компания') {
+      return 'COMPANY';
+    } else if (orgType === 'Университет') {
+      return 'UNIVERSITY';
+    } else {
+      return ''
+    }
   }
 }

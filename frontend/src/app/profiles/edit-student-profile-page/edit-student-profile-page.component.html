@@ -42,7 +42,7 @@
               <mat-form-field appearance="fill">
                 <mat-label>Занятость</mat-label>
                 <mat-select formControlName="userType">
-                  <mat-option *ngFor="let employment of employments" [value]="employment" (click)="selectEmployment()">
+                  <mat-option *ngFor="let employment of employments" [value]="employment" (click)="selectNewEmployment()">
                     {{employment}}
                   </mat-option>
                 </mat-select>

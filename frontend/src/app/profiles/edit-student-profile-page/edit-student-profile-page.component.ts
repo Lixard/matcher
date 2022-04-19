@@ -19,7 +19,7 @@ import { UserUpdate } from '../../models/users/user-update.model';
 export class EditStudentProfilePageComponent implements OnInit {
 
   userForm: FormGroup;
-  employments: string[] = ['STUDENT', 'EMPLOYEE'];
+  employments: string[] = ['Студент', 'Работник'];
   emailPattern = '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$';
   namePattern = '^[a-zA-ZA-Яa-я]{1,}';
   places!: OrganizationModel[];
@@ -63,6 +63,7 @@ export class EditStudentProfilePageComponent implements OnInit {
     this.userForm.controls.secondName.setValue(this.data.secondName);
     this.userForm.controls.email.setValue(this.data.email);
     this.userForm.controls.userType.setValue(this.data.userType);
+    this.placeCtrl.setValue(this.data.place)
   }
 
   public noWhitespaceValidator(control: FormControl) {
@@ -86,7 +87,7 @@ export class EditStudentProfilePageComponent implements OnInit {
   }
 
   selectEmployment() {
-    if (this.userForm.controls.userType.value == 'STUDENT') {
+    if (this.userForm.controls.userType.value == 'Студент') {
       this.organizationService.getOrganizations(1).subscribe(universities => {
         this.places = [];
         this.places = universities;
@@ -130,5 +131,10 @@ export class EditStudentProfilePageComponent implements OnInit {
       user.pictureId = this.data.pictureId;
       this.dialogRef.close(user);
     }
+  }
+
+  selectNewEmployment() {
+    this.placeCtrl.setValue('');
+    this.selectEmployment();
   }
 }

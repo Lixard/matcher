@@ -13,7 +13,7 @@ import {UserUpdate} from "../../models/users/user-update.model";
 export class EditOrganizationComponent implements OnInit {
   organizationForm: FormGroup;
   emailPattern = '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$';
-  types: string[] = ['UNIVERSITY', 'COMPANY'];
+  types: string[] = ['Университет', 'Компания'];
   fileName!: string;
   pictureId: number;
   imgError: boolean;

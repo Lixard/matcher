@@ -49,11 +49,7 @@ export class CompanyProfilePageComponent implements OnInit {
 
     this.organizationService.getOrganization(this.route.snapshot.params.orgId).subscribe((organization) => {
       this.organization = organization;
-      if (organization.organizationType === 'COMPANY') {
-        this.organization.organizationType = 'Компания';
-      } else if (organization.organizationType === 'UNIVERSITY') {
-        this.organization.organizationType = 'Университет';
-      }
+      this.organization.organizationType = this.convertOrganizationType(organization.organizationType)
       this.projectService.getProjectsByOrganization(this.organization.id).subscribe((projects) => {
         this.projectsOrganization = projects;
       });
@@ -79,6 +75,7 @@ export class CompanyProfilePageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       result.id = this.organization.id;
+      result.organizationType = this.convertOrganizationType(result.organizationType)
       this.organizationService.updateOrganization(result).subscribe(() => {
         this.ngOnInit();
       });
@@ -101,5 +98,19 @@ export class CompanyProfilePageComponent implements OnInit {
       height: '45%',
       data: this.organization
     });
+  }
+
+  convertOrganizationType(orgType: string): string {
+    if (orgType === 'COMPANY') {
+      return 'Компания';
+    } else if (orgType === 'UNIVERSITY') {
+      return 'Университет';
+    } else if (orgType === 'Компания') {
+      return 'COMPANY';
+    } else if (orgType === 'Университет') {
+      return 'UNIVERSITY';
+    } else {
+      return ''
+    }
   }
 }

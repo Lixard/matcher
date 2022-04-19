@@ -7,4 +7,5 @@ export interface User {
   email?: string;
   phone?: string;
   userType: string;
+  place: string;
 }
