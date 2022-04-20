@@ -18,9 +18,9 @@ import ru.matcher.services.service.IOrganizationService;
 import ru.matcher.services.service.IProjectParticipationService;
 import ru.matcher.services.service.IUserService;
 
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -132,11 +132,15 @@ public class ProjectParticipationServiceImpl implements IProjectParticipationSer
     @Override
     public List<OrganizationDto> getAdminOrganizations(Integer projectId) {
         List<ProjectParticipationDto> projectParticipations = projectParticipationStruct.toDto(projectParticipationRepository.findByProjectId(projectId));
-        List<OrganizationDto> organizationDtos = new ArrayList<>();
+        HashMap<Integer, OrganizationDto> organizationDtosMap = new HashMap<>();
         for (ProjectParticipationDto projectParticipation : projectParticipations) {
-            organizationDtos.addAll(organizationService.getOrganizationsByUser(projectParticipation.getUserId()));
+            if (projectParticipation.isAdmin()) {
+                for (OrganizationDto organizationDto : organizationService.getOrganizationsByUser(projectParticipation.getUserId())) {
+                    organizationDtosMap.putIfAbsent(organizationDto.getId(), organizationDto);
+                }
+            }
         }
-        return organizationDtos;
+        return new ArrayList<>(organizationDtosMap.values());
     }
 
     @Override
