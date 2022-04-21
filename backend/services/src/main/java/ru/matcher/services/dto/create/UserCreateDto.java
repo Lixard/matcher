@@ -1,5 +1,6 @@
 package ru.matcher.services.dto.create;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.matcher.services.dto.UserDto;
 
 /**
@@ -20,6 +21,7 @@ public class UserCreateDto extends UserDto {
     private String place;
     private String startDate;
     private String endDate;
+    @JsonProperty("isAdmin")
     private boolean isAdmin;
 
     @Override
