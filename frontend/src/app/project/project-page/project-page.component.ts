@@ -257,8 +257,8 @@ export class ProjectPageComponent implements OnInit {
   addCompetence(user: UserProject) {
     // @ts-ignore
     const dialogRef = this.dialog.open(AddCompetenceDialogComponent, {
-      width: '20%',
-      height: '10%',
+      width: '30%',
+      height: '22%',
       dataProject: this.project,
       data: {
         userData: user,
